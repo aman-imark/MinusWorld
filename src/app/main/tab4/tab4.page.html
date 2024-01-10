@@ -1,0 +1,116 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <ion-row style="width:100%;align-items: center;">
+      <ion-col size="10.5">
+        <div style="display: flex;align-items: center;justify-content: space-between;padding: 0px 14px;">
+          <div>
+            <!-- <ion-title>Knowledge Center</ion-title>  -->
+            <ion-text style="color:#ffffff;font-weight: 600;">Knowledge Center</ion-text>
+          </div>
+          <!-- <div  *ngIf="(isLoggedIn === true)" >
+            <ion-buttons>
+              <ion-button (click)="go_to_notifications()" style="width: 42px;height: 42px; position: relative;">
+                <ion-icon slot="icon-only" name="notifications-outline" style="color:#ffffff;"></ion-icon>
+              </ion-button>
+              <ion-button (click)="go_to_cart()" style="width: 42px;height: 42px;">
+                <ion-icon slot="icon-only" name="bag-handle-outline" style="color:#ffffff; position: relative;"></ion-icon>
+                <div *ngIf="(isCartData === true)" style="position: absolute;top: 0px;height: 6px;width: 6px;border-radius: 50%;background: #e63e3e;right: 2px;"></div>
+              </ion-button>
+            </ion-buttons>
+          </div>
+          <div  *ngIf="(isLoggedIn === false || isLoggedIn === undefiend)">
+            <ion-buttons>
+              <ion-button style="--color: #ffffff !important;font-weight: 600;">Login</ion-button>
+            </ion-buttons>
+          </div>   -->
+        </div> 
+       </ion-col>
+      <ion-col  size="1.5">
+        <!-- <ion-avatar *ngIf="(isLoggedIn === true)">
+          <img  [src]="user_img"  onError="this.src='assets/no_user.jpeg'">
+        </ion-avatar>
+        <ion-avatar *ngIf="(isLoggedIn === false || isLoggedIn === undefiend)">
+          <img src="assets/no_user.jpeg">
+        </ion-avatar> -->
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" scrollEvents="true" (ionScroll)='onScroll($event)'>
+
+
+  <ion-refresher  mode="md" slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
+
+<div style="margin: 0px 2px;">
+<br>
+<div *ngIf="(!kc_Data)">
+   <div style="display:flex;width:100%;justify-content: space-around;">
+     <div style="width:43%"><ion-skeleton-text animated style="margin:auto;width: 100%;height: 140px;border-radius: 8px;"></ion-skeleton-text></div>
+     <div style="width:43%"><ion-skeleton-text animated style="margin:auto;width: 100%;height: 140px;border-radius: 8px;"></ion-skeleton-text></div>
+  </div><br>
+  <div style="display:flex;width:100%;justify-content: space-around;">
+    <div style="width:43%"><ion-skeleton-text animated style="margin:auto;width: 100%;height: 140px;border-radius: 8px;"></ion-skeleton-text></div>
+    <div style="width:43%"><ion-skeleton-text animated style="margin:auto;width: 100%;height: 140px;border-radius: 8px;"></ion-skeleton-text></div>
+ </div>
+</div>
+
+
+
+
+
+
+<ion-grid *ngIf="(kc_Data)">
+  <ion-row>
+  <ion-col size="6" *ngFor="let kcd of kc_Data">
+    <ion-item lines="none" button detail="false" (click)="goto_KnowledgeBlog_Details(kcd.id, kcd.category)">
+      <div style="width:100%;">
+      <div style="height:120px;width:100%;"><img [src]="kcd.banner_img" onError="this.src='assets/no_img.jpeg'" style="height:100%;width:100%;object-fit: cover;"></div>
+      <div style="padding:14px 12px;"><ion-label style="color: #212529;font-size:16px;font-weight:600;">{{kcd.category}}</ion-label></div>
+      </div>
+    </ion-item>
+  </ion-col>
+  </ion-row>
+</ion-grid>
+
+
+
+
+
+</div>
+</ion-content>
+
+<!-- {
+  "status": "success",
+  "message": "Success data found.",
+  "result": [
+      {
+          "id": "6",
+          "category": "Signature Series: Video Interviews",
+          "banner_img": "https://minusworlds.com/uploads/1365755489_interviews.png"
+      },
+      {
+          "id": "4",
+          "category": "Featured Articles",
+          "banner_img": "https://minusworlds.com/uploads/1984703912_feautre.png"
+      },
+      {
+          "id": "3",
+          "category": "Educational Videos",
+          "banner_img": "https://minusworlds.com/uploads/798977033_videos.png"
+      },
+      {
+          "id": "2",
+          "category": "Learn by Console",
+          "banner_img": "https://minusworlds.com/uploads/226664543_consoles.png"
+      }
+  ]
+} -->
+
+
+
+
+

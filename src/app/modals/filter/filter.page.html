@@ -1,0 +1,335 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="md" style="--min-height:0px;">
+    <ion-item lines="full" style="--inner-padding-end: 2px;--min-height:0px;">
+      <ion-label slot="start" style="font-size:18px !important; font-weight:600;">Filter</ion-label>
+      <ion-buttons slot="end">
+        <ion-button slot="icon-only" (click)="dismiss()" style="height: 50px; width: 50px;font-size: 20px;border-radius: 100%;">
+          <ion-icon name="close-circle-outline"></ion-icon></ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+<div style="margin:5px 0px;">
+<!-- Open Accordion -->
+<ion-accordion-group value="type_of_video_game">
+
+  <ion-accordion value="type_of_video_game">
+    <ion-item slot="header" lines="full" > <ion-label style="font-weight:700;">Type of Video Game</ion-label> </ion-item>
+    <div class="inner" slot="content">
+        <div *ngIf="(!videoGameTypeData)" style="display:flex; align-items:center;height:100px;justify-content: center;">
+          <div><ion-spinner name="crescent"></ion-spinner></div>
+        </div>
+        <div *ngIf="(videoGameTypeData)">
+        <form #form1="ngForm" (ionChange)="videoGameTypeData_FVal(form1.value)">
+        <ion-item lines="none" *ngFor="let vgt of videoGameTypeData">
+          <ion-checkbox [id]="vgt.videogametype" [(ngModel)]="vgt.selected" name="{{vgt.id}}"></ion-checkbox>&nbsp;&nbsp;
+          <ion-label>
+            <div style="display:flex;justify-content: space-between;color:#212529;font-weight:700;">
+              <ion-text>{{vgt.videogametype}}</ion-text>
+              <ion-text>({{vgt.videogametypecount}})</ion-text>
+            </div>
+          </ion-label>
+        </ion-item>
+        </form>
+        </div>
+    </div>
+  </ion-accordion>
+
+
+
+
+  <ion-accordion value="consoles">
+    <ion-item slot="header" lines="full" > <ion-label style="font-weight:700;">Consoles</ion-label> </ion-item>
+    <div class="inner" slot="content">
+      <div *ngIf="(!consoleData)" style="display:flex; align-items:center;height:100px;justify-content: center;">
+        <div><ion-spinner name="crescent"></ion-spinner></div>
+      </div>
+      <div *ngIf="(consoleData)">
+      <form #form2="ngForm" (ionChange)="consoleData_FVal(form2.value)">
+      <ion-item lines="none" *ngFor="let cns of consoleData">
+        <ion-checkbox [id]="cns.console" [(ngModel)]="cns.selected" name="{{cns.id}}"></ion-checkbox>&nbsp;&nbsp;
+        <ion-label>
+          <div style="display:flex;justify-content: space-between; color:#212529;">
+            <ion-text>{{cns.console}}</ion-text>
+            <ion-text>({{cns.consolecount}})</ion-text>
+          </div>
+        </ion-label>
+      </ion-item>
+      </form>
+      </div>
+    </div>
+  </ion-accordion>
+
+
+
+
+
+  <ion-accordion value="grade">
+    <ion-item slot="header" lines="full" > <ion-label style="font-weight:700;">Grade</ion-label> </ion-item>
+    <div class="inner" slot="content">
+      <div *ngIf="(!gradeTypeData)" style="display:flex; align-items:center;height:100px;justify-content: center;">
+        <div><ion-spinner name="crescent"></ion-spinner></div>
+      </div>
+      <div *ngIf="(gradeTypeData)">
+      <form #form3="ngForm" (ionChange)="gradeData_FVal(form3.value)">
+      <ion-item lines="none" *ngFor="let gtd of gradeTypeData">
+        <ion-checkbox [id]="gtd.name" [(ngModel)]="gtd.selected" name="{{gtd.id}}"></ion-checkbox>&nbsp;&nbsp;
+        <ion-label>
+          <div style="display:flex;justify-content: space-between; color:#212529;">
+            <ion-text>{{gtd.name}}</ion-text>
+            <ion-text>({{gtd.gradecount}})</ion-text>
+          </div>
+        </ion-label>
+      </ion-item>
+      </form>
+      </div>
+    </div>
+  </ion-accordion>
+
+
+  
+
+  <ion-accordion value="wata_seal_grade">
+    <ion-item slot="header" lines="full" > <ion-label style="font-weight:700;">Wata Seal Grade</ion-label> </ion-item>
+    <div class="inner" slot="content">
+      <div *ngIf="(!sealGradeTypeData)" style="display:flex; align-items:center;height:100px;justify-content: center;">
+        <div><ion-spinner name="crescent"></ion-spinner></div>
+      </div>
+      <div *ngIf="(sealGradeTypeData)">
+      <form #form4="ngForm" (ionChange)="wataSealData_FVal(form4.value)">
+      <ion-item lines="none" *ngFor="let wsd of sealGradeTypeData">
+        <ion-checkbox [id]="wsd.sealgrade" [(ngModel)]="wsd.selected" name="{{wsd.id}}"></ion-checkbox>&nbsp;&nbsp;
+        <ion-label>
+          <div style="display:flex;justify-content: space-between;color:#212529;">
+            <ion-text>{{wsd.sealgrade}}</ion-text>
+            <ion-text>({{wsd.sealgradecount}})</ion-text>
+          </div>
+        </ion-label>
+      </ion-item>
+      </form>
+      </div>
+    </div>
+  </ion-accordion>
+
+
+
+  <ion-accordion value="wata_box_grade">
+    <ion-item slot="header" lines="full" > <ion-label style="font-weight:700;">Wata Box Grade</ion-label> </ion-item>
+    <div class="inner" slot="content">
+      <div *ngIf="(!boxGradeTypeData)" style="display:flex; align-items:center;height:100px;justify-content: center;">
+        <div><ion-spinner name="crescent"></ion-spinner></div>
+      </div>
+      <div *ngIf="(boxGradeTypeData)">
+      <form #form5="ngForm" (ionChange)="wataBoxData_FVal(form5.value)">
+      <ion-item lines="none" *ngFor="let wbd of boxGradeTypeData">
+        <ion-checkbox [id]="wbd.boxgrade" [(ngModel)]="wbd.selected" name="{{wbd.id}}"></ion-checkbox>&nbsp;&nbsp;
+        <ion-label>
+          <div style="display:flex;justify-content: space-between;color:#212529;">
+            <ion-text>{{wbd.boxgrade}}</ion-text>
+            <ion-text>({{wbd.boxgradecount}})</ion-text>
+          </div>
+        </ion-label>
+      </ion-item>
+      </form>
+      </div>
+    </div>
+  </ion-accordion>
+
+
+
+
+  <ion-accordion value="authenticator">
+    <ion-item slot="header" lines="full" > <ion-label style="font-weight:700;">Authenticator</ion-label> </ion-item>
+    <div class="inner" slot="content">
+      <ion-item  lines="none">
+        <ion-label  style="font-weight:700;">VGA</ion-label>
+      </ion-item>
+      <ion-item lines="none"> 
+         <ion-range dual-knobs="true"  [min]="vga_min" [max]="vga_max" step="1" [(ngModel)]="vga_knobValues" snaps="false" pin="true" (ionChange)="vgaKnobValues_onChange($event)"></ion-range>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-grid>
+          <ion-row style="width:100%">
+            <ion-col size="5">
+              <div style="text-align: left;font-size:14px;font-weight:600;">Min</div>
+              <div><ion-input type="number" class="inputBox" [(ngModel)]="vga_min_value" name="min" readonly></ion-input></div>
+            </ion-col>
+            <ion-col size="2"></ion-col>
+            <ion-col size="5">
+              <div style="text-align: left;font-size:14px;font-weight:600;">Max</div>
+              <div><ion-input type="number" class="inputBox" [(ngModel)]="vga_max_value" name="max" readonly></ion-input></div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-accordion>
+
+
+  <ion-accordion value="variant">
+    <ion-item slot="header" lines="full" > <ion-label style="font-weight:700;">Variant</ion-label> </ion-item>
+    <div class="inner" slot="content">
+      <div *ngIf="(!variantsData)" style="display:flex; align-items:center;height:100px;justify-content: center;">
+        <div><ion-spinner name="crescent"></ion-spinner></div>
+      </div>
+      <div *ngIf="(variantsData)">
+      <form #form6="ngForm" (ionChange)="variantData_FVal(form6.value)">
+      <ion-item lines="none" *ngFor="let vrnt of variantsData">
+        <ion-checkbox [id]="vrnt.variants" [(ngModel)]="vrnt.selected" name="{{vrnt.id}}"></ion-checkbox>&nbsp;&nbsp;
+        <ion-label>
+          <div style="display:flex;justify-content: space-between;">
+            <ion-text>{{vrnt.variants}}</ion-text>
+            <ion-text>({{vrnt.variantscount}})</ion-text>
+          </div>
+        </ion-label>
+      </ion-item>
+      </form>
+      </div>
+    </div>
+  </ion-accordion>
+  
+
+  <ion-accordion value="price_range">
+    <ion-item slot="header" lines="full" > <ion-label style="font-weight:700;">Price Range</ion-label> </ion-item>
+    <div class="inner" slot="content">
+      <ion-item lines="none"> 
+        <ion-range dual-knobs="true"  [min]="prc_min" [max]="prc_max" step="1" snaps="false" pin="true"  [(ngModel)]="prc_knobValues" (ionChange)="prcKnobValues_onChange($event)"></ion-range>
+      </ion-item>
+  
+      <ion-item lines="none">
+        <ion-grid>
+          <ion-row style="width:100%">
+            <ion-col size="5">
+              <div style="text-align: left;font-size:14px;font-weight:600;">Min</div>
+              <div><ion-input type="number" class="inputBox" [(ngModel)]="prc_min_value" name="min" readonly></ion-input></div>
+            </ion-col>
+            <ion-col size="2"></ion-col>
+            <ion-col size="5">
+              <div style="text-align: left;font-size:14px;font-weight:600;">Max</div>
+              <div><ion-input type="number" class="inputBox" [(ngModel)]="prc_max_value" name="max" readonly></ion-input></div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-accordion>
+
+  
+  <!-- <ion-accordion value="game_developer">
+    <ion-item slot="header" lines="full" > <ion-label style="font-weight:700;">Game Developer</ion-label> </ion-item>
+    <div class="inner" slot="content">
+      <div *ngIf="(!gameDevData)" style="display:flex; align-items:center;height:100px;justify-content: center;">
+        <div><ion-spinner name="crescent"></ion-spinner></div>
+      </div>
+      <div *ngIf="(gameDevData)">
+      <form #form7="ngForm" (ionChange)="gameDevData_FVal(form7.value)">
+      <ion-item lines="none" *ngFor="let gmd of gameDevData">
+        <ion-checkbox [id]="gmd.gamedeveloper" [(ngModel)]="gmd.selected" name="{{gmd.id}}"></ion-checkbox>&nbsp;&nbsp;
+        <ion-label>
+          <div style="display:flex;justify-content: space-between;">
+            <ion-text>{{gmd.gamedeveloper}}</ion-text>
+          </div>
+        </ion-label>
+      </ion-item>
+      </form>
+      </div>
+    </div>
+  </ion-accordion> -->
+
+
+</ion-accordion-group>
+
+
+</div>
+
+<!-- </form> -->
+
+
+
+  <!-- Type of Video Game Consoles Grade Wata Seal Grade Wata Box Grade Authenticator Variant Price Range Game Developer -->
+
+<!-- <ion-grid>
+  <ion-row>
+    <ion-col size="5"> <div>Type of Video Game</div> </ion-col>
+    <ion-col size="5"> <div><ion-checkbox checked="true"></ion-checkbox>&nbsp;All</div> </ion-col>
+    <ion-col size="2"> <div>(22)</div></ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="5"> <div>Consoles</div> </ion-col>
+    <ion-col size="5"> <div><ion-checkbox checked="true"></ion-checkbox>&nbsp;Atari 2600</div> </ion-col>
+    <ion-col size="2"> <div>(02)</div></ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col size="5"> <div>Grade</div> </ion-col>
+    <ion-col size="5"> <div><ion-checkbox checked="true"></ion-checkbox>&nbsp;Game Boy</div> </ion-col>
+    <ion-col size="2"> <div>(02)</div></ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="5"> <div>Wata Seal Grade</div> </ion-col>
+    <ion-col size="5"> <div><ion-checkbox checked="true"></ion-checkbox></div> </ion-col>
+    <ion-col size="2"> <div>(22)</div></ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col size="5"> <div>Wata Box Grade</div> </ion-col>
+    <ion-col size="5"> <div><ion-checkbox checked="true"></ion-checkbox></div> </ion-col>
+    <ion-col size="2"> <div>(22)</div></ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="5"> <div>Authenticator</div> </ion-col>
+    <ion-col size="5"> <div><ion-checkbox checked="true"></ion-checkbox></div> </ion-col>
+    <ion-col size="2"> <div>(22)</div></ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="5"> <div>Variant</div> </ion-col>
+    <ion-col size="5"> <div><ion-checkbox checked="true"></ion-checkbox></div> </ion-col>
+    <ion-col size="2"> <div>(22)</div></ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col size="5"> <div>Price</div> </ion-col>
+    <ion-col size="5"> <div><ion-checkbox checked="true"></ion-checkbox></div> </ion-col>
+    <ion-col size="2"> <div>(22)</div></ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="5"> <div>Range</div> </ion-col>
+    <ion-col size="5"> <div><ion-checkbox checked="true"></ion-checkbox></div> </ion-col>
+    <ion-col size="2"> <div>(22)</div></ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col size="5"> <div>Game Developer</div> </ion-col>
+    <ion-col size="5"> <div><ion-checkbox checked="true"></ion-checkbox></div> </ion-col>
+    <ion-col size="2"> <div>(22)</div></ion-col>
+  </ion-row>
+ -->
+
+  <!-- <div style="display:flex;"></div> -->
+
+
+<!-- </ion-grid> -->
+
+</ion-content>
+
+
+<ion-footer style="background:#fff;">
+  <div style="display:flex; justify-content: space-between; align-items: center;margin: 12px 8%;">
+      <ion-button mode="md" type="button"  (click)="clearFilter()" fill="outline" color="medium">Clear</ion-button>
+      <ion-button mode="md" type="button"  (click)="applyFilter()" style="--background: linear-gradient(92deg, #27F09D, #07ADEB) !important;--color: #ffffff !important">Apply</ion-button>
+  </div>
+</ion-footer>
+

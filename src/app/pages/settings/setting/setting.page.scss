@@ -1,0 +1,137 @@
+// .inputLabel{
+//     margin-bottom: 6px; font-size:15px; color:#10183B; letter-spacing: 0.5px;
+// }
+// .inputBox{
+//     border:1px solid #C7D1FF; border-radius: 5px; --padding-start:10px;
+//     --padding-end: 42px;
+//     font-size:14px;
+// }
+
+// ion-checkbox{
+//     --size: 20px !important;
+// }
+
+
+
+// ion-accordion.accordion-expanding,
+// ion-accordion.accordion-expanded {
+// //   color:red;
+//   // margin: 16px auto;
+// }
+
+// // ion-accordion.accordion-expanding,
+// // ion-accordion.accordion-expanded ion-item ion-label{
+// //   color:red;
+
+// // }
+
+
+// ion-accordion ion-item[slot="header"]{
+//     // font-weight:bold;
+//     --color: #000;
+// }
+
+
+// ion-accordion.accordion-expanding ion-item[slot="header"],
+// ion-accordion.accordion-expanded ion-item[slot="header"] {
+
+//     font-weight:700;
+//   --color: #053C9C !important;
+ 
+
+// //   ion-icon{
+// //     color: #053C9C !important;
+// //   }
+// }
+
+
+
+// ion-accordion.accordion-expanded > [slot=header] .ion-accordion-toggle-icon {
+
+//     font-weight:700;
+//     color: #053C9C !important;
+// }
+
+// // ion-accordion.accordion-expanding ion-icon,
+// // ion-accordion.accordion-expanded ion-icon {
+// //     font-weight:700;
+// //   --color: #053C9C !important;
+// // }
+
+// ion-item{
+//     --inner-padding-top: 8px;
+//     --inner-padding-bottom: 8px;
+// }
+
+// ion-button{
+//     height:44px !important;
+// }
+
+
+
+// ion-accordion{
+//     border-radius: 8px;
+// }
+// ion-list{
+//     --background: #EFF3FF !important;
+//     padding-top: 0px; 
+//     padding-bottom: 0px;
+// }
+// ion-item{
+//     --background: #EFF3FF !important;
+// }
+
+// .item-custom ion-label, ion-icon{
+//     // color: #666666 !important;
+//     // --color: #666666 !important;
+//     color: #212529 !important;
+//     --color: #212529 !important;
+//     font-weight: 600 !important;
+//     padding: 2% 0px;
+//   }
+
+
+
+
+
+
+ion-accordion{
+    border-radius: 8px;
+    ion-item{
+      --background: #f7f7f7 !important;
+      // #fafafb
+      // #EFF3FF
+    }
+    div{
+      background: #f7f7f7 !important;
+    }
+    ion-input{
+      --background: #f7f7f7 !important;
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  ion-button{
+      height:44px !important;
+  }
+  
+  .inputLabel{
+    margin-bottom: 10px; font-size:15px; 
+    color:#10183B; letter-spacing: 0.5px;
+  }
+  .inputBox{
+    // border:1px solid #C7D1FF;
+    border-radius: 5px; --padding-start:10px;
+    --padding-end:10px;
+    font-size:14px;
+    // background: #ededed !important;
+    background: #fff !important;
+    // background: #fafafb !important;
+  }
+  

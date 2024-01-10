@@ -1,0 +1,156 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button  icon="arrow-back"  text="" defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>Notifications</ion-text>
+    <!-- <ion-title class="ion-text-start">Notifications</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+<div *ngIf="(!notif_Data)">
+  <ion-item  lines="full" detail="true">
+    <ion-label>
+      <h3><ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text></h3>
+      <p><ion-skeleton-text animated style="width: 75%"></ion-skeleton-text></p>
+      <p><ion-skeleton-text animated style="width: 30%;margin-top: 10px;"></ion-skeleton-text></p>
+    </ion-label>
+  </ion-item>
+  <ion-item  lines="full"  detail="true">
+    <ion-label>
+      <h3><ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text></h3>
+      <p><ion-skeleton-text animated style="width: 75%"></ion-skeleton-text></p>
+      <p><ion-skeleton-text animated style="width: 30%;margin-top: 10px;"></ion-skeleton-text></p>
+    </ion-label>
+  </ion-item>
+  <ion-item  lines="full"  detail="true">
+    <ion-label>
+      <h3><ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text></h3>
+      <p><ion-skeleton-text animated style="width: 75%"></ion-skeleton-text></p>
+      <p><ion-skeleton-text animated style="width: 30%;margin-top: 10px;"></ion-skeleton-text></p>
+    </ion-label>
+  </ion-item>
+  <ion-item  lines="full"  detail="true">
+    <ion-label>
+      <h3><ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text></h3>
+      <p><ion-skeleton-text animated style="width: 75%"></ion-skeleton-text></p>
+      <p><ion-skeleton-text animated style="width: 30%;margin-top: 10px;"></ion-skeleton-text></p>
+    </ion-label>
+  </ion-item>
+  <ion-item  lines="full"  detail="true">
+    <ion-label>
+      <h3><ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text></h3>
+      <p><ion-skeleton-text animated style="width: 75%"></ion-skeleton-text></p>
+      <p><ion-skeleton-text animated style="width: 30%;margin-top: 10px;"></ion-skeleton-text></p>
+    </ion-label>
+  </ion-item>
+</div>
+
+
+<div *ngIf="(notif_Data?.length === 0)"  style="display:flex;flex-direction:column; align-items: center;justify-content: center;height:100%;font-weight:600;color: #666666;">
+  <div><ion-icon name="notifications-outline" style="font-size: 40px;margin-bottom: 10px;color: #666666;"></ion-icon></div>
+  No Notifications Found!
+</div>
+
+
+
+<ion-item button *ngFor="let ntd of notif_Data | slice:0:numOfData; let i=index" detail="false"  [ngClass]="{'unseen_class': ntd.status === 'unseen'}" style="---detail-icon-opacity:0.8">
+    <ion-label class="noti-ttf">
+      <h3 style="font-weight: 600;">{{ntd.message}}</h3>
+      <p style="display: flex;align-items: center; margin-top: 8px;">
+         <ion-icon name="calendar-outline" style="font-size:16px;"></ion-icon>&nbsp;&nbsp;
+         <span style="font-size:12px; position: relative; top: 0px;font-weight:700;">{{ntd.date}}</span>
+      </p>
+
+      <!-- <div style="margin: 2% 0px 0px; position:relative;">
+        <span  style="font-size:18px; position: relative; top: 3px;">
+          <ion-icon name="calendar-outline"></ion-icon></span>&nbsp;&nbsp;
+          <span style="font-size:14px; position: relative; top: 0px;">{{ntd.date}}</span>
+      </div> -->
+    </ion-label>
+</ion-item>
+
+<ion-infinite-scroll *ngIf="(notif_Data?.length > numOfData)" (ionInfinite)="doInfinite($event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="crescent"
+    distance="4%">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+
+
+</ion-content>
+
+
+
+<!-- {
+  "status": "success",
+  "message": "Success data found.",
+  "result": {
+      "0": {
+          "id": "353",
+          "message": "You have ordered Test",
+          "date": "18 Apr, 2022"
+      },
+      "1": {
+          "id": "351",
+          "message": "You have ordered Test",
+          "date": "18 Apr, 2022"
+      },
+      "32": {
+          "id": "1",
+          "message": "You have ordered Alone in the Dark",
+          "date": "15 Nov, 2021"
+      },
+      "user_img": "http://evolvethought.com/minusworlds/uploads/6274d300d768f.jpeg"
+  }
+} 
+
+
+[
+  {
+    "routes": {
+      "0": {
+        "budget": 326,
+        "toCity": "United States",
+        "options": 2
+      },
+      "1": {
+        "budget": 374,
+        "toCity": "Thailand"
+      },
+     
+      },-->
+
+<!-- 
+      {
+        "status": "success",
+        "message": "Notification data found.",
+        "user_img": "http://evolvethought.com/minusworlds/uploads/6278e93fcb991.jpeg",
+        "result": [
+            {
+                "id": "353",
+                "message": "You have ordered Test",
+                "date": "18 Apr, 2022"
+            },
+            {
+                "id": "351",
+                "message": "You have ordered Test",
+                "date": "18 Apr, 2022"
+            },           
+            {
+                "id": "1",
+                "message": "You have ordered Alone in the Dark",
+                "date": "15 Nov, 2021"
+            }
+        ]
+    } -->
+
+
+
+
+
+

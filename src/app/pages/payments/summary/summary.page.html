@@ -1,0 +1,65 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button  icon="arrow-back"  text="" defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+    
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>Summary</ion-text>
+    <!-- <ion-title class="ion-text-start">Summary</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content [fullscreen]="true"  [scrollEvents]="true">  <!-- (ionScroll)="onScroll($event)" -->
+  <ion-toolbar *ngIf="(activeStepper === true)" style="border: 1px solid #dedede;">
+    <ion-row style="align-items: center;width: 100%;padding: 10px 10px 0px;">
+        <ion-col size="1.2"> 
+            <div class="dot-circle" [ngStyle]="{'border':on_addressBar === true ? '1px solid #07ADEB' : '1px solid #bbbbbb'}">
+                <div class="dot" [ngStyle]="{'background-color':on_addressBar === true ? '#07ADEB' : '#bbbbbb'}"></div>
+            </div> 
+        </ion-col>
+        <ion-col size="4.2"> 
+            <div>
+                <ion-progress-bar *ngIf="(on_paymentsBar === false || on_paymentsBar === undefiend)"></ion-progress-bar>
+                <ion-progress-bar *ngIf="(on_paymentsBar === true)" value="1" style="--progress-background:#07ADEB;"></ion-progress-bar>
+            </div> 
+        </ion-col>
+        <ion-col size="1.2"> 
+            <div class="dot-circle" [ngStyle]="{'border':on_paymentsBar === true ? '1px solid #07ADEB' : '1px solid #bbbbbb'}">
+                <div class="dot" [ngStyle]="{'background-color':on_paymentsBar === true ? '#07ADEB' : '#bbbbbb'}"></div>
+            </div> 
+        </ion-col>
+        <ion-col size="4.2"> 
+            <div>
+                <ion-progress-bar *ngIf="(on_summaryBar === false || on_summaryBar === undefiend)"></ion-progress-bar>
+                <ion-progress-bar *ngIf="(on_summaryBar === true)" value="1" style="--progress-background:#07ADEB;"></ion-progress-bar>
+            </div> 
+        </ion-col>
+        <ion-col size="1.2"> 
+            <div class="dot-circle" [ngStyle]="{'border':on_summaryBar === true ? '1px solid #07ADEB' : '1px solid #bbbbbb'}">
+                <div class="dot" [ngStyle]="{'background-color':on_summaryBar === true ? '#07ADEB' : '#bbbbbb'}"></div>
+            </div> 
+        </ion-col>
+    </ion-row>
+    <ion-row style="align-items: center;width: 100%;padding: 0px 10px 10px; font-size: 12px;font-weight:600;">
+        <ion-col size="4" style="text-align: left;"> <div>Address</div> </ion-col>
+        <ion-col size="4" style="text-align: center;"> <div>Payments</div> </ion-col>
+        <ion-col size="4" style="text-align: right;"> <div>Summary</div> </ion-col>
+    </ion-row>
+  </ion-toolbar>
+  
+<div>
+
+</div>
+
+</ion-content>
+
+<ion-footer style="background:#fff;">
+  <div style="display:flex; justify-content: space-between; align-items: center;margin: 15px 10px;">
+    <div style="width:100%;">
+      <ion-button expand="block" type="button" (click)="user_goto_FinalPayments()" style="--background: linear-gradient(92deg, #27F09D, #07ADEB) !important;--color: #ffffff !important">Pay</ion-button>
+    </div>
+  </div>
+</ion-footer>

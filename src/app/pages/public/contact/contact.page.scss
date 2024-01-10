@@ -1,0 +1,25 @@
+ion-icon{
+    font-size:18px !important;
+}
+
+ion-button{
+    height:44px !important;
+}
+
+.inputLabel{
+    margin-bottom: 4px; font-size:15px;letter-spacing: 0.5px;
+    // color:#10183B; 
+}
+.inputBox{
+    border:1px solid #C7D1FF; border-radius:5px; --padding-start:10px;
+    --padding-end: 10px;
+    font-size:14px;height:auto;
+}
+ion-textarea{
+    margin-top: 0px !important;
+    --padding-top: 10px;
+    --padding-end: 10px;
+    --padding-bottom: 10px;
+    --padding-start: 10px;
+}
+

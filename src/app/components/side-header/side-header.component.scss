@@ -1,0 +1,25 @@
+ion-icon{
+    font-size: 22px !important;
+}
+
+
+ion-buttons.ios {
+    ion-icon{
+        font-size: 25px !important;
+    }
+    
+}
+
+
+ion-avatar.md{
+    width: 30px;height: 30px;
+}
+
+ion-avatar.ios{
+    width: 30px;height: 30px;
+}
+
+
+ion-item.ios{
+    --inner-padding-end: 0px;
+}

@@ -1,0 +1,140 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button  icon="arrow-back"  text="" defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>Setting</ion-text>
+    <!-- <ion-title class="ion-text-start">Setting</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true"  [scrollEvents]="true" (ionScroll)="onScroll($event)">
+<div style="margin: 0px 10px;"><br>
+
+
+    <ion-accordion-group value="shippingAddrs">
+    <ion-accordion value="shippingAddrs">
+      <ion-item lines="none" slot="header">
+        <ion-label style="font-weight: 600;">Billing Address</ion-label>
+      </ion-item>
+
+      <div slot="content" style="padding: 10px 5px;">
+        <p *ngIf="(validation === true)" style="margin: 0px 10px 10px;font-size: 10px;font-weight: 600;color: #eb445a;">*All fields are required, please fill correctlly.</p>
+        <div>
+          <ion-input type="text" class="inputBox"  placeholder="Street Address*" [(ngModel)]="ubd_address" name="ubd_address" (ionInput)="spaceRest($event)"></ion-input>
+        </div><br>
+
+        <div>
+          <ion-input type="text" class="inputBox" (click)="open_addCountryModal_bill()" placeholder="Select Country*" [(ngModel)]="ubd_country" readonly></ion-input>
+          <ion-input type="tel" placeholder="country id*" [(ngModel)]="ubd_countryid" readonly hidden></ion-input>
+        </div><br>
+
+
+
+        <div  *ngIf="(ubd_countryid == '38' || ubd_countryid == '223')">
+          <div>
+            <ion-input type="text" class="inputBox" (click)="open_addStateModal_bill()" placeholder="Select State*" [(ngModel)]="ubd_state" readonly></ion-input>
+            <ion-input type="tel" placeholder="state id*" [(ngModel)]="ubd_stateid" readonly hidden></ion-input>
+          </div><br> 
+        </div>
+
+
+
+        <div  *ngIf="(ubd_countryid != '38' && ubd_countryid != '223')">
+          <div>
+            <ion-input type="text" class="inputBox" placeholder="State Name*" [(ngModel)]="ubd_state_name" (ionInput)="spaceRest($event)"></ion-input>
+          </div><br> 
+        </div>
+
+
+
+        <div>
+          <ion-input type="text" class="inputBox" placeholder="Apartment, Suite, Unit" [(ngModel)]="ubd_apartment" (ionInput)="spaceRest($event)"></ion-input>
+        </div><br>
+        <div>
+          <ion-input type="text" class="inputBox" placeholder="Town / City*" [(ngModel)]="ubd_city" (ionInput)="spaceRest($event)"></ion-input>
+        </div><br>
+
+
+        <div>
+           <ion-input type="tel" maxlength="6" class="inputBox" placeholder="Postcode / Zip*" [(ngModel)]="ubd_zip" (ionInput)="countChange($event)"></ion-input>
+        </div><br>
+      </div>
+    </ion-accordion>
+    </ion-accordion-group>
+    <br *ngIf="(isSameAddress === false)">
+
+
+    <ion-accordion-group *ngIf="(isSameAddress === false)" value="billingAddrs">
+    <ion-accordion value="billingAddrs">
+      <ion-item lines="none" slot="header">
+        <ion-label style="font-weight: 600;">Shipping Address</ion-label>
+      </ion-item>
+  
+      <div slot="content" style="padding: 10px 5px;">
+        <div>
+          <ion-input type="text" class="inputBox" placeholder="Street Address*" [(ngModel)]="usd_address" (ionInput)="spaceRest($event)"></ion-input>
+        </div><br>
+
+        <div>
+          <ion-input type="text" class="inputBox" (click)="open_addCountryModal_ship()" placeholder="Select Country*" [(ngModel)]="usd_country" readonly></ion-input>
+          <ion-input type="tel" placeholder="country id*" [(ngModel)]="usd_countryid" readonly hidden></ion-input>
+        </div><br>
+
+
+        <div  *ngIf="(usd_countryid == '38' || usd_countryid == '223')">
+          <div>
+            <ion-input type="text" class="inputBox" (click)="open_addStateModal_ship()" placeholder="Select State*" [(ngModel)]="usd_state" readonly></ion-input>
+            <ion-input type="tel" placeholder="state id*" [(ngModel)]="usd_stateid" readonly hidden></ion-input>
+          </div><br> 
+        </div>
+
+        <div  *ngIf="(usd_countryid != '38' && usd_countryid != '223')">
+          <div>
+            <ion-input type="text" class="inputBox" placeholder="State Name*" [(ngModel)]="usd_state_name" (ionInput)="spaceRest($event)"></ion-input>
+          </div><br> 
+        </div>
+
+
+
+        <div>
+          <ion-input type="text" class="inputBox" placeholder="Apartment, Suite, Unit" [(ngModel)]="usd_apartment" (ionInput)="spaceRest($event)"></ion-input>
+        </div><br>
+        <div>
+          <ion-input type="text" class="inputBox" placeholder="Town / City*" [(ngModel)]="usd_city" (ionInput)="spaceRest($event)"></ion-input>
+        </div><br> 
+        <div>
+           <ion-input type="tel"  maxlength="6" class="inputBox" placeholder="Postcode / Zip*" [(ngModel)]="usd_zip" (ionInput)="countChange($event)"></ion-input>
+        </div><br>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+
+  <ion-item lines="none">
+    <ion-checkbox slot="start" [(ngModel)]="isSameAddress"  (ionChange)="check_Address_checkbox_value($event)" style="margin-inline-end: 15px !important;"></ion-checkbox>
+    <ion-label style="opacity: 0.8; font-size: 14px;font-weight: 600;">Is Shipping Address different?</ion-label>
+  </ion-item>
+
+
+<br>
+<!-- <div style="display:flex; justify-content: space-between; align-items: center;margin: 12px 10px 20px;">
+  <div style="width:100%;">
+    <ion-button expand="block" type="button" (click)="user_updateAddress()" style="--background: linear-gradient(92deg, #27F09D, #07ADEB) !important;--color: #ffffff !important">Update Address</ion-button>
+  </div>
+</div> -->
+
+</div>
+
+</ion-content>
+
+
+
+<ion-footer style="background:#fff;">
+  <div style="display:flex; justify-content: space-between; align-items: center;margin: 12px 10px;">
+    <div style="width:100%;">
+      <ion-button expand="block" type="button" (click)="user_updateAddress()" style="--background: linear-gradient(92deg, #27F09D, #07ADEB) !important;--color: #ffffff !important">Update Address</ion-button>
+    </div>
+  </div>
+</ion-footer>

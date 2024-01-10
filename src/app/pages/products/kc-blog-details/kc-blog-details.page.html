@@ -1,0 +1,128 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button  icon="arrow-back"  text="" defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>Details</ion-text>
+    <!-- <ion-title class="ion-text-start">Blog Details</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+<div *ngIf="(!kc_BlogDetails)"></div>
+<div *ngIf="(kc_BlogDetails)">
+  <div style="height:310px;width:100%;display:flex;position: relative;top:0px;">
+    <div style="position:relative;display:flex;width: 90%;align-items:center;justify-content:center;margin: auto;
+      text-align: center;background:#EFF3FF;border-radius:20px;height:280px;">
+      <div style="height:250px; display:block; width:100%; padding: 4% 0px 5%;">
+        <img style="height:100%;" [src]="kc_BlogDetails?.banner_img" onError="this.src='assets/no_img.jpeg'"/>
+      </div> 
+      <div style="position:absolute;bottom: -2.4vh;right: 8%;">
+        <div class="sec_child">
+          <ion-buttons mode="md">
+            <ion-button (click)="kc_blogDetails_Share()" size="small" color="primary" 
+            style="height: 40px;width: 40px;--padding-top: 2px;  --padding-end: 2px; --padding-bottom: 2px; --padding-start: 2px;">
+              <ion-icon slot="icon-only" name="arrow-redo-outline"></ion-icon>
+            </ion-button>         
+          </ion-buttons>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="ion-padding">
+     <div class="colorA" style="font-weight:600;margin:0px 0px 8px;">{{kc_BlogDetails?.blog_title}}</div>
+     <div style="display:flex;width:100%; margin: 10px 0px 0px; justify-content: space-between;">
+        <div style="display:flex; align-items: center;">
+           <div><ion-icon name="person-outline" style="font-size:20px;color:#07ADEB;"></ion-icon>&nbsp;&nbsp;</div>
+           <div *ngIf="(!kc_BlogDetails?.posted_by)" style="font-size:14px;font-weight:600;color:#797979;">Unknown</div>
+           <div *ngIf="(kc_BlogDetails?.posted_by)" style="font-size:14px;font-weight:600;color:#797979;">{{kc_BlogDetails?.posted_by}}</div>
+        </div>
+        <div style="display:flex; align-items: center;">
+          <div><ion-icon name="calendar-outline" style="font-size:20px;color:#07ADEB;"></ion-icon>&nbsp;&nbsp;</div>
+          <div *ngIf="(kc_BlogDetails?.pdate)" style="font-size:14px;font-weight:600;color:#797979;">{{kc_BlogDetails?.pdate}}</div>
+        </div>
+     </div>
+     <!-- "https://dev1.minusworlds.com/uploads/689098514_dkc-Article.pdf" -->
+     <!-- <div class="blog_Content" style="width:100%;overflow:scroll;" [innerHTML]="kc_BlogDetails?.blog_content"></div> -->
+  </div>
+
+  <div *ngIf="(pdfURL === true)" class="ion-padding-vertical"> <br>
+    <pdf-viewer
+      [src]="src"
+      [rotation]="0"
+      [original-size]="false"
+      [show-all]="true"
+      [fit-to-page]="true"
+      [zoom]="1"
+      [zoom-scale]="'page-width'"
+      [stick-to-page]="false"
+      [render-text]="true"
+      [external-link-target]="'blank'"
+      [autoresize]="true"
+      [show-borders]="false"
+      style="width: 100%; height: 600px;"
+    ></pdf-viewer>
+  </div>
+  <div *ngIf="(youTubeURL === true)" class="ion-padding-vertical">
+    <div *ngIf="(kc_BlogDetails?.blog_content)"  class="blog_Content" style="width:100%;overflow:scroll;">
+      <iframe [src]="kc_videoUrl" width="560" height="314" allowfullscreen="allowfullscreen" style="border-width:0px;"></iframe>
+    </div>
+    <div *ngIf="(!kc_BlogDetails?.blog_content)"  style="width:100%;overflow:scroll;">
+       <ion-text><p style="color: #666666;text-align: center;">No Data found!</p></ion-text>
+   </div>
+  </div>
+</div>
+
+<div *ngIf="(kc_RelatedBlog)">
+  <ion-item  lines="none" detail="false" style="--detail-icon-opacity:0.5;">
+    <ion-text slot="start" class="colorA" style="font-size:18px; font-weight: 600;">Related Blogs</ion-text>
+  </ion-item>
+
+  <div *ngIf="kc_RelatedBlog?.length === 0" style="text-align:center;padding-top:5px;">
+    <ion-text style="text-align: center;font-weight: 500;color: #00000080;">No results found!</ion-text>    
+  </div>
+
+  
+  <div *ngIf="(kc_RelatedBlog)" style="display:flex;overflow:scroll;">
+    <div  *ngFor="let rld of kc_RelatedBlog | slice : 0: 6" class="rld-main">
+        <div class="rld-img" style="padding: 0px 10px;">
+          <div style="height:15px;"></div>
+          <div style="height:115px;">
+            <img style="height:100%;width: 100%;" [src]="rld.banner_img"  onError="this.src='assets/no_img.jpeg'">           
+          </div>
+          <div style="height:15px;"></div>
+        </div>
+        <div class="rld-text" (click)="goto_blogDetails(rld.blogid)">
+             <div class="rld-title line-2">{{rld.blog_title}}</div>
+        </div>
+    </div>
+  </div>
+</div>
+
+</ion-content>
+
+<!-- {
+  "status": "success",
+  "message": "Blog Details",
+  "banner_img": "https://minusworlds.com/uploads/1526805567_sonic-pic.jpg",
+  "blog_title": "Re-Sealed Video Games: Genesis Opening 2",
+  "blog_content": "<p><iframe src=\"https://www.youtube.com/embed/8bZiNgMOe8g\" width=\"560\" height=\"314\" allowfullscreen=\"allowfullscreen\"></iframe></p>",
+  "posted_by": "",
+  "pdate": "15 Nov, 2021"
+} -->
+
+
+<!-- {
+  "status": "success",
+  "message": "Blog Details",
+  "banner_img": "https://minusworlds.com/uploads/873566920_rc.jpg",
+  "blog_title": "Factory Seals: N64- V Overlap Seam",
+  "blog_content": "https://www.youtube.com/embed/GYeg22XGWIY",
+  "posted_by": "",
+  "pdate": "15 Nov, 2021"
+} -->

@@ -1,0 +1,38 @@
+
+
+.option_op ion-item{
+    --padding-start: 0px;
+    --inner-padding-end: 0px;
+    border-radius:10px;
+    overflow:hidden;
+    height:160px;
+    
+}
+
+
+
+.option_op2 ion-row{
+    display: flex;
+    flex-wrap: nowrap !important;
+    overflow: scroll !important;
+}
+
+.option_op2 ion-item{
+    --padding-start: 0px;
+    --inner-padding-end: 0px;
+    border-radius:10px;
+    height:160px;
+}
+
+
+.order_op ion-item{
+   --padding-top: 2%;
+   --padding-bottom: 2%;
+} 
+
+
+ion-chip{
+    ion-label{
+        font-weight: 600;
+    }
+}

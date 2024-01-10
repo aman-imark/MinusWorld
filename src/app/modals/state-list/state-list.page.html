@@ -1,0 +1,46 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-item lines="none" style="--inner-padding-end: 2px;">
+      <ion-label slot="start" style="font-size:18px !important; font-weight:600;">Select State</ion-label>
+      <ion-buttons slot="end">
+        <ion-button slot="icon-only" (click)="dismiss()" style="height: 50px; width: 50px;font-size: 20px;border-radius: 100%;">
+          <ion-icon name="close-circle-outline"></ion-icon></ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+<div *ngIf="(!allState_Data)">
+  <ion-item>
+    <ion-skeleton-text animated style="width: 38%; height: 15px;"></ion-skeleton-text>
+  </ion-item>
+  <ion-item>
+    <ion-skeleton-text animated style="width: 32%; height: 15px;"></ion-skeleton-text>
+  </ion-item>
+  <ion-item>
+    <ion-skeleton-text animated style="width: 41%; height: 15px;"></ion-skeleton-text>
+  </ion-item>
+    <ion-item>
+    <ion-skeleton-text animated style="width: 58%; height: 15px;"></ion-skeleton-text>
+  </ion-item>  
+  <ion-item>
+    <ion-skeleton-text animated style="width: 30%; height: 15px;"></ion-skeleton-text>
+  </ion-item>
+  <ion-item>
+    <ion-skeleton-text animated style="width: 40%; height: 15px;"></ion-skeleton-text>
+  </ion-item>
+</div>
+
+<!-- <p>Country Id : {{ countryid }}</p> -->
+
+<div *ngIf="(allState_Data)">
+  <ion-radio-group [(ngModel)]="stateValue"  (ionChange)="stateSelect_radio($event)">
+    <ion-item  *ngFor="let stt of allState_Data">
+      <ion-label style="font-weight:700;">{{stt.name}}</ion-label>
+      <ion-radio [value]="stt.id+'/'+stt.name"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+</div>
+</ion-content>

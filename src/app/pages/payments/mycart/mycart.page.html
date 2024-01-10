@@ -1,0 +1,157 @@
+<ion-header class="ion-no-border"  #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button  icon="arrow-back"  text="" defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>My Cart</ion-text>
+
+    <!-- <ion-title class="ion-text-start">My Cart</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true"> <!-- [scrollEvents]="true" (ionScroll)="onScroll($event)" -->
+  <ion-toolbar mode="ios" *ngIf="(userCart_Details && isCartData === true)" style="--background: #EFF3FF;padding-inline:10px;padding-block: 6px;--min-height:auto;font-size:14px;font-weight:600;">
+    <ion-label style="font-size: 14px;font-weight: 600;">Product Details</ion-label>
+  </ion-toolbar>
+  
+
+<div  *ngIf="(isCartData === false)" style="display: flex;align-items: center;height: 100%;width: 100%;justify-content: center;flex-direction: column;">
+    <div style="height:100px;"><img src="assets/images/emt-cart.png" style="height:100%;"></div>
+    <ion-text style="text-align: center;font-weight: 600;color: #00000080;">Your Cart is empty!</ion-text>
+</div>
+
+<div  *ngIf="(isCartData === true)" style="position:relative">
+  <ion-toolbar *ngIf="(!userCart_Details)" style="--padding-start: 20px;"><ion-text><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></ion-text></ion-toolbar>
+  <ion-item *ngIf="(!userCart_Details)" lines="full">
+    <ion-row style="width:100%">
+      <ion-col size="3.4 ">
+       <div style="height:100px;">
+        <ion-skeleton-text style="height:100px;width:100%;"></ion-skeleton-text> 
+       </div>
+      </ion-col>
+      <ion-col size="8.6">
+        <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+        <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+        <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+      </ion-col>
+    </ion-row>
+  </ion-item>
+
+  <ion-item-sliding *ngIf="(userCart_Details)">
+    <ion-item lines="full" button detail="false"  *ngFor="let mcart of userCart_Details"  style="--padding-top:10px;--padding-bottom:10px;">
+        <ion-row style="width:100%">
+          <ion-col size="3.4">
+           <div style="height:100px;overflow:hidden; background: #EFF3FF;padding: 10px;border-radius: 10px;">
+              <img [src]="mcart.images" onError="this.src='assets/no_img.jpeg'" style="height: 100%;width: 100%;object-fit: cover;"/>
+           </div>
+          </ion-col>
+          <ion-col size="8.6">
+
+            <div style="display: flex; margin-bottom: 12px;">
+              <div *ngIf="(mcart.prodname)" style="color:#333232; margin: 0px;font-size:15px;"><strong>{{mcart.prodname}}</strong></div>
+              <div *ngIf="(!mcart.prodname)" style="color:#333232; margin: 0px;font-size:15px;"><strong>Unknown</strong></div>
+            </div>
+
+            <div  *ngIf="(get_order_id)" class="ct-tt" style="display:none;">
+              <div>Order ID:</div> 
+              <div>#{{get_order_id}}</div>
+            </div>
+            <div  *ngIf="(!get_order_id)" class="ct-tt" style="display:none;">
+              <div>Order ID:</div> 
+              <div>not found!</div>
+            </div>
+
+  
+              <div  *ngIf="(mcart.prodqty)" class="ct-tt">
+                <div>Quantity:</div> 
+                <div>{{mcart.prodqty}}</div>
+              </div>             
+              <div  *ngIf="(!mcart.prodqty)" class="ct-tt">
+                <div>Quantity:</div> 
+                <div>0</div>
+              </div>
+        
+
+      
+              <div  *ngIf="(mcart.prodprice)" class="ct-tt" style="margin-top:10px;color:#333232;">
+                <div>Price:</div> 
+                <div>${{mcart.prodprice}}</div>
+              </div>
+              <div  *ngIf="(!mcart.prodprice)" class="ct-tt" style="margin-top:10px;color:#333232;">
+                <div>Price:</div> 
+                <div>0.00</div>
+              </div>
+      
+          </ion-col>
+        </ion-row>
+
+    </ion-item>
+    <ion-item-options (click)="delete_cartProduct()">
+      <ion-item-option color="danger">
+        <ion-icon name="trash-outline" slot="top"></ion-icon>Delete</ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+</div>
+
+
+</ion-content>
+
+
+<!-- <ion-footer *ngIf="(isCartData === true)"  style="background:#fff;">
+  <div style="display:flex; justify-content: space-between; align-items: center;margin: 12px 10px;">
+    <div>
+        <div style="font-size:14px;">Order Total</div>
+        <div *ngIf="(userCart_Details1?.prodprice)" style="font-size:14px;font-weight:600;margin-top:5px;">$&nbsp;{{userCart_Details1?.prodprice}}&nbsp;</div>
+    </div>
+    <div>
+       <ion-button  *ngIf="(userCart_Details1?.prodprice)" type="button" (click)="goto_delivery()" style="--background: linear-gradient(92deg, #27F09D, #07ADEB) !important;--color: #ffffff !important">Checkout</ion-button>
+    </div>
+  </div>
+</ion-footer> -->
+
+
+<ion-footer *ngIf="(isCartData === true && userCart_Details1?.prodprice)"  style="background:#fff;">
+  <div style="display:flex; justify-content: space-between; align-items: center;margin: 12px 10px;">
+    <div style="width:100%;">
+      <ion-button expand="block" type="button" (click)="goto_delivery()" style="--background: linear-gradient(92deg, #27F09D, #07ADEB) !important;--color: #ffffff !important">Continue</ion-button>
+    </div>
+  </div>
+</ion-footer>
+
+<!-- Order Summary
+
+$0.00
+Shipping Fee$21.16
+Tax$0.00
+Order Total -->
+
+
+
+
+<!-- {
+  "status": "success",
+  "message": "My Cart",
+  "MyCartDetails": [
+      {
+          "prodname": null,
+          "images": "https://minusworlds.com/images/no-image1.jpg",
+          "prodprice": 0,
+          "prodqty": "1"
+      }
+  ]
+} -->
+
+<!-- {
+  "status": "success",
+  "message": "My Cart",
+  "MyCartDetails": [
+      {
+          "prodname": " Super Nintendo Konami Cybernator WATA 9.4 A+ (Assault Suit Valken)",
+          "images": "https://minusworlds.com/uploads/572713921_EFE8E1EC-9882-4711-BD8C-FF494BCEDEA6.jpeg",
+          "prodprice": 8000,
+          "prodqty": "1"
+      }
+  ]
+} -->

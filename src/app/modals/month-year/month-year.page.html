@@ -1,0 +1,27 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-item lines="full" style="--inner-padding-end: 2px;">
+      <ion-label slot="start" style="font-size:18px !important; font-weight:600;">Valid Thrugh</ion-label>
+      <ion-buttons slot="end">
+        <ion-button slot="icon-only" (click)="dismiss()" style="height: 50px; width: 50px;font-size: 20px;border-radius: 100%;">
+          <ion-icon name="close-circle-outline"></ion-icon></ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+   
+  <div style="margin:5px 0px;font-weight:700;">
+    <ion-datetime
+    #modalDatetime
+     [min]="currentDate"
+     [max]="futureDate"
+     [value]="currentDate"
+    presentation="month-year"
+    (ionChange)="dateValue = formatDate(modalDatetime.value)"></ion-datetime>
+  </div>
+
+
+</ion-content>

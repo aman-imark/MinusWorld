@@ -1,0 +1,14 @@
+ion-header{
+    ion-toolbar{
+        --background: transparent;
+        ion-icon{
+            color:#212529;
+        }
+    }
+}
+
+ion-item{
+    ion-label{
+        font-weight:500;
+    }
+}

@@ -1,0 +1,180 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button  icon="arrow-back"  text="" defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>Recently Sold</ion-text>
+    <!-- <ion-title class="ion-text-start">Newly Added</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" scrollEvents="true" (ionScroll)='onScroll($event)'>
+  <!-- <ion-refresher  mode="md" slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher> -->
+
+
+  <ion-toolbar  #toolbar style="display:none;">
+    <ion-row>
+      <ion-col size="0.5"></ion-col>
+      <ion-col size="5">
+        <ion-item button  (click)="sortClick()"  lines="none" detail="false" style="--background:#EEFBFF;--min-height: 40px;border-radius:10px;">
+          <div style="display:flex; margin: auto; align-items: center;font-weight:600;color:#212529;"><ion-icon name="options-outline"></ion-icon>&nbsp;&nbsp;Sort</div>
+        </ion-item>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+      <ion-col size="5">
+        <ion-item button  (click)="filterClick()"  lines="none" detail="false" style="--background:#EEFBFF;--min-height: 40px;border-radius:10px;">
+           <div style="display:flex; margin: auto; align-items: center;font-weight:600;color:#212529;"><ion-icon name="filter-outline"></ion-icon>&nbsp;&nbsp;Filter</div>
+        </ion-item>
+      </ion-col>
+      <ion-col size="0.5"></ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+
+
+  <div *ngIf="(!recentlySold_Data)"><br>
+        <ion-item>
+          <ion-thumbnail slot="start"> <ion-skeleton-text></ion-skeleton-text> </ion-thumbnail>
+          <ion-label>
+            <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+            <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+            <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-thumbnail slot="start"> <ion-skeleton-text></ion-skeleton-text> </ion-thumbnail>
+          <ion-label>
+            <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+            <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+            <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-thumbnail slot="start"> <ion-skeleton-text></ion-skeleton-text> </ion-thumbnail>
+          <ion-label>
+            <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+            <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+            <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-thumbnail slot="start"> <ion-skeleton-text></ion-skeleton-text> </ion-thumbnail>
+          <ion-label>
+            <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+            <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+            <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-thumbnail slot="start"> <ion-skeleton-text></ion-skeleton-text> </ion-thumbnail>
+          <ion-label>
+            <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+            <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+            <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+          </ion-label>
+        </ion-item><br>
+  </div>
+      
+  <div *ngIf="(recentlySold_Data?.length === 0)" style="display:flex;align-items: center;justify-content: center;height:100%;font-weight:600;color: #666666;">
+    No Records Found!
+  </div>
+   
+    
+      
+  <div *ngIf="(recentlySold_Data && recentlySold_Data?.length >= 1)"  class="isData">
+        <ion-list>
+        <ion-item  *ngFor="let rcs of recentlySold_Data | slice:0:numOfData; let i=index" button detail="false" (click)="goto_productDetails(rcs.prodid)">
+          <ion-thumbnail slot="start" style="position:relative;background:#EFF3FF;border-radius:8px;">
+            <img [src]="rcs.thumbnail_img" onError="this.src='assets/no_img.jpeg'"  style="padding:10px;"/>
+            <!-- <div style="position: absolute; top: 0px; left: 0px;">
+              <ion-chip *ngIf="(rcs.prod_status === 'rcs')" > <ion-label>rcs</ion-label> </ion-chip>
+            </div>
+            <div  *ngIf="(isLoggedIn === false || isLoggedIn === undefiend)" style="position: absolute; top: 0px; right: 0px;">
+              <ion-buttons>
+                <ion-button class="cust_save" shape="round" [routerLink]="['/login']">
+                  <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </div>
+            <div  *ngIf="(isLoggedIn === true)" style="position: absolute; top: 0px; right: 0px;">
+             <ion-buttons>
+               <ion-button *ngIf="(rcs.wishlist_status === 'unsaved')" class="cust_save" shape="round">
+                 <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
+               </ion-button>
+               <ion-button  *ngIf="(rcs.wishlist_status === 'saved')" class="cust_save" shape="round">
+                 <ion-icon slot="icon-only" name="heart"></ion-icon>
+               </ion-button>
+             </ion-buttons>
+            </div> -->
+          </ion-thumbnail>
+          <ion-label>
+            <h3 style="margin: 0px 0px 8px;color:#212529;font-weight:600;">{{rcs.prodname}}</h3>
+            <p style="font-weight:700;color:#212529;font-size:13px;">{{rcs.grade}}</p>
+            <div style="display:flex;justify-content: space-between;color: #666666;margin:4px 0px;">
+              <div *ngIf="(rcs.seal_grade_nm)" style="display:inline-flex;font-size:13px;font-weight:700;">Seal Grade: {{rcs.seal_grade_nm}}</div>
+              <div *ngIf="(rcs.box_grade_nm)" style="display:inline-flex;font-size:13px;font-weight:700;">Box Grade: {{rcs.box_grade_nm}}</div>
+            </div>
+            <div style="display:flex;justify-content: space-between;color: #666666;margin:4px 0px 8px;">
+              <div *ngIf="(rcs.vga_grade_nm)" style="display:inline-flex;font-size:13px;font-weight:700;">VGA Grade: {{rcs.vga_grade_nm}}</div>
+              <div *ngIf="(rcs.variant_nm)" style="display:inline-flex;font-size:13px;font-weight:700;">Varient: {{rcs.variant_nm}}</div>
+            </div>
+            <p style="font-weight:600;">${{rcs.prodprice}}</p>
+          </ion-label>
+        </ion-item>
+        
+        <ion-infinite-scroll *ngIf="(recentlySold_Data?.length > numOfData)" (ionInfinite)="doInfinite($event)">
+          <ion-infinite-scroll-content
+          loadingSpinner="crescent"
+          distance="4%">
+        </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+        </ion-list>
+  </div>
+  
+</ion-content>
+
+<!-- [
+    {
+        "prodid": "804",
+        "thumbnail_img": [
+            "https://minusworlds.com/uploads/572713921_EFE8E1EC-9882-4711-BD8C-FF494BCEDEA6.jpeg"
+        ],
+        "prodname": " Super Nintendo Konami Cybernator WATA 9.4 A+ (Assault Suit Valken)",
+        "prodprice": 8000,
+        "company_name": null,
+        "grade": null,
+        "vga_grade_nm": null,
+        "seal_grade_nm": "A+",
+        "box_grade_nm": "9.4",
+        "variant_nm": "Made in Japan (snes)",
+        "disclaimers_checkbox": "",
+        "desc": "<p>&nbsp;Super Nintendo Konami Cybernator WATA 9.4 A+ (Assault Suit Valken)</p>",
+        "wishlist_status": "unsaved"
+    }
+] -->
+
+<!-- {
+  "status": "success",
+  "message": "Recently Sold",
+  "prod_details": [
+      {
+          "prodid": "941",
+          "thumbnail_img": "http://evolvethought.com/minusworlds/uploads/606200582_D5E2E0BE-5C37-4FEC-A690-804067571875.jpeg",
+          "prodname": "1987 Ballblazer Atari 7800 WATA 7.0 A Seal",
+          "prodprice": "150",
+          "company_name": null,
+          "grade": "Wata",
+          "vga_grade_nm": null,
+          "seal_grade_nm": "A",
+          "box_grade_nm": "7.0",
+          "variant_nm": "N/A",
+          "disclaimers_checkbox": "",
+          "desc": "<p>1987 Ballblazer Atari 7800 Video Game Silver Box WATA 7.0 A Sealed</p>",
+          "wishlist_status": "unsaved"
+      }
+  ]
+} -->

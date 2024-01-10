@@ -1,0 +1,95 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button  icon="arrow-back"  text="" defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>About Us</ion-text>
+    <!-- <ion-title class="ion-text-start">About Us</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true"  [scrollEvents]="true">
+
+  <div *ngIf="(!dym_content)" class="ion-padding">
+    <div style="margin-bottom: 60px;">
+      <div style="height: 25px; width: 70%; border-radius:2px; margin-bottom:25px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+      <div style="height: 200px; width: 100%; border-radius:2px; margin-bottom:12px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+      <div style="height: 200px; width: 100%; border-radius:2px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+    </div>
+    <div style="margin-bottom: 60px;">
+      <div style="height: 25px; width: 70%; border-radius:2px; margin-bottom:25px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+      <div style="height: 200px; width: 100%; border-radius:2px; margin-bottom:12px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+      <div style="height: 200px; width: 100%; border-radius:2px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+    </div>
+  </div>
+<div style="margin:2% 8px;">
+   <!-- <div [innerHTML]="dym_content" class="cmn-space"></div> -->
+</div>
+
+
+
+<div style="margin:2% 8px;">
+
+
+  <div style="margin: 0px 0px 10%;" class="cmn-space">
+    <div style="font-size: 16px; font-weight:800; margin: 4% 0px 2%;">{{about_heading}}</div>
+    <div style="height:220px;margin:2% 0px;"><img [src]="about_thumbimg" style="height: 100%; width: 100%; object-fit: cover; border-radius: 12px;"></div>
+    <div style="font-size:15px; opacity: 0.8;" [innerHTML]="about_content"></div>
+  </div>
+
+  <div style="margin: 0px 0px 10%;" class="cmn-space">
+    <div style="font-size: 16px; font-weight:800; margin: 4% 0px 2%;">{{whatwedo_heading}}</div>
+    <div style="height:220px;margin:2% 0px;"><img [src]="whatwedo_thumbimg" style="height: 100%; width: 100%; object-fit: cover; border-radius: 12px;"></div>
+    <div style="font-size:15px; opacity: 0.8;" [innerHTML]="whatwedo_content"></div>
+  </div>
+
+
+  <div style="margin: 0px 0px 10%;" class="cmn-space">
+    <div style="font-size: 16px; font-weight:800; margin: 4% 0px 2%;">{{ourvision_heading}}</div>
+    <div style="height:220px;margin:2% 0px;"><img [src]="ourvision_thumbimg" style="height: 100%; width: 100%; object-fit: cover; border-radius: 12px;"></div>
+    <div style="font-size:15px; opacity: 0.8;" [innerHTML]="ourvision_content"></div>
+  </div>
+
+  <div style="margin: 0px 0px 10%;" class="cmn-space">
+    <div style="font-size: 16px; font-weight:800; margin: 4% 0px 2%;">{{ourhistory_heading}}</div>
+    <div style="height:220px;margin:2% 0px;"><img [src]="ourhistory_thumbimg" style="height: 100%; width: 100%; object-fit: cover; border-radius: 12px;"></div>
+    <div style="font-size:15px; opacity: 0.8;" [innerHTML]="ourhistory_content"></div>
+  </div>
+
+
+  <!-- <div style="margin: 0px 0px 10%;">
+    <div style="font-size: 16px; font-weight:800; margin: 4% 0px 2%; letter-spacing: 0.5px;">Who We Are</div>
+    <div style="line-height: 1.6; font-size:15px; opacity: 0.8; margin-bottom: 8%; letter-spacing: 0.5px;">Minus Worlds was started from scratch, ground up with the belief there was a better way for the video game community to interact and transact. Made by a collector, for the collectors. Founder, Daniel Allegra, a collector for three decades envisioned what was missing in the video game community, a fixed price marketplace and hub for knowledge. Admirer of a friend’s handle, Dan reached out to Tom Curtin, OG collector and friend, who agreed that the name was perfect for the project and gave his approval to use it. After a year of hard work around the clock, the debut of Minus Worlds is here. We welcome you to that vision</div>
+  </div>
+  
+
+
+  <div style="margin: 0px 0px 10%;">
+    <div style="font-size: 16px; font-weight:800; margin: 4% 0px 2%; letter-spacing: 0.5px;">What We Do</div>
+    <div style="height:250px;margin:2% 0px;"><img src="assets/ab1.jpeg" style="height: 100%; width: 100%; object-fit: cover; border-radius: 12px;"></div>
+    <div style="line-height: 1.6; font-size:15px; opacity: 0.8; margin-bottom: 8%; letter-spacing: 0.5px;">Minus Worlds brings a platform for buyers and sellers to buy and sell video games. We deal with the headaches so buyers can get what they want and sellers can have ease of mind. </div>
+  </div>
+
+
+
+  <div style="margin: 0px 0px 10%;">
+    <div style="font-size: 16px; font-weight:800; margin: 4% 0px 2%; letter-spacing: 0.5px;">Our Vision</div>
+    <div style="height:250px;margin:2% 0px;"><img src="assets/ab2.jpeg" style="height: 100%; width: 100%; object-fit: cover; border-radius: 12px;"></div>
+    <div style="line-height: 1.6; font-size:15px; opacity: 0.8; margin-bottom: 8%; letter-spacing: 0.5px;">The picture we see is a liquid market where buyers can find any game they are looking for and sellers can take more control over pricing as well as quicker payments. We make the process so easy and convenient that people in time wonder how people transacted in the market before Minus Worlds.</div>
+  </div>
+    
+
+  <div style="margin: 0px 0px 10%;">
+    <div style="font-size: 16px; font-weight:800; margin: 4% 0px 2%; letter-spacing: 0.5px;">Our History</div>
+    <div style="height:250px;margin:2% 0px;"><img src="assets/ab3.jpeg" style="height: 100%; width: 100%; object-fit: cover; border-radius: 12px;"></div>
+    <div style="line-height: 1.6; font-size:15px; opacity: 0.8; margin-bottom: 8%; letter-spacing: 0.5px;">Minus Worlds was created by founder Dan Allegra who felt there was a better way. His thirty years of collecting and almost two decades of professional aspects of consignment, buying and selling lead him to know the perspectives of people on both sides of the transaction and to strive to do it best for everyone. 
+ 
+      After over a year of development, Minus Worlds was created to be a hub of transactions but also knowledge. This first phase is truly just the start, many projects are constantly in the work to make the site and this hobby better for everyone. </div>
+  </div> -->
+
+
+</div>
+</ion-content>

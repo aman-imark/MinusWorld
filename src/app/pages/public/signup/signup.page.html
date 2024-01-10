@@ -1,0 +1,149 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar #toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button text=""  defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+
+    <app-bk-btn slot="start"></app-bk-btn>
+    <!-- <ion-title class="ion-text-start">Signup</ion-title> -->
+    <ion-label slot="start" style="color: #ffffff;font-weight: 600;font-size: 20px;padding: 0px 10px;">Signup</ion-label>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true"  [scrollEvents]="true" (ionScroll)='onScroll($event)'>
+  <div>
+    <div style="width:100%; height: 260px;overflow:hidden;position:relative;top:-85px;">
+       <div style="height:260px;"><img style="height: 100%;width: 100%;" src="assets/baner.png"  onError="this.src='assets/no_img.jpeg'"></div>
+       <div style="display:none;position: absolute;font-size:25px;top:12%;left:5%;color:#ffffff;font-weight:800;"><div><strong>Sign Up</strong></div></div>
+       <div style="position: absolute;bottom:15.5%;right:5%;height:110px;">
+        <img style="height: 100%; opacity: 0.9;" src="assets/game.png"></div>
+    </div>
+  
+  
+    <div style="margin: 0px 8px;position:relative;top:-75px;">
+       <div>
+        <form  #registerForm="ngForm" (ngSubmit)="registerForm.form.valid && user_sign_up()" novalidate>
+
+          <div style="height:100px;">
+            <div class="inputLabel"><strong>Firstname</strong></div>
+            <ion-input type="text" class="inputBox" placeholder="first name" [(ngModel)]="userModal.first_name" name="first_name"
+            #first_name="ngModel" required></ion-input>
+
+            <ion-text color="danger" *ngIf="(first_name.touched || registerForm.submitted) && first_name.errors?.required">
+              <p style="font-size: 12px;margin: 5px;">Firstname is required!</p>
+            </ion-text>
+          </div>
+
+          <div style="height:100px;">
+            <div class="inputLabel"><strong>Lastname</strong></div>
+            <ion-input type="text" class="inputBox" placeholder="last name" [(ngModel)]="userModal.last_name" name="last_name"
+            #last_name="ngModel" required></ion-input>
+
+            <ion-text color="danger" *ngIf="(last_name.touched || registerForm.submitted) && last_name.errors?.required">
+              <p style="font-size: 12px;margin: 5px;">Lastname is required!</p>
+            </ion-text>
+          </div>
+
+          <div style="height:100px;">
+            <div class="inputLabel"><strong>Email</strong></div>
+            <ion-input type="email" class="inputBox" placeholder="ex- dan@example.com" [(ngModel)]="userModal.email" name="email"
+            #email="ngModel" required email></ion-input>
+
+            <ion-text color="danger" *ngIf="(email.touched || registerForm.submitted) && email.errors?.required">
+              <p style="font-size: 12px;margin: 5px;">Email is required!</p>
+            </ion-text>
+            <ion-text color="danger" *ngIf="email.touched && email.errors?.email">
+              <p style="font-size: 12px;margin: 5px;">Please enter a valid email address!</p>
+            </ion-text>
+          </div>
+
+
+          <div style="height:100px;">
+            <div class="inputLabel"><strong>Password</strong></div>
+            <div style="position: relative;display:flex;">
+            <ion-input [type]="passwordType" class="inputBox"  placeholder="Password should be at least 6 characters" minlength="6" [(ngModel)]="userModal.pass" name="pass"
+            #pass="ngModel" required></ion-input>
+            <ion-icon [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+            </div>
+
+            <ion-text color="danger" *ngIf="(pass.touched || registerForm.submitted) && pass.errors?.required">
+              <p style="font-size: 12px;margin: 5px;">Password is required!</p>
+            </ion-text>
+            <ion-text color="danger" *ngIf="(pass.touched || registerForm.submitted) && pass.errors?.minlength">
+              <p style="font-size: 12px;margin: 5px;">Password should be at least 6 characters long!</p>
+            </ion-text>
+          </div>
+
+          <!-- <div style="margin:25px 2px 15px;">
+            <div class="inputLabel"><strong>Confirm Password</strong></div>
+            <div style="position: relative;display:flex;">
+            <ion-input [type]="passwordType_c" class="inputBox" placeholder="Password should be at least 8 characters"  name="c_password" ngModel></ion-input>
+            <ion-icon [name]="passwordIcon_c" class="passwordIcon" (click)='hideShowPassword_c()'></ion-icon>
+            </div>
+          </div> -->
+
+          <div style="height:100px;">
+            <div class="inputLabel"><strong>Phone Number</strong></div>
+            <ion-input type="tel" class="inputBox" maxlength="12" placeholder="ex- 08988190872" (ionInput)="countChange($event)" [(ngModel)]="userModal.phone" name="phone" #phone="ngModel"></ion-input>
+          </div>
+
+          <div style="height:100px;">
+            <div class="inputLabel"><strong>Company</strong></div>
+            <ion-input type="text" class="inputBox" placeholder="ex: demo.xyz.com" [(ngModel)]="userModal.company_name" name="company_name"
+            #company_name="ngModel"></ion-input>
+          </div>
+        
+
+     
+          <ion-item lines="none" style="--padding-start: 2px !important;">
+            <ion-checkbox slot="start" style="margin-inline-end: 15px !important;top: -8px;" (ionChange)="check_seller_checkbox_value($event)"></ion-checkbox>
+            <ion-label style="pointer-events: auto; white-space: normal;"><div style="font-size: 15px;letter-spacing: 0.5px; line-height: 1.5;font-weight:700;"><span style="opacity: 0.8;">Apply to become a</span>&nbsp;<span><a href="javascript:void(0)" style="font-weight: 600;" [routerLink]="['/become-an-seller']">MinusWorlds Seller?</a></span></div></ion-label>
+            <ion-input type="text" class="inputBox"  [(ngModel)]="userModal.seller_checkbox" name="seller_checkbox"
+            #seller_checkbox="ngModel" hidden></ion-input>
+          </ion-item>
+
+          
+
+          <ion-item lines="none" style="--padding-start: 2px !important;">
+            <ion-checkbox slot="start" style="margin-inline-end: 15px !important;opacity: 0.8;" checked="true" disabled="true"></ion-checkbox>
+            <ion-label style="pointer-events: auto; white-space: normal;font-weight:700;"><div style="font-size: 15px;letter-spacing: 0.5px; line-height: 1.5;"><span style="opacity: 0.9;">I agree with the</span>&nbsp;<a href="javascript:void(0)" style="font-weight: 600;" [routerLink]="['/terms']">Terms</a>&nbsp;<span style="opacity: 0.8;">and</span>&nbsp;<a href="javascript:void(0)"  [routerLink]="['/privacy']" style="font-weight: 600;">Privacy</a></div></ion-label>
+          </ion-item><br><br>
+
+
+          <!-- <div style="display:flex; position:relative; top:0px; height: 50px;">
+            <div style="position: absolute;left:2%; top:2px;"><ion-checkbox checked="false"></ion-checkbox></div>
+            <div style="position: absolute;left:10%; top:2px; letter-spacing: 0.5px;"><div style="font-size: 15px;letter-spacing: 0.5px;"><span style="opacity: 0.8;">Apply to become a</span>&nbsp;<a href="javascript:void(0)" style="font-weight: 600;" [routerLink]="['/become-an-seller']">MinusWorlds Seller?</a></div></div>
+          </div>
+
+          <div style="display:flex; position:relative; top:0px; height: 60px;">
+             <div style="position: absolute;left:2%; top:2px;"><ion-checkbox checked="false"></ion-checkbox></div>
+             <div style="position: absolute;left:10%; top:2px; letter-spacing: 0.5px;"><div style="font-size: 15px;"><span style="opacity: 0.8;">I agree with the</span>&nbsp;<a href="javascript:void(0)" style="font-weight: 600;" [routerLink]="['/terms']">Terms</a>&nbsp;<span style="opacity: 0.8;">and</span>&nbsp;<a href="javascript:void(0)"  [routerLink]="['/privacy']" style="font-weight: 600;">Privacy</a></div></div>
+          </div> -->
+
+
+          <div style="margin:15px 0px;">  
+            <ion-button type="submit" expand="block"
+            style="--background: linear-gradient(92deg, #27F09D, #07ADEB) !important;--color: #ffffff !important">
+            <strong>Sign Up</strong>
+            </ion-button>  
+          </div>
+        </form>
+  
+        <div style="text-align:center;margin: 6% 0px;">
+          <div style="margin: 5% 0px;">
+            <div><span style="opacity: 0.8; letter-spacing: 0.5px;font-weight: 700;">Already have an account?</span>&nbsp;&nbsp;<a href="javascript:void(0)" [routerLink]="['/login']" style="font-weight: 600;">Log In</a></div>
+          </div>
+          <div style="margin: 2% 0px 10%; font-weight: 600;">
+            <a href="javascript:void(0)" [routerLink]="['/maintabs/tabs/tab1']" style="position: relative;top: 0px;">
+            <span style="position: relative;top: 0px;">Continue without Signing Up</span>&nbsp;<span style="position: relative;top: 6.5px;font-size:22px;"><ion-icon name="arrow-forward-circle-outline"></ion-icon></span>
+            </a>
+          </div>
+        </div>
+       </div>
+  
+    </div>
+  
+  </div>
+  </ion-content>
+  

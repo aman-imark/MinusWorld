@@ -1,0 +1,462 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-row style="width:100%;align-items: center;padding: 2px 0px;">
+      <ion-col size="1.5">
+        <ion-buttons>
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+      </ion-col>
+
+      <ion-col size="9" *ngIf="(isLoggedIn === false || isLoggedIn === undefiend)">
+        <div style="background: #f1f3f4;border-radius: 25px;display: flex;align-items: center;justify-content: space-between;height: 45px;width:100%;">
+          <div (click)="goto_searchModal()" style="display:inline-flex;align-items:center;opacity: 0.8;
+                        height: 100%; padding: 0px 0px 0px 15px;width: 65%;">        
+            <ion-icon name="search" style="font-size:18px;"></ion-icon>
+            <span style="font-size:15px;font-weight:600;">&nbsp;&nbsp;Search</span>
+          </div>
+          <div  *ngIf="(isLoggedIn === false || isLoggedIn === undefiend)" style="padding: 0px 8px 0px 0px;">
+            <ion-buttons>
+              <ion-button (click)="go_to_login()" style="--color: #46b3ec !important;">Login</ion-button>
+            </ion-buttons>
+          </div>
+        </div>
+      </ion-col>
+
+
+      <ion-col size="9" *ngIf="(isLoggedIn === true)">
+        <div style="background: #f1f3f4;border-radius: 25px;display: flex;align-items: center;justify-content: space-between;height: 45px;width:100%;">
+          <div (click)="goto_searchModal()" style="display:inline-flex;align-items:center;opacity: 0.8;
+                        height: 100%; padding: 0px 0px 0px 15px;width: 65%;">        
+            <ion-icon name="search" style="font-size:18px;"></ion-icon>
+            <span style="font-size:15px;font-weight:600;">&nbsp;&nbsp;Search</span>
+          </div>
+
+
+          <div  *ngIf="(isLoggedIn === true)" style="padding: 0px 8px 0px 0px;">
+            <ion-buttons>
+              <ion-button (click)="go_to_notifications()" style="width: 42px; height: 42px; position: relative;">
+                <ion-icon slot="icon-only" name="notifications-outline" style="color:#6b6b6b;"></ion-icon>
+              </ion-button>
+              <ion-button (click)="go_to_cart()" style="width: 42px ;height: 42px; position:relative;">
+                <ion-icon slot="icon-only" name="bag-handle-outline" style="color:#6b6b6b;"></ion-icon>
+                <div *ngIf="(isCartData === true && userCartData)" style="position: absolute;top: 0px;height: 6px;width: 6px;border-radius: 50%;background: #eb445a;right: 2px;"></div>
+              </ion-button>
+            </ion-buttons>
+          </div>
+          <div  *ngIf="(isLoggedIn === false || isLoggedIn === undefiend)" style="padding: 0px 8px 0px 0px;">
+            <ion-buttons>
+              <ion-button (click)="go_to_login()" style="--color: #46b3ec !important;">Login</ion-button>
+            </ion-buttons>
+          </div>
+        </div>
+      </ion-col>
+
+
+      <ion-col *ngIf="(isLoggedIn === true)" size="1.5" >
+        <ion-avatar *ngIf="(isLoggedIn === true)" (click)="go_to_profile()" style="box-shadow: 0 0 6px 2px rgb(0 0 0 / 30%); padding: 2px; background-color: #f7f7f7;">
+          <img [src]="user_img"  onError="this.src='assets/no_user.jpeg'">
+        </ion-avatar>
+      </ion-col>
+
+      <!-- <ion-col *ngIf="(isLoggedIn === false || isLoggedIn === undefiend)" size="1.5" >
+        <ion-text>LOGIN</ion-text>
+      </ion-col> -->
+
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+
+
+
+
+
+<ion-content [fullscreen]="true"  [scrollEvents]="true">
+
+  <ion-refresher mode="md" slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+
+
+
+<div> <!--Main Div Start-->
+  <!--  slider banner images -->
+  <div id="all" #all>
+    <div *ngIf="(!bannerImages_Data)" style="margin: 0px auto;width:96%;">
+      <ion-skeleton-text animated style="width: 100%;height: 200px;border-radius:10px;"></ion-skeleton-text>
+    </div>
+    <ion-slides  mode="md" class="cust-slides" pager="true" [options]="bannerOpts">
+      <ion-slide *ngFor="let bd of bannerImages_Data" style="width:100% !important;">
+       <div style="width:100%;max-height:200px;">
+         <img style="width:100%;object-fit: cover;" [src]="bd"  onError="this.src='assets/no_img.jpeg'">
+       </div>
+      </ion-slide>
+    </ion-slides><br><br>
+  </div>
+
+
+
+<div style="padding:0px 0px;">   <!-- All game section start here -->
+  <!-- Newly Added Data -->
+  <div id="newly_added" #newly_added>
+    <ion-item mode="md" *ngIf="(newlyAdded_Data?.length >= 1)" button lines="none" detail="true" (click)="seeAll_click('newly_added')"  style="--detail-icon-opacity:1;">
+      <ion-text slot="start" style="font-size:18px; font-weight: 600;color:#212529;">Newly Added</ion-text>
+    </ion-item>
+    <ion-item mode="md" *ngIf="(!newlyAdded_Data?.length >= 1)" lines="none" detail="true"  style="--detail-icon-opacity:0.5;">
+      <ion-text slot="start" style="font-size:18px; font-weight: 600;color:#212529;">Newly Added</ion-text>
+    </ion-item>
+
+
+    <div *ngIf="newlyAdded_Data?.length === 0" style="text-align:center;padding-top:12px;">
+      <ion-text style="text-align: center;font-weight: 600;color: #00000080;">No results found!</ion-text>
+    </div>
+
+    <div *ngIf="(!newlyAdded_Data)">
+      <div  style="display:flex;overflow-x:scroll;">
+        <div  class="new-main"  *ngFor="let new of skeletonDummy">
+          <ion-skeleton-text animated  class="new-skl"></ion-skeleton-text>
+           <p style="margin: 2px 0px;"><ion-skeleton-text animated style="width: 90%;line-height:15px;"></ion-skeleton-text></p>
+           <p style="margin: 2px 0px;"><ion-skeleton-text animated style="width: 50%;line-height:12px;"></ion-skeleton-text></p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="(newlyAdded_Data)" style="display:flex;overflow-x:scroll; margin-top: 5px;">
+
+      <div  *ngFor="let new of newlyAdded_Data | slice : 0: 8" class="new-main">
+        <div class="new-img" style="padding: 0px 10px;">
+
+            <div style="position:relative;height:15px;z-index: 5;overflow:visible;">
+              <div  *ngIf="(isLoggedIn === false || isLoggedIn === undefiend)" style="position: absolute; top: 0px; right: 0px;">
+                <ion-buttons>
+                  <ion-button color="medium"  class="cust_save" shape="round" [routerLink]="['/login']">
+                    <ion-icon slot="icon-only" name="heart"></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </div>
+              <div  *ngIf="(isLoggedIn === true)" style="position: absolute; top: 0px; right: 0px;">
+               <ion-buttons>
+                 <ion-button *ngIf="(new.wishlist_status === 'unsaved')" color="medium"  class="cust_save" shape="round" (click)="addto_wishlists(new.prodid)">
+                   <ion-icon slot="icon-only" name="heart"></ion-icon>
+                 </ion-button>
+                 <ion-button  *ngIf="(new.wishlist_status === 'saved')" class="cust_save" shape="round"  (click)="rmto_wishlists(new.prodid)">
+                   <ion-icon slot="icon-only" name="heart"></ion-icon>
+                 </ion-button>
+               </ion-buttons>
+              </div> 
+            </div>
+            <div style="height:115px;">
+                <ion-slides  mode="md" class="cust-slides" style="height: 115px;" [pager]="(new.thumbnail_img.length > 1)" [options]="slideOpts"  (click)="goto_productDetails(new.prodid, 'newly_added')">
+                    <ion-slide *ngFor="let img of new.thumbnail_img">
+                       <img style="height:100%;width: 100%;" [src]="img"  onError="this.src='assets/no_img.jpeg'">
+                    </ion-slide>
+                </ion-slides>
+            </div>
+            <div style="height:15px;"></div>
+  
+        </div>
+
+        <div class="new-text" (click)="goto_productDetails(new.prodid, 'newly_added')">
+           <div claas="new-title" style="color: #212529;font-size: 14px;font-weight:600;overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; line-height: 20px; max-height: 40px; -webkit-box-orient: vertical; margin: 2px 0px 4px;">{{new.prodname}}</div>
+           <!-- <div style="display:flex;justify-content: space-between;align-items:center; margin-top: 10px;">
+              <ion-text style="font-weight: 600;font-size: 14px;">${{new.prodprice}}</ion-text>
+           </div> -->
+           <p *ngIf="new.price" style="font-weight:600;color:#212529;margin: 8px 0px 0px;">${{new.price}}</p>
+        </div>
+      </div>
+      <div  *ngIf="newlyAdded_Data?.length >= 8">
+        <div  style="display: flex;width: 160px;height: 100%;color: #07ADEB;align-items: center;justify-content: center;font-weight: 600;">
+          <ion-chip (click)="seeAll_click('newly_added')" color="secondary" style="height: 35px;font-size:14px;">
+            <ion-label>See More</ion-label>
+          </ion-chip>
+        </div>          
+      </div>
+    </div><br><br>
+  </div>
+
+
+  <!--  Featured Games Data -->
+  <div id="featured_games" #featured_games>
+    <ion-item mode="md" *ngIf="(featuredGames_Data?.length >= 1)" button lines="none" detail="true" (click)="seeAll_click('featured_games')" style="--detail-icon-opacity:1;">
+      <ion-text slot="start" style="font-size:18px; font-weight: 600;color:#212529;">Featured Games</ion-text>
+    </ion-item>
+    <ion-item mode="md" *ngIf="(!featuredGames_Data?.length >= 1)" lines="none" detail="true" style="--detail-icon-opacity:0.5;">
+      <ion-text slot="start" style="font-size:18px; font-weight: 600;color:#212529;">Featured Games</ion-text>
+    </ion-item>
+
+    <div *ngIf="featuredGames_Data?.length === 0" style="text-align:center;padding-top:12px">
+      <ion-text style="text-align: center;font-weight: 600;color: #00000080;">No results found!</ion-text>
+    </div>
+
+    <div *ngIf="(!featuredGames_Data)">
+      <div  style="display:flex;overflow-x:scroll;">
+        <div  class="new-main"  *ngFor="let fdg of skeletonDummy">
+          <ion-skeleton-text animated  class="new-skl"></ion-skeleton-text>
+           <p style="margin: 2px 0px;"><ion-skeleton-text animated style="width: 90%;line-height:15px;"></ion-skeleton-text></p>
+           <p style="margin: 2px 0px;"><ion-skeleton-text animated style="width: 50%;line-height:12px;"></ion-skeleton-text></p>
+        </div>
+      </div>
+    </div>
+
+  <div *ngIf="(featuredGames_Data)" style="display:flex;overflow-x:scroll; margin-top: 5px;">
+    <div  *ngFor="let fdg of featuredGames_Data | slice : 0: 8" class="fdg-main">
+
+        <div class="fdg-img" style="padding: 0px 10px;">
+
+          <div style="position:relative;height:15px;z-index: 5;overflow:visible;">
+            <div  *ngIf="(isLoggedIn === false || isLoggedIn === undefiend)" style="position: absolute; top: 0px; right: 0px;">
+              <ion-buttons>
+                <ion-button color="medium"  class="cust_save" shape="round" [routerLink]="['/login']">
+                  <ion-icon slot="icon-only" name="heart"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </div>
+            <div  *ngIf="(isLoggedIn === true)" style="position: absolute; top: 0px; right: 0px;">
+             <ion-buttons>
+               <ion-button *ngIf="(fdg.wishlist_status === 'unsaved')" color="medium"  class="cust_save" shape="round" (click)="addto_wishlists(fdg.prodid)">
+                 <ion-icon slot="icon-only" name="heart"></ion-icon>
+               </ion-button>
+               <ion-button  *ngIf="(fdg.wishlist_status === 'saved')" class="cust_save" shape="round"  (click)="rmto_wishlists(fdg.prodid)">
+                 <ion-icon slot="icon-only" name="heart"></ion-icon>
+               </ion-button>
+             </ion-buttons>
+            </div> 
+          </div>
+          <div style="height:115px;">
+              <ion-slides  mode="md" class="cust-slides" style="height: 115px;" [pager]="(fdg.thumbnail_img.length > 1)" [options]="slideOpts"  (click)="goto_productDetails(fdg.prodid, 'featured_games')">
+                  <ion-slide *ngFor="let img of fdg.thumbnail_img">
+                     <img style="height:100%;width: 100%;" [src]="img"  onError="this.src='assets/no_img.jpeg'">
+                  </ion-slide>
+              </ion-slides>
+          </div>
+          <div style="height:15px;"></div>
+
+        </div>
+
+        <div class="fdg-text" (click)="goto_productDetails(fdg.prodid, 'featured_games')">
+           <div claas="fdg-title" style="color: #212529;font-size: 14px;font-weight:600;overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; line-height: 20px; max-height: 40px; -webkit-box-orient: vertical; margin: 2px 0px 4px;">{{fdg.prodname}}</div>
+           <!-- <div style="display:flex;justify-content: space-between;align-items:center; margin-top: 10px;">
+              <ion-text style="font-size: 14px;font-weight: 600;">${{fdg.price}}</ion-text>
+           </div> -->
+           <p *ngIf="fdg.price" style="font-weight:600;color:#212529;margin: 8px 0px 0px;">${{fdg.price}}</p>
+        </div>
+    </div>
+    <div  *ngIf="featuredGames_Data?.length >= 8">
+      <div  style="display: flex;width: 160px;height: 100%;color: #07ADEB;align-items: center;justify-content: center;font-weight: 600;">
+        <ion-chip (click)="seeAll_click('featured_games')" color="secondary" style="height: 35px;font-size:14px;">
+          <ion-label>See More</ion-label>
+        </ion-chip>
+      </div>          
+    </div>
+  </div><br><br>
+  </div>
+
+
+  <!--  Upcoming Signature Series scrolling -->
+  <div id="upcoming_signature_series" #upcoming_signature_series>
+    <ion-item mode="md" *ngIf="(signatureSeries_Data?.length >= 1)" button lines="none" detail="true" (click)="seeAll_click('upcoming_signature_series')" style="--detail-icon-opacity:1;">
+      <ion-text slot="start" style="font-size:18px; font-weight: 600;color:#212529;">Signature Series</ion-text>
+    </ion-item>
+    <ion-item mode="md" *ngIf="(!signatureSeries_Data?.length >= 1)" lines="none" detail="true" style="--detail-icon-opacity:0.5;">
+      <ion-text slot="start" style="font-size:18px; font-weight: 600;color:#212529;">Signature Series</ion-text>
+    </ion-item>
+
+
+    <div *ngIf="signatureSeries_Data?.length === 0" style="text-align:center;padding:12px;">
+      <ion-text style="text-align: center;font-weight: 600;color: #00000080;">No results found!</ion-text>
+    </div>
+
+    <div *ngIf="(!signatureSeries_Data)">
+      <div  style="display:flex;overflow-x:scroll;">
+        <div  class="ssd-main"  *ngFor="let ssd of skeletonDummy">
+          <ion-skeleton-text animated  class="new-skl"></ion-skeleton-text>
+           <p style="margin: 2px 0px;"><ion-skeleton-text animated style="width: 90%;line-height:15px;"></ion-skeleton-text></p>
+           <p style="margin: 2px 0px;"><ion-skeleton-text animated style="width: 50%;line-height:12px;"></ion-skeleton-text></p>
+        </div>
+      </div>
+    </div>
+
+  <div  *ngIf="(signatureSeries_Data)" style="display:flex;overflow-x:scroll; margin-top: 5px;">
+    <div  *ngFor="let ssd of signatureSeries_Data" class="ssd-main" (click)="goto_sign_seriesProduct(ssd.productId)">
+        <div class="ssd-img">
+         <img style="width: 100%;" [src]="ssd.image"  onError="this.src='assets/no_img.jpeg'">
+       </div>
+        <div class="ssd-text">
+           <div claas="ssd-title" style="color: #212529;font-size:14px;font-weight:600;overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; line-height: 20px; max-height: 40px; -webkit-box-orient: vertical; margin: 2px 0px 4px;">{{ssd.producttitle}}</div>
+        </div>
+    </div>
+    <div  *ngIf="signatureSeries_Data?.length >= 8">
+      <div  style="display: flex;width: 160px;height: 100%;color: #07ADEB;align-items: center;justify-content: center;font-weight: 600;">
+        <ion-chip (click)="seeAll_click('upcoming_signature_series')" color="secondary" style="height: 35px;font-size:14px;">
+          <ion-label>See More</ion-label>
+        </ion-chip>
+      </div>          
+    </div>
+  </div><br><br>
+  </div>
+
+
+
+
+
+  <!-- Recent Price Change scrolling -->
+  <div  *ngIf="(recent_price_change?.length >= 1)" id="recent_price_change" #recent_price_change> 
+    <ion-item mode="md" *ngIf="(recent_price_change?.length >= 1)" button lines="none" detail="true" (click)="seeAll_click('recent_price_change')" style="--detail-icon-opacity:1;">
+      <ion-text slot="start" style="font-size:18px; font-weight: 600;color:#212529;">Recent Price Changed</ion-text>
+    </ion-item>
+    <ion-item mode="md" *ngIf="(!recent_price_change?.length >= 1)" lines="none" detail="true" (click)="seeAll_click('recent_price_change')" style="--detail-icon-opacity:0.5;">
+      <ion-text slot="start" style="font-size:18px; font-weight: 600;color:#212529;">Recent Price Changed</ion-text>
+    </ion-item>
+
+
+    <div *ngIf="recentPriceChange_Data?.length === 0" style="text-align:center;padding-top:12px;">
+      <ion-text style="text-align: center;font-weight: 600;color: #00000080;">No results found!</ion-text>
+    </div>
+
+    <div *ngIf="(!recentPriceChange_Data)">
+      <div  style="display:flex; overflow-x:scroll;">
+        <div  class="new-main"  *ngFor="let rpc of skeletonDummy">
+          <ion-skeleton-text animated  class="new-skl"></ion-skeleton-text>
+           <p style="margin: 2px 0px;"><ion-skeleton-text animated style="width: 90%;line-height:15px;"></ion-skeleton-text></p>
+           <p style="margin: 2px 0px;"><ion-skeleton-text animated style="width: 50%;line-height:12px;"></ion-skeleton-text></p>
+        </div>
+      </div>
+    </div>
+    <div  *ngIf="(recentPriceChange_Data)" style="display:flex;overflow-x:scroll; margin-top: 5px;">
+      <div  *ngFor="let rpc of recentPriceChange_Data | slice : 0: 6" class="rpc-main">
+
+          <div class="rpc-img" style="padding: 0px 10px;">
+
+            <div style="position:relative;height:15px;z-index: 5;overflow:visible;">
+              <div  *ngIf="(isLoggedIn === false || isLoggedIn === undefiend)" style="position: absolute; top: 0px; right: 0px;">
+                <ion-buttons>
+                  <ion-button color="medium"  class="cust_save" shape="round" [routerLink]="['/login']">
+                    <ion-icon slot="icon-only" name="heart"></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </div>
+              <div  *ngIf="(isLoggedIn === true)" style="position: absolute; top: 0px; right: 0px;">
+               <ion-buttons>
+                 <ion-button *ngIf="(rpc.wishlist_status === 'unsaved')" color="medium"  class="cust_save" shape="round" (click)="addto_wishlists(rpc.prodid)">
+                   <ion-icon slot="icon-only" name="heart"></ion-icon>
+                 </ion-button>
+                 <ion-button  *ngIf="(rpc.wishlist_status === 'saved')" class="cust_save" shape="round"  (click)="rmto_wishlists(rpc.prodid)">
+                   <ion-icon slot="icon-only" name="heart"></ion-icon>
+                 </ion-button>
+               </ion-buttons>
+              </div> 
+            </div>
+            <div style="height:115px;">
+                <ion-slides  mode="md" class="cust-slides" style="height: 115px;" [pager]="(rpc.thumbnail_img.length > 1)" [options]="slideOpts"  (click)="goto_productDetails(rpc.prodid, 'recent-price-change')">
+                    <ion-slide *ngFor="let img of rpc.thumbnail_img">
+                       <img style="height:100%;width: 100%;" [src]="img"  onError="this.src='assets/no_img.jpeg'">
+                    </ion-slide>
+                </ion-slides>
+            </div>
+            <div style="height:15px;"></div>
+  
+          </div>
+  
+          <div class="rpc-text"  (click)="goto_productDetails(rpc.prodid, 'recent-price-change')">
+             <div claas="rpc-title" style="color: #212529;font-size:14px;font-weight:600;overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; line-height: 20px; max-height: 40px; -webkit-box-orient: vertical; margin: 2px 0px 4px;">{{rpc.prodname}}</div>
+             <div style="display:flex;justify-content: space-between;align-items:center; margin-top: 10px;">
+                 <ion-text style="font-weight: 600;font-size:14px;">${{rpc.price}}</ion-text>
+             </div>
+             <p *ngIf="rpc.price" style="font-weight:600;color:#212529;margin: 8px 0px 0px;">${{rpc.price}}</p>
+          </div>
+      </div>
+      <div  *ngIf="recentPriceChange_Data >= 8">
+        <div  style="display: flex;width: 160px;height: 100%;color: #07ADEB;align-items: center;justify-content: center;font-weight: 600;">
+          <ion-chip (click)="seeAll_click('recent_price_change')" color="secondary" style="height: 35px;font-size:14px;">
+            <ion-label>See More</ion-label>
+          </ion-chip>
+        </div>          
+      </div>
+    </div><br><br>
+  </div>
+    
+
+
+
+
+  <!--  Recently Sold scrolling -->
+  <div  *ngIf="(recentlySold_Data?.length >= 1)"  id="recently_sold" #recently_sold>
+    <ion-item mode="md" *ngIf="(recentlySold_Data?.length >= 1)" button lines="none" detail="true" (click)="seeAll_click('recently_sold')" style="--detail-icon-opacity:1;">
+      <ion-text slot="start" style="font-size:18px; font-weight: 600;color:#212529;">Recently Sold</ion-text>
+    </ion-item>
+    <ion-item mode="md" *ngIf="(!recentlySold_Data?.length >= 1)" lines="none" detail="true" style="--detail-icon-opacity:0.5;">
+      <ion-text slot="start" style="font-size:18px; font-weight: 600;color:#212529;">Recently Sold</ion-text>
+    </ion-item>
+
+    <div *ngIf="recentlySold_Data?.length === 0" style="text-align:center;padding-top:12px;">
+      <ion-text style="text-align: center;font-weight: 600;color: #00000080;">No results found!</ion-text>    
+    </div>
+
+    <div *ngIf="(!recentlySold_Data)">
+      <div  style="display:flex; overflow-x:scroll;">
+        <div  class="new-main"  *ngFor="let rcs of skeletonDummy">
+          <ion-skeleton-text animated  class="new-skl"></ion-skeleton-text>
+           <p style="margin: 2px 0px;"><ion-skeleton-text animated style="width: 90%;line-height:15px;"></ion-skeleton-text></p>
+           <p style="margin: 2px 0px;"><ion-skeleton-text animated style="width: 50%;line-height:12px;"></ion-skeleton-text></p>
+        </div>
+      </div>
+    </div>
+
+  <div  *ngIf="(recentlySold_Data)" style="display:flex;overflow-x:scroll; margin-top: 5px;">
+    <div  *ngFor="let rcs of recentlySold_Data | slice : 0: 6" class="rcs-main">
+
+       <div class="rcs-img" style="padding: 0px 10px;">
+
+        <div style="position:relative;height:15px;z-index: 5;overflow:visible;">
+          <div  *ngIf="(isLoggedIn === false || isLoggedIn === undefiend)" style="position: absolute; top: 0px; right: 0px;">
+            <ion-buttons>
+              <ion-button color="medium"  class="cust_save" shape="round" [routerLink]="['/login']">
+                <ion-icon slot="icon-only" name="heart"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </div>
+          <div  *ngIf="(isLoggedIn === true)" style="position: absolute; top: 0px; right: 0px;">
+           <ion-buttons>
+             <ion-button *ngIf="(rcs.wishlist_status === 'unsaved')" color="medium"  class="cust_save" shape="round" (click)="addto_wishlists(rcs.prodid)">
+               <ion-icon slot="icon-only" name="heart"></ion-icon>
+             </ion-button>
+             <ion-button  *ngIf="(rcs.wishlist_status === 'saved')" class="cust_save" shape="round"  (click)="rmto_wishlists(rcs.prodid)">
+               <ion-icon slot="icon-only" name="heart"></ion-icon>
+             </ion-button>
+           </ion-buttons>
+          </div> 
+        </div>
+        <div style="height:115px;">
+            <ion-slides  mode="md" class="cust-slides" style="height: 115px;" [pager]="(rcs.thumbnail_img.length > 1)"  [options]="slideOpts"  (click)="goto_productDetails(rcs.prodid, 'recently-sold')">
+                <ion-slide *ngFor="let img of rcs.thumbnail_img">
+                   <img style="height:100%;width: 100%;" [src]="img"  onError="this.src='assets/no_img.jpeg'">
+                </ion-slide>
+            </ion-slides>
+        </div>
+        <div style="height:15px;"></div>
+
+      </div>
+
+
+        <div class="rcs-text" (click)="goto_productDetails(rcs.prodid, 'recently_sold')">
+           <div claas="rcs-title" style="color: #212529;font-size:14px;font-weight:600;overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; line-height: 20px; max-height: 40px; -webkit-box-orient: vertical; margin: 2px 0px 4px;">{{rcs.prodname}}</div>
+           <div style="display:flex;justify-content: space-between; position: absolute; bottom: 0px; left: 5px; right: 5px;">
+               <ion-text style="color: #212529;font-size:14px;font-weight: 600;">${{rcs.prodprice}}</ion-text>
+               <div style="color: #212529;font-size:12px;font-weight:600;background: #f4f5f8;padding: 4px;border-radius: 2px;padding: 4px;border-radius:8px;">Sold</div>
+           </div>
+        </div>
+    </div>
+    <div  *ngIf="recentlySold_Data >= 8">
+      <div  style="display: flex;width: 160px;height: 100%;color: #07ADEB;align-items: center;justify-content: center;font-weight: 600;">
+        <ion-chip (click)="seeAll_click('recently_sold')" color="secondary" style="height: 35px;font-size:14px;">
+          <ion-label>See More</ion-label>
+        </ion-chip>
+      </div>          
+    </div>
+  </div><br><br>
+  </div>
+  
+</div>   <!-- All game section end here -->
+</div>   <!--Main Div End -->
+</ion-content>

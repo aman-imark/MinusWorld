@@ -1,0 +1,195 @@
+<!-- <ion-app>
+  <ion-router-outlet></ion-router-outlet>
+</ion-app> -->
+
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <ion-menu mode="ios" menuId="guest" contentId="main-content" type="overlay"  swipeGesture="false">
+      <ion-header  >
+        <ion-toolbar>
+          <ion-item  lines="none"  detail="true">
+            <ion-avatar slot="start" class="item-avatar">
+              <img src="assets/no_user.jpeg" />
+            </ion-avatar>
+            <ion-label>
+              <h3 style="font-weight:600;font-size:16px;"  (click)="loginClick()">Login/Register</h3>
+            </ion-label>
+          </ion-item>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content [scrollEvents]="true">
+        <div>
+        <ion-item button lines="none" (click)="aboutClick()"  class="item-custom">
+          <ion-label>About Us</ion-label>
+        </ion-item>
+        <ion-item button lines="none" (click)="terms_ofuse_Click()"  class="item-custom">
+          <ion-label>Terms of Use</ion-label>
+        </ion-item>
+        <ion-item button lines="none" (click)="terms_ofsales_Click()"  class="item-custom">
+          <ion-label>Terms of Sales</ion-label>
+        </ion-item>
+        <ion-item button lines="none" (click)="returnPolicyClick()"  class="item-custom">
+          <ion-label>Return Policy</ion-label>
+        </ion-item>
+        <ion-item button lines="none" (click)="privacyClick()"  class="item-custom">
+          <ion-label>Privacy Policy</ion-label>
+        </ion-item>
+        </div>
+      </ion-content>
+      <ion-footer>
+        <ion-item button lines="none" (click)="contactClick()"  class="item-custom">
+          <ion-icon slot="start" name="chatbubble-outline"></ion-icon>
+          <ion-label>Support</ion-label>
+        </ion-item>
+      </ion-footer>
+    </ion-menu>
+
+
+    <ion-menu  mode="ios" menuId="buyer" contentId="main-content" type="overlay"  swipeGesture="false">
+      <ion-header   *ngIf="(isLoggedIn === true)">
+        <ion-toolbar>
+          <ion-item  lines="none"  detail="false" style="--background: transparent !important; color:#ffffff;">
+            <ion-avatar slot="start" class="item-avatar" style="box-shadow: 0 0 6px 2px rgb(0 0 0 / 30%);
+            padding: 2px; background-color: #f7f7f7;">
+              <img [src]="user_img" onError="this.src='assets/no_user.jpeg'"/>
+            </ion-avatar>
+            <ion-label  (click)="profileClick()">
+              <h3 style="font-weight:600;font-size:16px;">{{first_name}}&nbsp;{{last_name}}</h3>
+              <p style="font-size: 10px;color: #fff;font-weight: 700;">{{user_email}}</p>
+            </ion-label>
+          </ion-item>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content [scrollEvents]="true">
+        <div>
+          <ion-item button lines="none" (click)="dashboardClick()" class="item-custom">
+            <ion-icon slot="start" name="grid-outline"></ion-icon>
+            <ion-label>Dashboard</ion-label>
+          </ion-item>
+          <ion-item button lines="none" (click)="ordersClick()"  class="item-custom">
+            <ion-icon slot="start" src="assets/svg/sold_orders.svg"></ion-icon>
+            <ion-label>Orders</ion-label>
+          </ion-item>
+          <ion-item button lines="none" (click)="saved_collectionClick()"  class="item-custom">
+            <ion-icon slot="start" name="heart-outline"></ion-icon>
+            <ion-label>My Collection</ion-label>
+          </ion-item>
+
+          <ion-item button lines="none" (click)="buyerClick()"  class="item-custom">
+            <ion-icon slot="start" name="gift-outline"></ion-icon>
+            <ion-label>Buyer Offer</ion-label>
+          </ion-item>
+          <ion-item button lines="full" (click)="settingClick()"  class="item-custom">
+            <ion-icon slot="start" name="settings-outline"></ion-icon>
+            <ion-label>Setting</ion-label>
+          </ion-item>
+
+          <ion-item button lines="none" (click)="aboutClick()"  class="item-custom">
+            <ion-label>About Us</ion-label>
+          </ion-item>
+          <ion-item button lines="none" (click)="returnPolicyClick()"  class="item-custom">
+            <ion-label>Return Policy</ion-label>
+          </ion-item>
+          <ion-item button lines="none" (click)="privacyClick()"  class="item-custom">
+            <ion-label>Privacy Policy</ion-label>
+          </ion-item>
+        </div>
+      </ion-content>
+      <ion-footer>
+        <ion-item button lines="none" (click)="contactClick()"  class="item-custom">
+          <ion-icon slot="start" name="chatbubble-outline"></ion-icon>
+          <ion-label>Support</ion-label>
+        </ion-item>
+        <ion-item  button lines="none" (click)="logout_Confirmation()" class="item-custom">
+          <ion-icon slot="start" name="log-out-outline" color="danger" ></ion-icon>
+          <ion-label style="color:#eb445a !important;" >Logout</ion-label>
+        </ion-item>
+      </ion-footer>
+    </ion-menu>
+
+
+    <ion-menu mode="ios" menuId="seller" contentId="main-content" type="overlay"  swipeGesture="false">
+      <ion-header   *ngIf="(isLoggedIn === true)">
+        <ion-toolbar>
+          <ion-item  lines="none"  detail="false" style="--background: transparent !important; color:#ffffff;">
+            <ion-avatar slot="start" class="item-avatar" style="box-shadow: 0 0 6px 2px rgb(0 0 0 / 30%);
+            padding: 2px; background-color: #f7f7f7;">
+              <img [src]="user_img"  onError="this.src='assets/no_user.jpeg'"/>
+            </ion-avatar>
+            <ion-label  (click)="profileClick()">
+              <h3 style="font-weight:600;font-size:16px;">{{first_name}}&nbsp;{{last_name}}</h3>
+              <p style="font-size: 10px;color: #fff;font-weight: 700;">{{user_email}}</p>
+            </ion-label>
+          </ion-item>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content [scrollEvents]="true">
+          <div>
+          <ion-item button lines="none" (click)="dashboardClick()" class="item-custom">
+            <ion-icon slot="start" name="grid-outline"></ion-icon>
+            <ion-label>Dashboard</ion-label>
+          </ion-item>
+          <ion-item button lines="none" (click)="yourProductsClick()"  class="item-custom">
+            <ion-icon slot="start" name="cube-outline"></ion-icon>
+            <ion-label>Your Products</ion-label>
+          </ion-item>
+          <ion-item button lines="none" (click)="soldOrdersClick()"  class="item-custom">
+            <ion-icon slot="start" src="assets/svg/sold_orders.svg"></ion-icon>
+            <ion-label>Sold Orders</ion-label>
+          </ion-item>
+          <ion-item button lines="none" (click)="saved_collectionClick()"  class="item-custom">
+            <ion-icon slot="start" name="heart-outline"></ion-icon>
+            <ion-label>My Collection</ion-label>
+          </ion-item>
+          <ion-item button lines="none" (click)="offersClick()"  class="item-custom">
+            <ion-icon slot="start" src="assets/svg/offers.svg"></ion-icon>
+            <ion-label>Offers</ion-label>
+          </ion-item>
+          <ion-item button lines="none" (click)="revenueClick()"  class="item-custom" style="display:none; opacity: 0.6;">
+            <ion-icon slot="start" name="document-text-outline"></ion-icon>
+            <ion-label>Revenue</ion-label>
+          </ion-item>
+          <ion-item button lines="none" (click)="reportsClick()"  class="item-custom" style="display:none; opacity: 0.6;">
+            <ion-icon slot="start" name="receipt-outline"></ion-icon>
+            <ion-label>Reports</ion-label>
+          </ion-item>
+          <ion-item button lines="full" (click)="settingClick()"  class="item-custom">
+            <ion-icon slot="start" name="settings-outline"></ion-icon>
+            <ion-label>Setting</ion-label>
+          </ion-item>
+
+          <ion-item button lines="none" (click)="aboutClick()"  class="item-custom">
+            <ion-label>About Us</ion-label>
+          </ion-item>
+          <ion-item button lines="none" (click)="returnPolicyClick()"  class="item-custom">
+            <ion-label>Return Policy</ion-label>
+          </ion-item>
+          <ion-item button lines="none" (click)="privacyClick()"  class="item-custom">
+            <ion-label>Privacy Policy</ion-label>
+          </ion-item>
+          </div>
+      </ion-content>
+      <ion-footer>
+        <ion-item button lines="none" (click)="contactClick()"  class="item-custom">
+          <ion-icon slot="start" name="chatbubble-outline"></ion-icon>
+          <ion-label>Support</ion-label>
+        </ion-item>
+        <ion-item  button lines="none" (click)="logout_Confirmation()" class="item-custom">
+          <ion-icon slot="start" name="log-out-outline" color="danger" ></ion-icon>
+          <ion-label style="color:#eb445a !important;" >Logout</ion-label>
+        </ion-item>
+      </ion-footer>
+    </ion-menu>
+
+
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>
+
+
+
+
+
+
+
+

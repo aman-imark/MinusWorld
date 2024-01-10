@@ -1,0 +1,112 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>Featured Games</ion-text>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" scrollEvents="true" (ionScroll)='onScroll($event)'>
+  <!-- <ion-refresher  mode="md" slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher> -->
+
+
+  <!-- *ngIf="(featuredGames_Data && featuredGames_Data?.length >= 1)" -->
+  <ion-toolbar #toolbar style="display:none;">
+    <ion-row>
+      <ion-col size="0.5"></ion-col>
+      <ion-col size="5">
+        <ion-item button  (click)="filterClick()"  lines="none" detail="false" style="--background:#EEFBFF;--min-height: 40px;border-radius:10px;">
+          <div style="display:flex; margin: auto; align-items: center;font-weight:600;color:#212529;"><ion-icon name="filter-outline"></ion-icon>&nbsp;&nbsp;Filter</div>
+       </ion-item>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+      <ion-col size="5">
+        <ion-item button  (click)="sortClick()"  lines="none" detail="false" style="--background:#EEFBFF;--min-height: 40px;border-radius:10px;">
+          <div style="display:flex; margin: auto; align-items: center;font-weight:600;color:#212529;"><ion-icon name="options-outline"></ion-icon>&nbsp;&nbsp;Sort</div>
+        </ion-item>
+      </ion-col>
+      <ion-col size="0.5"></ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+
+
+
+  <div *ngIf="(!featuredGames_Data)"><br>
+    <div style="display:none;justify-content: space-between;width: 90%;margin: auto;">
+      <div style="width:40%;"><ion-skeleton-text animated style="width: 100%;height: 40px;border-radius:2px;"></ion-skeleton-text></div>
+      <div style="width:40%;"><ion-skeleton-text animated style="width: 100%;height: 40px;border-radius:2px;"></ion-skeleton-text></div>
+    </div>
+    <ion-item>
+      <ion-thumbnail slot="start"> <ion-skeleton-text></ion-skeleton-text> </ion-thumbnail>
+      <ion-label>
+        <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+        <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+        <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-thumbnail slot="start"> <ion-skeleton-text></ion-skeleton-text> </ion-thumbnail>
+      <ion-label>
+        <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+        <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+        <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-thumbnail slot="start"> <ion-skeleton-text></ion-skeleton-text> </ion-thumbnail>
+      <ion-label>
+        <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+        <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+        <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-thumbnail slot="start"> <ion-skeleton-text></ion-skeleton-text> </ion-thumbnail>
+      <ion-label>
+        <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+        <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+        <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+      </ion-label>
+    </ion-item><br>
+</div>
+  
+  
+
+  
+<div *ngIf="(featuredGames_Data && featuredGames_Data?.length >= 1)" class="isData">
+    <ion-list>
+    <ion-item  *ngFor="let fgd of featuredGames_Data | slice:0:numOfData; let i=index" button detail="false" (click)="goto_productDetails(fgd.prodid)">
+      <ion-thumbnail slot="start" style="position:relative;background:#EFF3FF;border-radius:8px;">
+        <img [src]="fgd.thumbnail_img" onError="this.src='assets/no_img.jpeg'"  style="padding:10px;"/>
+      </ion-thumbnail>
+      <ion-label>
+        <h3 style="margin: 0px 0px 8px;color:#212529;font-weight:600;">{{fgd.prodname}}</h3>
+        <p style="font-weight:600;">${{fgd.price}}</p>
+      </ion-label>
+    </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll *ngIf="(featuredGames_Data?.length > numOfData)"  (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content
+      loadingSpinner="crescent"
+      distance="4%">
+    </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+</div>
+</ion-content>
+<!-- {
+  "status": "success",
+  "message": "Featured Games",
+  "prod_details": [
+      {
+          "prodid": "802",
+          "thumbnail_img": "https://minusworlds.com/images/no-image1.jpg",
+          "prodname": "Soul Calibur VI [Deluxe Edition]",
+          "price": 399,
+          "wishlist_status": "unsaved"
+      },
+  ]
+} -->

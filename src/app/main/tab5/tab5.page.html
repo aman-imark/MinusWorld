@@ -1,0 +1,203 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar style="--background: #f7f7f7;border-radius: 0px 0px 10px 10px; box-shadow: 0 0 4px 1px #66666694;">
+    <!-- <ion-col size="1.5"> -->
+    <!-- </ion-col> -->
+
+    <div style="position: absolute;top: 0px; z-index: 5;">
+      <ion-buttons>
+        <ion-menu-button style="color:#212529;"></ion-menu-button>
+      </ion-buttons>
+    </div>
+
+    <div style="height:190px; z-index: 5;">
+      <div style="position:relative;top:10px;">
+       <div style="position: absolute;top: 0px;align-items: center;margin: auto;width: 100%;">
+        <div style="position:relative;width: 82px;height: 82px;border-radius: 50%; border: 4px solid #67dbf4; padding: 4px;background-color:#f7f7f7;
+                    margin: auto;text-align: center; box-shadow: 0 0 6px 2px rgb(0 0 0 / 30%);" (click)="profilePic_changeClick()">
+            <img [src]="get_userData?.user_img"  onError="this.src='assets/no_user.jpeg'" alt="user_profile_img"
+                 style="height:100%;width:100%;border-radius:50%; object-fit: cover;">   
+        </div>
+        <div style="text-align:center;margin: 15px 0px 8px;font-size:20px;font-weight:600;color:#212529;">{{get_userData?.first_name}}&nbsp;<span *ngIf="(get_userData?.last_name != null)">{{get_userData?.last_name}}</span></div>  
+        <div style="text-align:center;"> 
+          <ion-chip  *ngIf="(get_userData?.user_typ === 'Seller')"  style="--background: rgba(255,0,221,0.1);border-radius: 8px;">
+            <ion-label style="color:#f0d;font-weight:700;">Seller</ion-label>
+          </ion-chip>
+        
+          <ion-chip  *ngIf="(get_userData?.user_typ === 'Buyer')" style="--background: rgb(22 155 214 / 13%);border-radius: 8px;">
+            <ion-label  style="color:#169bd6;font-weight:700;">Buyer</ion-label>
+          </ion-chip>
+        </div>
+       </div>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content [fullscreen]="true">
+
+  <div *ngIf="(!get_userData)">
+      <div>
+      <div style="width: 90px;height: 90px;overflow: hidden;border-radius: 50%;border: 4px solid #ffffff;margin: auto;text-align: center;">
+        <ion-skeleton-text animated ></ion-skeleton-text>
+      </div>
+    
+      <div style="text-align:center;margin-top: 2%;margin-bottom: 2%;"><ion-skeleton-text animated style="width:40%;height:22px;margin:2% auto;"></ion-skeleton-text></div>  
+      <div style="text-align:center;"><ion-skeleton-text animated style="width:26%;height:25px;margin:auto;border-radius:30px;"></ion-skeleton-text></div>
+      </div><br><br><br>
+      <ion-skeleton-text animated style="width: 85%;height: 320px;margin: 0 auto;border-radius: 10px;"></ion-skeleton-text>
+  </div>
+  
+  
+  
+  
+  
+  <div *ngIf="(get_userData)">
+  
+  <!-- <div style="height:180px;">
+    <div style="position:relative;top:10px;">
+     <div style="position: absolute;top: 0px;align-items: center;margin: auto;width: 100%;">
+      <div style="position:relative;width: 82px;height: 82px;border-radius: 50%; border: 4px solid #67dbf4; padding: 4px;
+                  margin: auto;text-align: center; box-shadow: 0 0 6px 2px rgb(0 0 0 / 30%);" (click)="profilePic_changeClick()">
+          <img [src]="get_userData?.user_img"  onError="this.src='assets/no_user.jpeg'" alt="user_profile_img"
+               style="height:100%;width:100%;border-radius:50%; object-fit: cover;">   
+      </div>
+      <div style="text-align:center;margin: 15px 0px 8px;font-size:20px;font-weight:800;">{{get_userData?.first_name}}&nbsp;<span *ngIf="(get_userData?.last_name != null)">{{get_userData?.last_name}}</span></div>  
+      <div style="text-align:center;"> 
+        <ion-chip  *ngIf="(get_userData?.user_typ === 'Seller')"  style="--background: rgba(255,0,221,0.1);border-radius: 8px;">
+          <ion-label style="color:#f0d;font-weight:600;">Seller</ion-label>
+        </ion-chip>
+      
+        <ion-chip  *ngIf="(get_userData?.user_typ === 'Buyer')" style="--background: rgb(22 155 214 / 13%);border-radius: 8px;">
+          <ion-label  style="color:#169bd6;font-weight:600;">Buyer</ion-label>
+        </ion-chip>
+      </div>
+     </div>
+    </div>
+  </div> -->
+  
+  
+  
+  <div class="top">  
+    <br> <br>
+    <ion-grid>
+     <ion-row  *ngIf="(get_userData?.user_typ  === 'Seller')">
+       <ion-col size="6">
+        <ion-item button  lines="none"  detail="false">
+          <ion-label style="margin: 16% 0px;">
+            <div style="margin: 0px 0px 12px; font-weight:600;color:#212529;" (click)="goto_seller_myProducts()">Products</div>
+            <div style="color: #212529;font-weight:700;">{{get_userData?.products}}</div>
+          </ion-label>
+        </ion-item>
+       </ion-col>
+       <ion-col size="6">
+        <ion-item button  lines="none"  detail="false">
+          <ion-label style="margin: 16% 0px;">
+            <div style="margin: 0px 0px 12px; font-weight:600;color:#212529;" (click)="goto_seller_soldOrders()">Orders</div>
+            <div style="color: #212529;font-weight:700;">{{get_userData?.orders}}</div>
+          </ion-label>
+        </ion-item>
+       </ion-col>
+     </ion-row>
+  
+     <ion-row  *ngIf="(get_userData?.user_typ === 'Buyer')">
+      <ion-col size="6">
+       <ion-item button  lines="none"  detail="false" (click)="goto_myCollection()">
+         <ion-label style="margin: 16% 0px;">
+           <div style="margin: 0px 0px 12px; font-weight:600;color:#212529;">My Wishlist</div>
+           <div style="color: #212529;font-weight:700;">{{get_userData?.wishlist}}</div>
+         </ion-label>
+       </ion-item>
+      </ion-col>
+      <ion-col size="6">
+       <ion-item button  lines="none"  detail="false"  (click)="goto_myOrders()">
+         <ion-label style="margin: 16% 0px;">
+           <div style="margin: 0px 0px 12px; font-weight:600;color:#212529;">My Order</div>
+           <div style="color: #212529;font-weight:700;">{{get_userData?.orders}}</div>
+         </ion-label>
+       </ion-item>
+      </ion-col>
+    </ion-row>
+    </ion-grid> 
+     <!-- <br> <br> -->
+  </div>
+  
+  
+  
+  
+  <div id="detail-edit-main">
+    <ion-card style="position:relative; top:0px; overflow: visible;">
+      <div class="sec_child">
+        <ion-buttons mode="md">
+          <ion-button (click)="edit_enableClick()" *ngIf="(edit_enable == false)" size="small" color="primary">
+            <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+          </ion-button>
+          <ion-button (click)="close_enableClick()" *ngIf="(edit_enable == true)" size="small" color="danger">
+            <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+  
+  
+      <ion-card-content *ngIf="(edit_enable == false)">
+        <ion-item  lines="none"  detail="false"> 
+          <ion-label><span style="color: #212529;font-weight:600;">Name :</span>&nbsp;&nbsp;<span style="font-weight:700;color:#212529;">{{get_userData?.first_name}}&nbsp;<span *ngIf="(get_userData?.last_name != null)">{{get_userData?.last_name}}</span></span></ion-label>
+        </ion-item>
+        <ion-item  lines="none"  detail="false" *ngIf="(get_userData?.email != null)">
+          <ion-label><span style="color: #212529;font-weight:600;">Email :</span>&nbsp;&nbsp;<span style="font-weight:700;color:#212529;">{{get_userData?.email}}</span></ion-label>
+        </ion-item>
+        <ion-item  lines="none"  detail="false" *ngIf="(get_userData?.phn != null)">
+          <ion-label><span style="color: #212529;font-weight:600;">Phone :</span>&nbsp;&nbsp;<span style="font-weight:700;color:#212529;">{{get_userData?.phn}}</span></ion-label>
+        </ion-item>
+      
+        <ion-item  lines="none" (click)="goto_change_user_password()">
+          <ion-label><a><strong>Change your Password</strong></a></ion-label>
+        </ion-item>
+      </ion-card-content>
+  
+      <ion-card-content *ngIf="(edit_enable == true)" class="card-content-edit">
+        <form  #f="ngForm" (ngSubmit)="update_UserProfile_Data(f)">
+          <ion-item lines="full">
+            <ion-label position="floating"  autofocus="true" style="font-weight:600;color:#212529;">First Name</ion-label>
+            <ion-input type="text" placeholder="ex: Jhon" name="first_name" [(ngModel)]="u_firstname" style="font-weight:700;color:#212529;"></ion-input>
+            <ion-input type="text" name="userid" [(ngModel)]="user_id" hidden></ion-input>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label position="floating"  autofocus="true" style="font-weight:600;color:#212529;">Last Name</ion-label>
+            <ion-input type="text" placeholder="ex: Smith"  name="last_name" [(ngModel)]="u_lastname" style="font-weight:700;color:#212529;"></ion-input>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label position="floating"  autofocus="true" style="font-weight:600;color:#212529;">Email</ion-label>
+            <ion-input type="email" placeholder="ex: dan@example.com" name="email" [(ngModel)]="u_email" style="font-weight:700;color:#212529;"></ion-input>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label position="floating"  autofocus="true" style="font-weight:600;color:#212529;">Phone</ion-label>
+            <ion-input type="tel" placeholder="ex: +846 237523" name="phone" [(ngModel)]="u_phone" style="font-weight:700;color:#212529;"></ion-input>
+          </ion-item>
+          <div style="display:flex;width:94%;margin:auto;padding: 15px 0px;">
+            <ion-button expand="block" type="submit" style="width:100%;--background:linear-gradient(92deg, #989aa2, #07ADEB) !important;--color: #fff;">Update</ion-button>
+          </div>
+          <!-- <ion-item button lines="none" style="--background:linear-gradient(92deg, #989aa2, #07ADEB) !important;--color: #fff;text-align:center;">
+            <ion-label>Update</ion-label>
+          </ion-item> -->
+          </form>
+      </ion-card-content>
+    </ion-card><br>
+  </div>
+  
+  </div>
+  
+  </ion-content>
+  
+  <ion-footer>
+    <ion-item  *ngIf="(get_userData?.user_typ === 'Buyer')" button  lines="none"  detail="true" (click)="switch_toSeller_confirmation()" style="--background: linear-gradient(92deg, #27F09D, #07ADEB) !important;--color: #fff;">
+      <ion-label><strong>Switch to Seller</strong></ion-label>
+    </ion-item>
+    <ion-item  *ngIf="(get_userData?.user_typ === 'Seller')" button  lines="none"  detail="true" (click)="switch_toBuyer_confirmation()" style="--background: linear-gradient(92deg, #27F09D, #07ADEB) !important;--color: #fff;">
+      <ion-label><strong>Switch to Buyer</strong></ion-label>
+    </ion-item>
+    <!-- <ion-item button  lines="none"  detail="true" style="--color: #FF2D2D;" (click)="account_deleteConfirmation()">
+    <ion-label><strong>Delete your account</strong></ion-label>
+  </ion-item><br> -->
+  </ion-footer>

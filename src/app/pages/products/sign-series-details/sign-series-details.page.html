@@ -1,0 +1,47 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <app-bk-btn slot="start"></app-bk-btn>
+    <!-- <ion-title class="ion-text-start">{{signDetails?.producttitle}}</ion-title> -->
+    <ion-text>Featured Article: Signature Series</ion-text>
+    <!-- <ion-text>{{signDetails?.producttitle}}</ion-text> -->
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="false" style="--background: #323639;">
+  <!-- <ion-header  #header  style="--background:transparent">
+    <ion-toolbar style="--background:transparent">
+      <app-bk-btn slot="start"></app-bk-btn>
+      <ion-text style="font-weight:500;font-size:16px;">{{signDetails?.producttitle}}</ion-text>
+    </ion-toolbar>
+  </ion-header> -->
+  
+
+
+  <div class="ion-padding-horizontal" style="background: #323639;">
+
+  <h5 style="color: #ffffff !important;margin: 0px !important; font-weight:700;padding: 15px 0px;">{{signDetails?.producttitle}}</h5>
+  <div style="display:flex;width:100%;padding: 0px 0px 15px;justify-content: space-between;">
+     <div style="display:flex; align-items: center;">
+        <div><ion-icon name="person-outline" style="font-size:20px;color:#07ADEB;"></ion-icon>&nbsp;&nbsp;</div>
+        <div *ngIf="(!signDetails?.author)" style="font-size:12px;font-weight:600;color:#bdbdbd;">Unknown</div>
+        <div *ngIf="(signDetails?.author)" style="font-size:12px;font-weight:600;color:#bdbdbd;">{{signDetails?.author}}</div>
+     </div>
+     <div *ngIf="(signDetails?.created_at)" style="display:flex; align-items: center;">
+       <div><ion-icon name="calendar-outline" style="font-size:20px;color:#07ADEB;"></ion-icon>&nbsp;&nbsp;</div>
+       <div *ngIf="(signDetails?.created_at)" style="font-size:12px;font-weight:600;color:#bdbdbd;">{{signDetails?.created_at}}</div>
+     </div>
+  </div>
+
+  <div *ngFor="let img of signDetails?.files">
+     <div> <img [src]="img"> </div>
+  </div><br>
+  </div>
+
+  <ion-fab *ngIf="(signDetails?.producturl)" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="signSeries_DetailsShare()" size="small" style="--background: transparent linear-gradient(142deg, rgb(39, 240, 157) 0%, rgb(7, 173, 235) 100%) 0% 0%;">
+      <ion-icon name="share-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

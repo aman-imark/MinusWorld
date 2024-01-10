@@ -1,0 +1,24 @@
+ion-header{
+    ion-toolbar{
+        --background: transparent;
+        ion-icon{
+            color:#212529;
+        }
+    }
+}
+
+
+
+
+
+ion-item{
+    ion-label{
+      font-size:15px;
+      //  color: #212529;
+      color: #212529;
+    }
+}
+
+.active{
+    --background: #EEFBFF;
+}

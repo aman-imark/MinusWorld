@@ -1,0 +1,85 @@
+.blog_Content{
+    iframe{
+        width: 100% !important;
+    }
+}
+
+.cust_shareMain{
+    position: absolute; bottom: -25px; right: 4%;
+    --color:#07ADEB; height:40px !important; width:40px !important;
+   --border-radius: 100%;
+    --background: #ffffff;
+    --padding-top: 5px !important;
+    --padding-end: 5px !important;
+    --padding-bottom: 5px !important;
+    --padding-start: 5px !important;
+    ion-icon{
+        font-size:22px;
+     --padding-top: 1px !important;
+     --padding-end: 1px !important;
+     --padding-bottom: 1px !important;
+     --padding-start: 1px !important;
+    }  
+  }
+  
+
+  .sec_child{
+    ion-button{
+        background: #fff;
+        // box-shadow: 0 0 2px 1px #383a3e;
+        box-shadow: 0px 2px 12px 0px rgb(0 0 0 / 40%);
+        border-radius:50%;
+        ion-icon{
+           font-size: 22px !important;
+        }
+    }
+  }
+
+  .rld-main{
+    width: 130px;
+    height: 235px;
+    margin: 0px 12px 0px 8px;
+  }
+  .rld-skl{
+    width: 130px;
+    height:145px;
+  }
+  .rld-img{
+    width: 130px; height: 145px;
+    // overflow: hidden;
+    background: #EFF3FF;
+    position: relative;
+    // display: inline-flex;
+    // align-items: center;
+    // padding: 10px;
+    border-radius: 10px;
+
+    img{
+      max-width:94%;
+      margin: auto;
+      max-height:90%;
+    }
+  }
+  .rld-text{
+    width:130px;height:85px;
+    padding: 4px;
+    overflow: hidden;
+    font-size: 15px;
+    // background-color: #e5e7e775;
+    border-radius: 0px 0px 10px 10px;
+  }
+  .rld-title{
+    color: #212529;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-height: 20px;
+    max-height: 40px;
+    -webkit-box-orient: vertical;
+    margin: 2px 0px 4px;
+  }
+
+
+

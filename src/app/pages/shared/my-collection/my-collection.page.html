@@ -1,0 +1,79 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button  icon="arrow-back"  text="" defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>Saved Collections</ion-text>
+    <!-- <ion-title class="ion-text-start">Saved Collections</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+
+
+  <div *ngIf="(savedCollection_Data?.length === 0)" style="display:flex;align-items: center;justify-content: center;height:100%;font-weight:600;color: #666666;">
+    No Records Found!
+  </div>
+
+
+<div *ngIf="(!savedCollection_Data)">
+  <br>
+  <ion-item>
+    <ion-thumbnail slot="start" style="height:85px;width:22%;"><ion-skeleton-text></ion-skeleton-text></ion-thumbnail>
+    <ion-label>
+      <h3><ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text></h3>
+      <p><ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text></p>
+      <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-thumbnail slot="start" style="height:85px;width:22%;"><ion-skeleton-text></ion-skeleton-text></ion-thumbnail>
+    <ion-label>
+      <h3><ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text></h3>
+      <p><ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text></p>
+      <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-thumbnail slot="start" style="height:85px;width:22%;"><ion-skeleton-text></ion-skeleton-text></ion-thumbnail>
+    <ion-label>
+      <h3><ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text></h3>
+      <p><ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text></p>
+      <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-thumbnail slot="start" style="height:85px;width:22%;"><ion-skeleton-text></ion-skeleton-text></ion-thumbnail>
+    <ion-label>
+      <h3><ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text></h3>
+      <p><ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text></p>
+      <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+    </ion-label>
+  </ion-item>
+</div>
+
+
+<div  *ngIf="(savedCollection_Data)">
+  <ion-item  *ngFor="let sv of savedCollection_Data" button detail="false">
+    <ion-thumbnail slot="start" style="position:relative;background:#EFF3FF;border-radius:8px;">
+      <img [src]="sv.thumbnail_img" onError="this.src='assets/no_img.jpeg'" style="padding:10px;">
+      <div  *ngIf="(isLoggedIn === true)" style="position: absolute; top: 0px; right: 0px;">  
+        <ion-buttons>
+          <ion-button class="cust_save" shape="round"  (click)="rmto_wishlists(sv.prod_id, sv.wishlist_id)">
+            <ion-icon slot="icon-only" name="heart"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+    </ion-thumbnail>
+    <ion-label>
+      <h3 style="margin: 0px 0px 3px;font-weight:600;color:#212529;">{{sv.prod_name}}</h3>
+      <p style="margin: 0px 0px 10px;font-weight:700;color:#212529;">{{sv.console_name}}</p>
+      <p style="font-weight:600;">{{sv.price}}</p>
+    </ion-label>
+  </ion-item>
+</div>
+
+</ion-content>

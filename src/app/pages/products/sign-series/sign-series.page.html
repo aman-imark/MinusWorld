@@ -1,0 +1,154 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button  icon="arrow-back"  text="" defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>Signature Series</ion-text>
+    <!-- <ion-title class="ion-text-start">Newly Added</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" scrollEvents="true" (ionScroll)='onScroll($event)'>
+
+  <ion-toolbar  #toolbar style="display:none;">
+    <ion-row>
+      <ion-col size="0.5"></ion-col>
+      <ion-col size="5">
+        <ion-item button  (click)="sortClick()"  lines="none" detail="false" style="--background:#EEFBFF;--min-height: 40px;border-radius:10px;">
+          <div style="display:flex; margin: auto; align-items: center;"><ion-icon name="options-outline"></ion-icon>&nbsp;&nbsp;Sort</div>
+        </ion-item>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+      <ion-col size="5">
+        <ion-item button  (click)="filterClick()"  lines="none" detail="false" style="--background:#EEFBFF;--min-height: 40px;border-radius:10px;">
+           <div style="display:flex; margin: auto; align-items: center;"><ion-icon name="filter-outline"></ion-icon>&nbsp;&nbsp;Filter</div>
+        </ion-item>
+      </ion-col>
+      <ion-col size="0.5"></ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+
+
+  <div *ngIf="(!signSeries_Data)"><br>
+        <ion-item>
+          <ion-thumbnail slot="start"> <ion-skeleton-text></ion-skeleton-text> </ion-thumbnail>
+          <ion-label>
+            <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+            <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+            <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-thumbnail slot="start"> <ion-skeleton-text></ion-skeleton-text> </ion-thumbnail>
+          <ion-label>
+            <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+            <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+            <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-thumbnail slot="start"> <ion-skeleton-text></ion-skeleton-text> </ion-thumbnail>
+          <ion-label>
+            <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+            <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+            <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-thumbnail slot="start"> <ion-skeleton-text></ion-skeleton-text> </ion-thumbnail>
+          <ion-label>
+            <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+            <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+            <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-thumbnail slot="start"> <ion-skeleton-text></ion-skeleton-text> </ion-thumbnail>
+          <ion-label>
+            <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+            <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+            <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+          </ion-label>
+        </ion-item><br>
+  </div>
+  
+  <div *ngIf="(signSeries_Data?.length === 0)" style="display:flex;align-items: center;justify-content: center;height:100%;font-weight:600;color: #666666;">
+    No Records Found!
+  </div>
+   
+    
+      
+  <div *ngIf="(signSeries_Data && signSeries_Data?.length >= 1)"  class="isData">
+        <ion-list>
+          <ion-item  *ngFor="let new of signSeries_Data | slice:0:numOfData; let i=index" detail="false"  (click)="goto_sign_seriesProduct(new.productId)">
+        <!-- <ion-item  *ngFor="let new of signSeries_Data | slice:0:numOfData; let i=index" href="{{new.producturl}}" detail="false"> -->
+          <ion-thumbnail slot="start" style="position:relative;background:#EFF3FF;border-radius:8px;">
+            <img [src]="new.image" onError="this.src='assets/no_img.jpeg'" style="padding:10px;"/>
+           
+          </ion-thumbnail>
+          <ion-label style="white-space: normal;">
+            <h3 style="margin: 0px 0px 8px;color:#212529;font-weight:600;">{{new.producttitle}}</h3>
+            <p style="font-weight:700;color:#212529;font-size:13px;">{{new.producturl}}</p>
+          </ion-label>
+        </ion-item>
+        
+        <ion-infinite-scroll *ngIf="(signSeries_Data?.length > numOfData)" (ionInfinite)="doInfinite($event)">
+          <ion-infinite-scroll-content
+          loadingSpinner="crescent"
+          distance="4%">
+        </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+        </ion-list>
+  </div>
+  
+</ion-content>
+
+<!-- [
+    {
+        "prodid": "804",
+        "thumbnail_img": [
+            "https://minusworlds.com/uploads/572713921_EFE8E1EC-9882-4711-BD8C-FF494BCEDEA6.jpeg"
+        ],
+        "prodname": " Super Nintendo Konami Cybernator WATA 9.4 A+ (Assault Suit Valken)",
+        "prodprice": 8000,
+        "company_name": null,
+        "grade": null,
+        "vga_grade_nm": null,
+        "seal_grade_nm": "A+",
+        "box_grade_nm": "9.4",
+        "variant_nm": "Made in Japan (snes)",
+        "disclaimers_checkbox": "",
+        "desc": "<p>&nbsp;Super Nintendo Konami Cybernator WATA 9.4 A+ (Assault Suit Valken)</p>",
+        "wishlist_status": "unsaved"
+    }
+] -->
+
+<!-- {
+  "status": "success",
+  "message": "Signature Series",
+  "prod_details": [
+      {
+          "producturl": "https://minusworlds.com/featured-article-signature-series",
+          "image": "http://evolvethought.com/minusworlds/uploads/117017021_boris-sig.png",
+          "producttitle": "Signature Series: Julie Bell + Boris Vallejo"
+      },
+      {
+          "producturl": "https://minusworlds.com/featured-article-signature-series",
+          "image": "http://evolvethought.com/minusworlds/uploads/296234375_tyson-sig.png",
+          "producttitle": "Signature Series: Mike Tyson's Punch-out!!!"
+      },
+      {
+          "producturl": "https://minusworlds.com/featured-article-signature-series",
+          "image": "http://evolvethought.com/minusworlds/uploads/787808570_magic-johnson-banner.png",
+          "producttitle": "Signature Series: Magic Johnson"
+      },
+      {
+          "producturl": "https://minusworlds.com/featured-article-signature-series",
+          "image": "http://evolvethought.com/minusworlds/uploads/843124015_joe-montana-signing.png",
+          "producttitle": "Signature Series: Joe Montana"
+      }
+  ]
+} -->

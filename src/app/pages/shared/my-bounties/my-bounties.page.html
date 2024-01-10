@@ -1,0 +1,109 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button  icon="arrow-back"  text="" defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>My Bounties</ion-text>
+    <!-- <ion-title class="ion-text-start">My Bounties</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true"  [scrollEvents]="true" (ionScroll)="onScroll($event)">
+
+<ion-list  *ngIf="(!myBounties_Data)">
+  <ion-item lines="full" detail="false">
+    <ion-row style="width: 100%; align-items: center;">
+      <ion-col size="3">
+        <div style="height:85px;"> <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text> </div>
+      </ion-col>
+      <ion-col size="4.5">
+        <div class="skl-cst">
+          <p><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text> </p>
+          <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> </p>
+          <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </p>
+          <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> </p>
+          <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </p>
+        </div>
+      </ion-col>
+      <ion-col size="4.5">
+        <div class="skl-cst">
+          <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text> </p>
+          <p><ion-skeleton-text animated style="width: 55%"></ion-skeleton-text> </p>
+          <p><ion-skeleton-text animated style="width: 25%"></ion-skeleton-text> </p>
+          <p><ion-skeleton-text animated style="width: 65%"></ion-skeleton-text> </p>
+          <p><ion-skeleton-text animated style="width: 20%"></ion-skeleton-text> </p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-item>
+  <ion-item lines="full" detail="false">
+    <ion-row style="width: 100%; align-items: center;">
+      <ion-col size="3">
+        <div style="height:85px;"> <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text> </div>
+      </ion-col>
+      <ion-col size="4.5">
+        <div class="skl-cst">
+          <p><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text> </p>
+          <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> </p>
+          <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </p>
+          <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> </p>
+          <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </p>
+        </div>
+      </ion-col>
+      <ion-col size="4.5">
+        <div class="skl-cst">
+          <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text> </p>
+          <p><ion-skeleton-text animated style="width: 55%"></ion-skeleton-text> </p>
+          <p><ion-skeleton-text animated style="width: 25%"></ion-skeleton-text> </p>
+          <p><ion-skeleton-text animated style="width: 65%"></ion-skeleton-text> </p>
+          <p><ion-skeleton-text animated style="width: 20%"></ion-skeleton-text> </p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-item>
+</ion-list>
+
+<ion-list  *ngIf="(myBounties_Data)">
+<ion-item  button lines="full" detail="false"  *ngFor="let myb of myBounties_Data" >
+  <ion-row style="width: 100%; font-size: 14px; align-items: start;">
+    <ion-col size="3">
+      <div style="height:85px; padding-top: 10px;">  <img style="height:100%" [src]="myb.image"  onError="this.src='assets/no_img.jpeg'">  </div>
+    </ion-col>
+    <ion-col size="9">
+      <ion-row style="width:100%">
+        <ion-col  size="6"><ion-text style="font-weight:600;">Bounties Id</ion-text></ion-col>
+        <ion-col  size="6"><ion-text style="font-weight:500;">{{myb.bountiesid}}</ion-text></ion-col>
+      </ion-row>
+      <ion-row style="width:100%">
+        <ion-col  size="6"><ion-text style="font-weight:600;">Date</ion-text></ion-col>
+        <ion-col  size="6"><ion-text style="font-weight:500;">{{myb.date}}</ion-text></ion-col>
+      </ion-row>
+      <ion-row style="width:100%">
+        <ion-col  size="6"><ion-text style="font-weight:600;">Grading Company</ion-text></ion-col>
+        <ion-col  size="6"><ion-text style="font-weight:500;">{{myb.gradingCompany}}</ion-text></ion-col>
+      </ion-row>
+      <ion-row style="width:100%">
+        <ion-col  size="6"><ion-text style="font-weight:600;">Box Grade</ion-text></ion-col>
+        <ion-col  size="6"><ion-text style="font-weight:500;">{{myb.boxgrade}}</ion-text></ion-col>
+      </ion-row>
+      <ion-row style="width:100%">
+        <ion-col  size="6"><ion-text style="font-weight:600;">Seal Grade</ion-text></ion-col>
+        <ion-col  size="6"><ion-text style="font-weight:500;">{{myb.sealgrade}}</ion-text></ion-col>
+      </ion-row>
+      <ion-row style="width:100%">
+        <ion-col  size="6"><ion-text style="font-weight:600;">Bounty Range</ion-text></ion-col>
+        <ion-col  size="6"><ion-text style="font-weight:500;">{{myb.bountyrange}}</ion-text></ion-col>
+      </ion-row>
+      <ion-row style="width:100%">
+        <ion-col  size="6"><ion-text style="font-weight:600;">Status</ion-text></ion-col>
+        <ion-col  size="6"><ion-text style="font-weight:500;">{{myb.status}}</ion-text></ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+</ion-item>
+</ion-list>
+
+</ion-content>

@@ -1,0 +1,133 @@
+<ion-header  class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>Contact Us</ion-text>
+    <!-- <ion-title class="ion-text-start">Contact Us</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true"  [scrollEvents]="true">
+
+<ion-card  *ngIf="(thanks_active === false)">
+  <ion-card-header>
+    <ion-card-title style="font-weight: 600; opacity: 0.9;">Send Us A Message</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <form  #contactForm="ngForm" (ngSubmit)="contactForm.form.valid && contact_usForm()" novalidate>
+      <div>
+        <div class="inputLabel"><strong>Your Name</strong></div>
+        <ion-input type="text" class="inputBox" placeholder="Your Name" [(ngModel)]="userModal.name" name="name"
+                   #name="ngModel" required></ion-input>
+
+        <ion-text color="danger" *ngIf="(name.touched || contactForm.submitted) && name.errors?.required">
+          <p style="font-size: 12px;margin: 5px;">Name is required!</p>
+        </ion-text>
+      </div><br>
+
+      <div>
+        <div class="inputLabel"><strong>Email Address</strong></div>
+        <ion-input type="email" class="inputBox" placeholder="Email Address" [(ngModel)]="userModal.email" name="email"
+                   #email="ngModel" required email></ion-input>
+
+        <ion-text color="danger" *ngIf="(email.touched || contactForm.submitted) && email.errors?.required">
+          <p style="font-size: 12px;margin: 5px;">Email address is required!</p>
+        </ion-text>
+        <ion-text color="danger" *ngIf="(email.touched && email.errors?.email)">
+          <p style="font-size: 12px;margin: 5px;">Please enter a valid email address!</p>
+        </ion-text>
+      </div><br>
+
+
+      <div>
+        <div class="inputLabel"><strong>Your Phone</strong></div>
+        <ion-input type="tel" class="inputBox" placeholder="Your Phone" [(ngModel)]="userModal.phn" name="phn"
+                   #phn="ngModel" required></ion-input>
+
+        <ion-text color="danger" *ngIf="(phn.touched || contactForm.submitted) && phn.errors?.required">
+          <p style="font-size: 12px;margin: 5px;">Phone number is required!</p>
+        </ion-text>
+      </div><br>
+
+      <div>
+        <div class="inputLabel"><strong>Company</strong></div>
+        <ion-input type="text" class="inputBox" placeholder="Your Company" [(ngModel)]="userModal.company" name="company" #company="ngModel"></ion-input>
+      </div><br>
+
+      <div>
+        <div class="inputLabel"><strong>Message</strong></div>
+        <div class="inputBox">
+          <ion-textarea rows="2" placeholder="Type your message here..." autoGrow="true" [(ngModel)]="userModal.message" name="message" #message="ngModel"></ion-textarea>
+        </div>
+      </div><br>
+
+      <div> <ion-button type="submit" expand="block" style="--background: linear-gradient(92deg, #27F09D, #07ADEB) !important;--color: #ffffff !important"><strong>Submit</strong></ion-button>  </div>
+    </form><br>
+  </ion-card-content>
+</ion-card>
+
+
+<ion-card *ngIf="(thanks_active === true)">
+  <ion-card-header>
+    <ion-card-title style="font-weight: 600; opacity: 0.9;">Thank you!</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-toolbar style="--min-height:auto;border-radius: 4px;--background: transparent linear-gradient(142deg, rgba(39, 240, 157, 1) 0%, rgb(7, 173, 235) 100%) 0% 0%;--color:#fff;font-weight:600;">
+      <ion-title size="small" style="padding-inline: 6px;padding: 8px;font-weight:600;">Contact Us Enquery Send Successfully.</ion-title>
+    </ion-toolbar><br>
+    <ion-text>We have received your inquiry and will respond to you within 24 hours. For urgent inquiries please call us on the telephone number.</ion-text>
+    <br><br>
+  </ion-card-content>
+</ion-card>
+
+
+<div *ngIf="(thanks_active === false)">
+<br>
+  <div style="position: relative; bottom:0px; left:0px; right:0px; z-index: 2; background: #019bd9; color: #fff; letter-spacing: 0.5px; padding: 12px 15px;">
+    <div style="font-size: 18px; font-weight:800;">Contact</div><br>
+    <div style="display:flex;margin-bottom: 8px;align-items: start;">
+      <div style="width:10%;"><ion-icon name="mail-outline"></ion-icon></div>
+      <div style="width:90%;font-size:15px;font-weight: 700;">support@minusworlds.com</div>
+    </div>
+    <div style="display:flex;margin-bottom: 8px;align-items: start">
+      <div style="width:10%;"><ion-icon name="call-outline"></ion-icon></div>
+      <div style="width:90%;font-size:15px;font-weight: 700;">(661) 505-5398</div>
+    </div>
+    <div style="display:flex;margin-bottom: 8px;align-items: start">
+      <div style="width:10%;"><ion-icon name="location-outline"></ion-icon></div>
+      <div style="width:90%;font-size:15px;font-weight: 700;">28470 Avenue Stanford #345 Valencia, CA 91355</div>
+    </div>
+    <ion-toolbar style="--background: transparent;--color:#ffffff;">
+      <!-- <ion-buttons style="justify-content: center;">
+        <ion-button style="--color: #ffffff;" href="https://www.facebook.com/people/Minus-Worlds/100074460096219/">
+          <ion-icon slot="icon-only" name="logo-facebook"></ion-icon>
+        </ion-button>
+        <ion-button style="--color: #ffffff;" href="https://twitter.com/minus_worlds">
+          <ion-icon slot="icon-only" name="logo-twitter"></ion-icon>
+        </ion-button>
+        <ion-button style="--color: #ffffff;" href="https://www.instagram.com/mw_marketplace">
+          <ion-icon slot="icon-only" name="logo-instagram"></ion-icon>
+        </ion-button>
+      </ion-buttons> -->
+      <ion-buttons style="justify-content: center;">
+        <ion-button style="--color: #ffffff;" [href]="fb_link">
+          <ion-icon slot="icon-only" name="logo-facebook"></ion-icon>
+        </ion-button>
+        <ion-button style="--color: #ffffff;" [href]="tw_link">
+          <ion-icon slot="icon-only" name="logo-twitter"></ion-icon>
+        </ion-button>
+        <ion-button style="--color: #ffffff;" [href]="insta_link">
+          <ion-icon slot="icon-only" name="logo-instagram"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </div>
+</div>
+
+
+<!-- </div> -->
+</ion-content>

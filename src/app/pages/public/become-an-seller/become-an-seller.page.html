@@ -1,0 +1,119 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button text=""  defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>Become an Seller</ion-text>
+    <!-- <ion-title  class="ion-text-start">Become an Seller</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true"  [scrollEvents]="true">
+  <div *ngIf="(!mwsellerdetails_Data)" class="ion-padding">
+    <div style="margin-bottom: 60px;">
+      <div style="height: 25px; width: 70%; border-radius:2px; margin-bottom:25px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+      <div style="height: 200px; width: 100%; border-radius:2px; margin-bottom:12px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+      <div style="height: 200px; width: 100%; border-radius:2px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+    </div>
+    <div style="margin-bottom: 60px;">
+      <div style="height: 25px; width: 70%; border-radius:2px; margin-bottom:25px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+      <div style="height: 200px; width: 100%; border-radius:2px; margin-bottom:12px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+      <div style="height: 200px; width: 100%; border-radius:2px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+    </div>
+  </div>
+
+
+
+
+
+
+<div style="position:relative; min-height: 100%;">
+<div style="margin:2% 8px;">
+
+    <div style="font-size: 16px; font-weight:800; margin: 4% 0px 2%; letter-spacing: 0.5px;">{{mwsellerdetails_Data?.heading}}</div>
+    <div style="line-height: 1.6; font-size:15px; opacity: 0.8; margin-bottom: 8%; letter-spacing: 0.5px;" [innerHTML]="mwsellerdetails_Data?.content"></div>
+    
+
+    <div style="font-size: 16px; font-weight:800; margin: 4% 0px 2%; letter-spacing: 0.5px;">{{whychoosedetails_Data?.heading}}</div>
+
+<ion-accordion-group>
+  
+  <ion-accordion *ngFor="let fq of whychoosedetails_Data?.whychoosefaq" [value]="fq.heading">
+    <ion-item slot="header">
+      <ion-label style="color: #4e5863;">{{fq.heading}}</ion-label>
+    </ion-item>
+    <ion-list slot="content">
+      <div style="padding: 0px 4%; line-height: 1.6; font-size:15px; opacity: 0.8; margin-bottom: 8%; letter-spacing: 0.5px;" [innerHTML]="fq.content"></div>
+    </ion-list>
+  </ion-accordion>
+</ion-accordion-group>
+
+
+<div *ngIf="(ourteam_Data)" style="font-size: 16px; font-weight:800; margin: 10% 0px 4%; letter-spacing: 0.5px; text-align: center;">Our Team</div>
+  <div>
+  <ion-slides mode="md" class="cust-dt-slides" pager="true" [options]="slideOpts" style="overflow: visible;">
+    <ion-slide *ngFor="let ods of ourteam_Data">
+      <div style="width: 92%; padding: 4% 4%; background: #019bd9; color:#ffffff; border-radius: 20px;">
+            <div style="height:150px;">
+              <img [src]="ods.image" style="height:100%;">
+            </div>
+            <div style="font-weight:800;line-height: 1.6; font-size:15px; letter-spacing: 0.5px;">{{ods.name}}</div>
+            <div style="line-height: 1.6; font-size:15px; letter-spacing: 0.5px;">{{ods.designation}}</div>
+            <ion-toolbar style="--background: transparent;--color:#ffffff;">
+              <ion-buttons style="justify-content: center;">
+                <ion-button *ngIf="(ods.facebook)" style="--color: #ffffff;" [href]="ods.facebook">
+                  <ion-icon slot="icon-only" name="logo-facebook"></ion-icon>
+                </ion-button>
+                <ion-button *ngIf="(ods.twitter)" style="--color: #ffffff;" [href]="ods.twitter">
+                  <ion-icon slot="icon-only" name="logo-twitter"></ion-icon>
+                </ion-button>
+                <ion-button *ngIf="(ods.instagram)" style="--color: #ffffff;" [href]="ods.instagram">
+                  <ion-icon slot="icon-only" name="logo-instagram"></ion-icon>
+                </ion-button>
+                <ion-button *ngIf="(ods.linkedin)" style="--color: #ffffff;" [href]="ods.linkedin">
+                  <ion-icon slot="icon-only" name="logo-linkedin"></ion-icon>
+                </ion-button>
+                <ion-button *ngIf="(ods.skype)" style="--color: #ffffff;" [href]="ods.skype">
+                  <ion-icon slot="icon-only" name="logo-skype"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+      </div>
+    </ion-slide>
+  </ion-slides><br><br>
+  </div>
+</div>
+
+
+<!-- <div style=" position: absolute; bottom: 0px; left:0px; right:0px; display:block; width:100%; height:70px; background-image: url('assets/footer_bg.jpeg'); background-position: center;">
+  <div style="width:90%; margin:auto; position:relative; top: 50%; transform: translateY(-50%);">
+  <div style="display:inline-block;width:25%;">
+    <div style="height:30px;"><img src="assets/minus_logo.png" style="height:100%;"></div>
+  </div>
+  <div style="display:inline-block; color: #ffffff; width: 75%;font-size:14px; font-weight:800; line-height: 1.6; letter-spacing: 0.5px;opacity: 0.8;">
+      <div>Copyright © 2021 MinusWorlds.</div>
+      <div>All Rights Reserved.</div>
+  </div>
+  </div>
+</div> 
+
+
+
+
+<div style="display:block; width:100%; height:70px; background-image: url('assets/footer_bg.jpeg'); background-position: center; position: absolute; bottom: 0px;">
+  <div style="width:90%; margin:auto; position:relative; top: 50%; transform: translateY(-50%);">
+  <div style="display:inline-block;width:25%;">
+    <div style="height:30px;"><img src="assets/minus_logo.png" style="height:100%;"></div>
+  </div>
+  <div style="display:inline-block; color: #ffffff; width: 75%;font-size:14px; font-weight:800; line-height: 1.6; letter-spacing: 0.5px;opacity: 0.8;">
+      <div>Copyright © 2021 MinusWorlds.</div>
+      <div>All Rights Reserved.</div>
+  </div>
+  </div>
+</div>  -->
+
+</div>
+</ion-content>

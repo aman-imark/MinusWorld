@@ -1,0 +1,269 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button  icon="arrow-back"  text="" defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>Delivery Address</ion-text>
+    <!-- <ion-title class="ion-text-start">Delivery Address</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true"  [scrollEvents]="true"> <!-- (ionScroll)="onScroll($event)" -->
+<ion-toolbar *ngIf="(activeStepper === true)" style="--border-color: #dedede;--border-style: solid; --border-width: 0px 0px 1px 0px;">
+  <ion-row style="align-items: center;width: 100%;padding: 10px 10px 0px;">
+      <ion-col size="1.2"> 
+          <div class="dot-circle" [ngStyle]="{'border':on_addressBar === true ? '1px solid #07ADEB' : '1px solid #bbbbbb'}">
+              <div class="dot" [ngStyle]="{'background-color':on_addressBar === true ? '#07ADEB' : '#bbbbbb'}"></div>
+          </div> 
+      </ion-col>
+      <ion-col size="4.2"> 
+          <div>
+              <ion-progress-bar *ngIf="(on_paymentsBar === false || on_paymentsBar === undefiend)"></ion-progress-bar>
+              <ion-progress-bar *ngIf="(on_paymentsBar === true)" value="1" style="--progress-background:#07ADEB;"></ion-progress-bar>
+          </div> 
+      </ion-col>
+      <ion-col size="1.2"> 
+          <div class="dot-circle" [ngStyle]="{'border':on_paymentsBar === true ? '1px solid #07ADEB' : '1px solid #bbbbbb'}">
+              <div class="dot" [ngStyle]="{'background-color':on_paymentsBar === true ? '#07ADEB' : '#bbbbbb'}"></div>
+          </div> 
+      </ion-col>
+      <ion-col size="4.2"> 
+          <div>
+              <ion-progress-bar *ngIf="(on_paymentsBar === false || paymentsBar === undefiend)"></ion-progress-bar>
+              <ion-progress-bar *ngIf="(on_paymentsBar === true)" value="1" style="--progress-background:#07ADEB;"></ion-progress-bar>
+          </div> 
+      </ion-col>
+      <ion-col size="1.2"> 
+          <div class="dot-circle" [ngStyle]="{'border':on_summaryBar === true ? '1px solid #07ADEB' : '1px solid #bbbbbb'}">
+              <div class="dot" [ngStyle]="{'background-color':on_summaryBar === true ? '#07ADEB' : '#bbbbbb'}"></div>
+          </div> 
+      </ion-col>
+  </ion-row>
+  <ion-row style="align-items: center;width: 100%;padding: 0px 10px 10px; font-size: 12px;font-weight:600;">
+      <ion-col size="4" style="text-align: left;"> <div>Address</div> </ion-col>
+      <ion-col size="4" style="text-align: center;"> <div>Payments</div> </ion-col>
+      <ion-col size="4" style="text-align: right;"> <div>Summary</div> </ion-col>
+  </ion-row>
+</ion-toolbar> <br>
+
+
+
+<div *ngIf="(addressView === false)" style="margin: 0px 10px;">
+    <ion-accordion-group value="shippingAddrs">
+    <ion-accordion value="shippingAddrs">
+      <ion-item lines="none" slot="header">
+        <ion-label style="font-weight:600;">Shipping Details</ion-label>
+      </ion-item>
+
+      <div slot="content" style="padding: 10px 5px;">
+        <p *ngIf="(validation === true)" style="margin: 0px 10px 10px;font-size: 10px;font-weight: 600;color: #eb445a;">*All fields are required, please fill correctlly.</p>
+        <div>
+          <ion-input type="text" class="inputBox" placeholder="First Name*" [(ngModel)]="usd_firstname" (ionInput)="spaceRest($event)"></ion-input>
+        </div><br>
+        <div>
+          <ion-input type="text" class="inputBox" placeholder="Last Name*" [(ngModel)]="usd_lastname" (ionInput)="spaceRest($event)"></ion-input>
+        </div><br>
+        <div>
+          <ion-input type="text" class="inputBox" placeholder="Address*" [(ngModel)]="usd_address" (ionInput)="spaceRest($event)"></ion-input>
+        </div><br>
+        <div>
+          <ion-input type="text" class="inputBox" placeholder="Apartment, Suite, Unit" [(ngModel)]="usd_apartment" (ionInput)="spaceRest($event)"></ion-input>
+        </div><br>
+        <div>
+          <ion-input type="text" class="inputBox" placeholder="Town / City*" [(ngModel)]="usd_city" (ionInput)="spaceRest($event)"></ion-input>
+        </div><br>
+
+        <div>
+          <ion-input type="text" class="inputBox" (click)="open_addCountryModal_ship()" placeholder="Select Country*" [(ngModel)]="usd_country" readonly></ion-input>
+          <ion-input type="tel" placeholder="country id*" [(ngModel)]="usd_countryid" readonly hidden></ion-input> 
+        </div><br>
+
+
+
+        <div  *ngIf="(usd_countryid == '38' || usd_countryid == '223')">
+          <div>
+            <ion-input type="text" class="inputBox" (click)="open_addStateModal_ship()" placeholder="Select State*" [(ngModel)]="usd_state" readonly></ion-input>
+            <ion-input type="tel" placeholder="state id*" [(ngModel)]="usd_stateid" readonly hidden></ion-input>
+          </div><br>
+        </div>
+        
+
+        <div  *ngIf="(usd_countryid != '38' && usd_countryid != '223')">
+          <div>
+              <ion-input type="text" class="inputBox" placeholder="State Name*" [(ngModel)]="usd_state" (ionInput)="spaceRest($event)"></ion-input>
+          </div><br>
+        </div>
+        
+
+        <div>
+           <ion-input type="tel" maxlength="6" class="inputBox" placeholder="Postcode / Zip*" [(ngModel)]="usd_zip" (ionInput)="countChange($event)"></ion-input>
+        </div><br>
+        <div>
+           <ion-input type="tel" maxlength="10" class="inputBox" placeholder="Phone*" [(ngModel)]="usd_phone" (ionInput)="countChange($event)"></ion-input>
+        </div><br>
+      </div>
+    </ion-accordion>
+    </ion-accordion-group>
+    <br *ngIf="(isSameAddress === false)">
+
+
+
+    <ion-accordion-group *ngIf="(isSameAddress === false)" value="billingAddrs">
+    <ion-accordion value="billingAddrs">
+      <ion-item lines="none" slot="header">
+        <ion-label style="font-weight:600;">Billing Details</ion-label>
+      </ion-item>
+  
+      <div slot="content" style="padding: 10px 5px;">
+        <div>
+          <ion-input type="text" class="inputBox" placeholder="First Name*" [(ngModel)]="ubd_firstname" (ionInput)="spaceRest($event)"></ion-input>
+        </div><br>
+        <div>
+          <ion-input type="text" class="inputBox" placeholder="Last Name*" [(ngModel)]="ubd_lastname" (ionInput)="spaceRest($event)"></ion-input>
+        </div><br>
+        <div>
+          <ion-input type="text" class="inputBox" placeholder="Address*" [(ngModel)]="ubd_address" (ionInput)="spaceRest($event)"></ion-input>
+        </div><br>
+        <div>
+          <ion-input type="text" class="inputBox" placeholder="Apartment, Suite, Unit" [(ngModel)]="ubd_apartment" (ionInput)="spaceRest($event)"></ion-input>
+        </div><br>
+        <div>
+          <ion-input type="text" class="inputBox" placeholder="Town / City*" [(ngModel)]="ubd_city" (ionInput)="spaceRest($event)"></ion-input>
+        </div><br>
+
+        <div>
+          <ion-input type="text" class="inputBox" (click)="open_addCountryModal_bill()" placeholder="Select Country*" [(ngModel)]="ubd_country" readonly></ion-input>
+          <ion-input type="tel" placeholder="country id*" [(ngModel)]="ubd_countryid" readonly hidden></ion-input>
+        </div><br>
+
+
+        <div  *ngIf="(ubd_countryid == '38' || ubd_countryid == '223')">
+          <div>
+            <ion-input type="text" class="inputBox" (click)="open_addStateModal_bill()" placeholder="Select State*" [(ngModel)]="ubd_state" readonly></ion-input>
+            <ion-input type="tel" placeholder="state id*" [(ngModel)]="ubd_stateid" readonly hidden></ion-input>
+          </div><br> 
+        </div> 
+
+
+        <div  *ngIf="(ubd_countryid != '38' && ubd_countryid != '223')">
+          <div>
+              <ion-input type="text" class="inputBox" placeholder="State Name*" [(ngModel)]="ubd_state" (ionInput)="spaceRest($event)"></ion-input>
+          </div><br>
+        </div>
+
+
+         
+        <div>
+           <ion-input type="tel" maxlength="6" class="inputBox" placeholder="Postcode / Zip*" [(ngModel)]="ubd_zip" (ionInput)="countChange($event)"></ion-input>
+        </div><br>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+
+  <ion-item lines="none">
+    <ion-checkbox slot="start" [(ngModel)]="isSameAddress"  (ionChange)="check_Address_checkbox_value($event)" style="margin-inline-end: 15px !important;"></ion-checkbox>
+    <ion-label style="opacity: 0.8; font-size: 15px;">Is your billing address the same as shipping address?</ion-label>
+  </ion-item>
+
+<br>
+</div>
+
+
+<div *ngIf="(addressView === true)">
+
+<ion-card>
+  <ion-card-content>
+    <div style="margin-bottom:10px;">
+       <ion-label style="font-weight:600;font-size: 16px;color:#333232;">Shipping Address</ion-label>
+    </div>
+    <div>
+      <ion-label>
+        <h3 *ngIf="(updAddr.ship_firstname)" style="line-height:4vh;font-weight: 600 !important;"><span>{{updAddr.ship_firstname}}</span><span>&nbsp;&nbsp;{{updAddr.ship_lastname}}</span></h3>
+        <p *ngIf="(updAddr.ship_address)" style="font-weight: 600 !important;">{{updAddr.ship_address}}</p>
+        <p *ngIf="(updAddr.ship_apartment)" style="font-weight: 600 !important;">{{updAddr.ship_apartment}}</p>
+        <p *ngIf="(updAddr.ship_zip)" style="font-weight: 600 !important;">{{updAddr.ship_zip}}</p>
+        <p style="font-weight: 600 !important;">
+          <span *ngIf="(updAddr.ship_city)">{{updAddr.ship_city}}</span>
+          <span  *ngIf="(updAddr.ship_state_name)">,&nbsp;&nbsp;&nbsp;{{updAddr.ship_state_name}}</span>
+          <span  *ngIf="(updAddr.ship_country_name)">,&nbsp;&nbsp;&nbsp;{{updAddr.ship_country_name}}</span>
+        </p>
+        <p *ngIf="(updAddr.ship_phn)" style="font-weight: 600 !important;">{{updAddr.ship_phn}}</p>
+      </ion-label>
+    </div>
+  </ion-card-content>
+</ion-card>
+
+
+<ion-card>
+  <ion-card-content>
+    <div style="margin-bottom:10px;">
+       <ion-label style="font-weight:600;font-size: 16px;color:#333232;">Billing Address</ion-label>
+    </div>
+    <div>    
+      <ion-label>
+        <h3 *ngIf="(updAddr.bill_firstname)" style="line-height:4vh;font-weight: 600 !important;">{{updAddr.bill_firstname}}&nbsp;&nbsp;{{updAddr.bill_lastname}}</h3>
+        <p *ngIf="(updAddr.bill_address)" style="font-weight: 600 !important;">{{updAddr.bill_address}}</p>
+        <p *ngIf="(updAddr.bill_apartment)" style="font-weight: 600 !important;">{{updAddr.bill_apartment}}</p>
+        <p *ngIf="(updAddr.bill_zip)" style="font-weight: 600 !important;">{{updAddr.bill_zip}}</p>
+        <p style="font-weight: 600 !important;">
+          <span *ngIf="(updAddr.bill_city)">{{updAddr.bill_city}}</span>
+          <span  *ngIf="(updAddr.bill_state_name)">,&nbsp;&nbsp;&nbsp;{{updAddr.bill_state_name}}</span>
+          <span  *ngIf="(updAddr.bill_country_name)">,&nbsp;&nbsp;&nbsp;{{updAddr.bill_country_name}}</span>
+        </p>
+        <p *ngIf="(updAddr.bill_phn)" style="font-weight: 600 !important;">{{updAddr.bill_phn}}</p>
+      </ion-label>
+    </div>
+
+
+  </ion-card-content>
+</ion-card>
+
+
+<ion-item lines="none" button detail="true" (click)="editAddress_Enable()" color="light" style="font-weight:600;font-size:14px;">Edit address</ion-item>
+</div>
+
+
+</ion-content>
+
+
+<ion-footer style="background:#fff;">
+  <div style="display:flex; justify-content: space-between; align-items: center;margin: 12px 10px;">
+    <div style="width:100%;">
+      <ion-button *ngIf="(addressView === false)" expand="block" type="button"   (click)="user_Address_Update()" style="--background: linear-gradient(92deg, #27F09D, #07ADEB) !important;--color: #ffffff !important">Deliver to this Address</ion-button>
+      <ion-button *ngIf="(addressView === true)" expand="block" type="button"   (click)="user_goto_Payments()" style="--background: linear-gradient(92deg, #27F09D, #07ADEB) !important;--color: #ffffff !important">Continue</ion-button>
+    </div>
+  </div>
+</ion-footer>
+
+
+
+
+
+<!-- 
+{
+  "status": "success",
+  "message": "Delivery Address",
+  "FirstName": "Debasis",
+  "LastName": "Satpathy",
+  "ShippingAddressDetails": {
+      "Address": "My Street",
+      "Apartment": "",
+      "City": "Toronto",
+      "State": null,
+      "Country": "",
+      "Zip": "M5J 2N8",
+      "Phone": "1234567890"
+  },
+  "BillinAddressDetails": {
+      "Address": "My Street",
+      "Apartment": "",
+      "City": "Toronto",
+      "State": null,
+      "Country": "",
+      "Zip": "M5J 2N8"
+  }
+}
+ -->
+

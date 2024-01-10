@@ -1,0 +1,395 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button  icon="arrow-back"  text="" defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>Dashboard</ion-text>
+    <!-- <ion-title class="ion-text-start">Dashboard</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+
+
+<div *ngIf="(no_data === true)">
+  <div style="display:flex; justify-content: space-between;margin: auto;width: 94%;">
+     <div style="width:40%;">
+       <ion-skeleton-text animated style="width: 100%;height:35px;border-radius:8px;"></ion-skeleton-text>
+    </div>
+     <div style="width:40%">
+      <ion-skeleton-text animated style="width: 100%;height:35px;border-radius:8px;"></ion-skeleton-text>
+    </div>
+  </div><br>
+  <div style="display:flex; justify-content: space-between;margin: auto;width: 94%;">
+    <div style="width:48%;">
+      <ion-skeleton-text animated style="width: 100%;height:150px;border-radius:8px;"></ion-skeleton-text>
+    </div>
+    <div style="width:48%;">
+      <ion-skeleton-text animated style="width: 100%;height:150px;border-radius:8px;"></ion-skeleton-text>
+    </div>
+  </div><br><br>
+  <div style="display:flex; justify-content: space-between;margin: auto;width: 94%;">
+    <div style="width:48%;">
+      <ion-skeleton-text animated style="width: 100%;height:35px;border-radius:8px;"></ion-skeleton-text>
+    </div>
+    <div style="width:48%;">
+      <ion-skeleton-text animated style="width: 100%;height:35px;border-radius:8px;"></ion-skeleton-text>
+    </div>
+  </div><br>
+
+  <ion-list>
+    <ion-item lines="full" detail="false">
+      <ion-row style="width: 100%; align-items: center;">
+        <ion-col size="3">
+          <div style="height:85px;"> <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text> </div>
+        </ion-col>
+        <ion-col size="4.5">
+          <div class="skl-cst">
+            <p><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </p>
+          </div>
+        </ion-col>
+        <ion-col size="4.5">
+          <div class="skl-cst">
+            <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 55%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 25%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 65%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 20%"></ion-skeleton-text> </p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item lines="full" detail="false">
+      <ion-row style="width: 100%; align-items: center;">
+        <ion-col size="3">
+          <div style="height:85px;"> <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text> </div>
+        </ion-col>
+        <ion-col size="4.5">
+          <div class="skl-cst">
+            <p><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </p>
+          </div>
+        </ion-col>
+        <ion-col size="4.5">
+          <div class="skl-cst">
+            <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 55%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 25%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 65%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 20%"></ion-skeleton-text> </p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list><br><br>
+</div>
+
+
+<div  *ngIf="(no_data === false)">
+<div  *ngIf="(user_role === '1')">  <!--  If Buyer   *ngIf="(user_role === '1')"-->
+  <div style="margin:10px 0px 0px;">
+    <ion-item lines="none">
+      <ion-label><strong>Status</strong></ion-label>
+      <ion-select value="month" okText="Okay" cancelText="Dismiss" (ionChange)="filterDashboardData_Buyer($event.target.value)" style="font-size: 14px;border: 1px solid #E9E9E9;border-radius: 6px;">
+        <ion-select-option value="year">This Year</ion-select-option>
+        <ion-select-option value="month">This Month</ion-select-option>
+        <ion-select-option value="week">This Week</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div><br>
+  <div *ngIf="(user_role === '1')" class="option_op">
+      <ion-row style="width: 96%;margin: auto;">    
+        <ion-col size="6">
+          <ion-item button  lines="none"  detail="false" style="--background:#E1F6FE;">
+          <div style="display:flex; align-items: center;height: 160px; width: 100%; overflow:hidden;">
+          <div style="width: 100%;  overflow: hidden;text-align:center;color: #212529;">
+             <div style="height:34px;"><img src="assets/a.png" style="height:100%;"></div>
+             <div style="width:92%; margin: 10px auto 0px; font-size: 15px;font-weight:600;">Total Orders</div>
+             <div *ngIf="(by_total_order)" style="width:92%; margin: 10px auto 0px; font-size: 15px;font-weight:600;">${{by_total_order | number}}</div>
+             <div *ngIf="(!by_total_order)" style="width:92%; margin: 10px auto 0px; font-size: 15px;font-weight:600;">$0</div>
+          </div>
+          </div>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item button  lines="none"  detail="false" style="--background:#FFEDED;">
+          <div style="display:flex; align-items: center;height: 160px; width: 100%; overflow:hidden;">
+          <div style="width: 100%; overflow: hidden;text-align:center;color: #212529;">
+             <div style="height:34px;"><img src="assets/b.png" style="height:100%;"></div>
+             <div style="width:92%; margin: 10px auto 0px; font-size: 15px;font-weight:600;">Pending Deliveries</div>
+             <div *ngIf="(by_pending_deliveries)" style="width:92%; margin: 10px auto 0px; font-size: 15px;font-weight:600;">${{by_pending_deliveries  | number}}</div>
+             <div *ngIf="(!by_pending_deliveries)" style="width:92%; margin: 10px auto 0px; font-size: 15px;font-weight:600;">$0</div>
+             <!-- <div style="width:92%; margin: 4% auto 0px; font-size: 15px; height: 20px; overflow:hidden; text-overflow: ellipsis; white-space: nowrap;"><a>See details</a></div> -->
+          </div>
+          </div>
+          </ion-item>
+        </ion-col>
+        </ion-row><br>
+  </div>
+
+  <div *ngIf="(user_role === '1' && by_recent_sales?.length == 0)"><br>
+     <div style="text-align: center;font-size: 16px;font-weight:600;color:#212529;">No recent data found!</div><br><br>
+  </div>
+  <div *ngIf="(user_role === '1' && by_recent_sales?.length >= 1)">
+    <ion-item lines="none">
+      <ion-label><strong>Recent Orders</strong></ion-label>
+      <ion-button  size="small" style="--background: linear-gradient(92deg, #27F09D, #07ADEB) !important;--color: #ffffff !important">See all Orders</ion-button>
+    </ion-item>  
+    <ion-list  *ngIf="(by_recent_sales)"><br>
+      <ion-item  button lines="full" detail="false"  *ngFor="let by_rs of by_recent_sales" >
+        <ion-row style="width: 100%; font-size: 14px; align-items: start;">
+          <ion-col size="3">
+            <div style="height: 85px;padding: 10px;
+            background: #EFF3FF;border-radius: 8px;
+            text-align: center;">  <img style="height:100%" [src]="by_rs.Photos"  onError="this.src='assets/no_img.jpeg'">  </div>
+          </ion-col>
+          <ion-col size="9">
+            <ion-row style="width:100%" *ngIf="(by_rs.OrderID)">
+              <ion-col  size="6"><ion-text style="font-weight:600;">Order Id</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight:600;">#{{by_rs.OrderID}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%">
+              <ion-col  size="6"><ion-text style="font-weight:600;">Name</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight:600;">{{by_rs.Name}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%">
+              <ion-col  size="6"><ion-text style="font-weight:600;">Product Type</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight:600;color:#212529;">{{by_rs.ProductType}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%">
+              <ion-col  size="6"><ion-text style="font-weight:600;">Ordered Date</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight:600;color:#212529;">{{by_rs.OrderedDate}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%"  *ngIf="(by_rs.Price)">
+              <ion-col  size="6"><ion-text style="font-weight:600;">Price</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight:600;">${{by_rs.Price}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%"  *ngIf="(by_rs.status)">
+              <ion-col  size="6"><ion-text style="font-weight:600;">Status</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight:600;">{{by_rs.status}}</ion-text></ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+          <!-- <div style="text-align:center;font-weight:700;font-size:15px;margin:4% 0px;">
+      <a>See all Orders</a>
+    </div> -->
+      </ion-list>
+  </div>
+</div>   <!-- buyer end here -->
+
+
+
+<div  *ngIf="(user_role === '2')"> <!-- Seller Section *ngIf="(user_role === '2')" -->
+  <div style="margin:10px 0px 0px;">
+    <ion-item lines="none">
+      <ion-label><strong>Status</strong></ion-label>
+      <ion-select value="month" okText="Okay" cancelText="Dismiss" (ionChange)="filterDashboardData_Seller($event.target.value)" style="font-size: 14px;border: 1px solid #E9E9E9;border-radius: 6px;">
+        <ion-select-option value="year">This Year</ion-select-option>
+        <ion-select-option value="month">This Month</ion-select-option>
+        <ion-select-option value="week">This Week</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div><br>
+  <div class="option_op2">
+    <ion-row>
+      <ion-col size="0.5"></ion-col>  
+      <ion-col size="6">
+        <ion-item button  lines="none"  detail="false" style="--background:#E1F6FE;">
+        <div style="display:flex; align-items: center;height: 160px; width: 100%; overflow:hidden;">
+        <div style="width: 100%;  overflow: hidden;text-align:center;color: #212529;">
+           <div style="height:34px;"><img src="assets/c.png" style="height:100%;"></div>
+           <div style="width:92%;  margin: 10px auto 0px; font-size: 15px;font-weight:600;">Total Sales</div>
+           <div *ngIf="(sl_total_sales)" style="width:92%;  margin: 10px auto 0px; font-size: 15px;font-weight:600;">${{sl_total_sales | number}}</div>
+           <div *ngIf="(!sl_total_sales)" style="width:92%; margin: 10px auto 0px; font-size: 15px;font-weight:600;">$0</div>
+        </div>
+        </div>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item button  lines="none"  detail="false" style="--background:#FFF0DC;">
+        <div style="display:flex; align-items: center;height: 160px; width: 100%; overflow:hidden;">
+        <div style="width: 100%; overflow: hidden;text-align:center;color: #212529;">
+           <div style="height:34px;"><img src="assets/d.png" style="height:100%;"></div>
+           <div style="width:92%;  margin: 10px auto 0px; font-size: 15px;font-weight:600;">Awaiting Confirmation</div>
+           <div *ngIf="(sl_awaiting_confirmation)" style="width:92%; margin: 10px auto 0px; font-size: 15px;font-weight:600;">${{sl_awaiting_confirmation | number}}</div>
+           <div *ngIf="(!sl_awaiting_confirmation)" style="width:92%; margin: 10px auto 0px; font-size: 15px;font-weight:600;">$0</div>
+        </div>
+        </div>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item button  lines="none"  detail="false" style="--background:#4caf501c;">
+        <div style="display:flex; align-items: center;height: 160px; width: 100%; overflow:hidden;">
+        <div style="width: 100%; overflow: hidden;text-align:center;color: #212529;">
+           <div style="height:34px;"><img src="assets/e.png" style="height:100%;"></div>
+           <div style="width:92%; margin: 10px auto 0px; font-size: 15px;font-weight:600;">Total Orders</div>
+           <div *ngIf="(sl_total_order)" style="width:92%; margin: 10px auto 0px; font-size: 15px;font-weight:600;">${{sl_total_order | number}}</div>
+           <div *ngIf="(!sl_total_order)" style="width:92%; margin: 10px auto 0px; font-size: 15px;font-weight:600;">$0</div>
+        </div>
+        </div>
+        </ion-item>
+      </ion-col>
+      <ion-col size="0.5"></ion-col>
+      </ion-row><br>
+</div>
+<div style="text-align: center;">
+  <ion-button  (click)="add_product_Clicked()" size="default" style="--background: linear-gradient(92deg, #27F09D, #07ADEB) !important;--color: #ffffff !important">
+    <ion-icon name="add-circle-outline"></ion-icon>&nbsp;Add Products
+  </ion-button><br><br><br>
+</div>
+
+
+
+
+<div style="margin:0px 8px;">
+  <ion-segment class="comman" (ionChange)="segmentChanged($event)" [(ngModel)]="value_segmentChanged" style="--background:transparent;" scrollable>
+    <ion-segment-button value="recent_sales">
+      <ion-label>Recent Sales</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="delivered">
+      <ion-label>Delivered</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</div>
+
+
+
+<div class="order_op">
+  <div *ngIf="value_segmentChanged === 'recent_sales'" >
+    <div *ngIf="(user_role === '2' && !sl_recent_sales)"><br><br>
+      <div style="text-align: center;font-size: 16px;font-weight:600;color:#212529;">No recent data found!</div><br><br>
+    </div>
+    <ion-list *ngIf="(user_role === '2' && sl_recent_sales)">
+      <br>
+      <ion-item  button lines="full" detail="false"  *ngFor="let sl_rs of sl_recent_sales" >
+        <ion-row style="width: 100%; font-size: 14px; align-items: start;">
+          <ion-col size="3">
+            <div style="height: 85px;padding: 10px;
+            background: #EFF3FF;border-radius: 8px;
+            text-align: center;">  <img style="height:100%" [src]="sl_rs.Photos"  onError="this.src='assets/no_img.jpeg'">  </div>
+          </ion-col>
+          <ion-col size="9">
+            <ion-row style="width:100%" *ngIf="(sl_rs.OrderID)">
+              <ion-col  size="6"><ion-text style="font-weight:600;">Order Id</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight:600;">#{{sl_rs.OrderID}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%">
+              <ion-col  size="6"><ion-text style="font-weight:600;">Name</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight:600;">{{sl_rs.Name}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%">
+              <ion-col  size="6"><ion-text style="font-weight:600;">Product Type</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight:600;color:#212529;">{{sl_rs.ProductType}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%">
+              <ion-col  size="6"><ion-text style="font-weight:600;">Ordered Date</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight:600;color:#212529;">{{sl_rs.OrderedDate}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%" *ngIf="(sl_rs.Price)">
+              <ion-col  size="6"><ion-text style="font-weight:600;">Price</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight:600;">${{sl_rs.Price}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%" *ngIf="(sl_rs.status)">
+              <ion-col  size="6"><ion-text style="font-weight:600;">Status</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight:600;">{{sl_rs.status}}</ion-text></ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+      <!-- <div style="text-align:center;font-weight:700;font-size:15px;margin:4% 0px;">
+        <a>See all Orders</a>
+      </div> -->
+    </ion-list>
+  </div>
+
+
+
+  <div *ngIf="value_segmentChanged === 'delivered'" >
+    <div *ngIf="(user_role === '2' && !sl_delivered)"><br><br>
+      <div style="text-align: center;font-size: 16px;font-weight:600;color:#212529;">No delivered data found!</div><br><br>
+    </div>
+    <ion-list *ngIf="(user_role === '2' && sl_recent_sales)">
+      <br>
+      <ion-item  button lines="full" detail="false"  *ngFor="let sl_dlr of sl_delivered" >
+        <ion-row style="width: 100%; font-size: 14px; align-items: start;">
+          <ion-col size="3">
+            <div style="height: 85px;padding: 10px;
+            background: #EFF3FF;border-radius: 8px;
+            text-align: center;">  <img style="height:100%" [src]="sl_dlr.Photos"  onError="this.src='assets/no_img.jpeg'">  </div>
+          </ion-col>
+          <ion-col size="9">
+            <ion-row style="width:100%" *ngIf="(sl_dlr.OrderID)">
+              <ion-col  size="6"><ion-text style="font-weight:600;">Order Id</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight:600;">#{{sl_dlr.OrderID}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%">
+              <ion-col  size="6"><ion-text style="font-weight:600;">Name</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight:600;">{{sl_dlr.Name}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%">
+              <ion-col  size="6"><ion-text style="font-weight:600;">Product Type</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight:600;color:#212529;">{{sl_dlr.ProductType}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%">
+              <ion-col  size="6"><ion-text style="font-weight:600;">Ordered Date</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight:600;color:#212529;">{{sl_dlr.OrderedDate}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%" *ngIf="(sl_dlr.Price)">
+              <ion-col  size="6"><ion-text style="font-weight:600;">Price</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight:600;">${{sl_dlr.Price}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%" *ngIf="(sl_dlr.status)">
+              <ion-col  size="6"><ion-text style="font-weight:600;">Status</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight:600;">{{sl_dlr.status}}</ion-text></ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+      <!-- <div style="text-align:center;font-weight:700;font-size:15px;margin:4% 0px;">
+        <a>See all Orders</a>
+      </div> -->
+    </ion-list>
+      <!-- <ion-item button lines="full" detail="false">
+        <ion-row style="width: 100%; font-size: 14px; align-items: center;">
+          <ion-col size="3">
+            <div style="height:85px;">  <img style="height:100%" src="assets/ghost_bt/ghost_bt.png">  </div>
+          </ion-col>
+          <ion-col size="4.5">
+            <div style="opacity:0.8;line-height:1.85;letter-spacing: 0.4px;">
+              <div>Order Id</div>
+              <div>Name</div>
+              <div>Product Type</div>
+              <div>Ordered Date</div>
+              <div>Price</div>
+              <div>Status</div>
+            </div>
+          </ion-col>
+          <ion-col size="4.5">
+            <div style="font-weight:700;line-height:1.85;letter-spacing: 0.4px;">
+              <div>#594622</div>
+              <div>Ghostbusters</div>
+              <div>Console</div>
+              <div>10 Dec, 2021</div>
+              <div>$400</div>
+              <div>Delivered</div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-item> -->
+  </div>
+</div>
+</div> <!-- Seller end here  -->
+
+</div>
+</ion-content>

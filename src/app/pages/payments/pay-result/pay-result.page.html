@@ -1,0 +1,50 @@
+<ion-header  class="ion-no-border">
+  <ion-toolbar style="--background: #fffffff;">
+    <ion-buttons slot="start">
+      <ion-back-button  icon="arrow-back"  text="" defaultHref="/maintabs/tabs/tab1"   [routerLink]="['/maintabs/tabs/tab1']" style="color: #797979;"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <div  *ngIf="(paymentResShow === true)" style="display: flex;align-items: center;height: 100%;width: 100%;justify-content: center;flex-direction: column;">
+   
+    <div style="height:200px;"><img src="assets/images/success.png" style="height:100%;"></div>
+    <ion-text style="text-align: center;font-weight: 600;color: #000000dd;font-size:20px;margin-bottom:10px;">Payment Successfully.</ion-text>
+    <!-- <ion-text style="text-align: center;font-weight: 600;color: #00000080;">You successfully placed your Order</ion-text> -->
+    <!-- <ion-chip color="success">
+      <ion-icon name="download"></ion-icon>
+      <ion-label style="font-weight: 600;;">Download Reciept</ion-label>
+    </ion-chip> -->
+  </div>
+
+
+
+  <div  *ngIf="(paymentResShow === false)" style="display: flex;align-items: center;height: 100%;width: 100%;justify-content: center;flex-direction: column;">
+   
+    <div style="height:200px;"><img src="assets/images/success.png" style="height:100%;"></div>
+    <ion-text style="text-align: center;font-weight: 600;color: #ff0000ab;font-size:20px;margin-bottom:10px;">Payment failed!</ion-text>
+    <!-- <ion-text style="text-align: center;font-weight: 600;color: #00000080;">You successfully placed your Order</ion-text> -->
+    <!-- <ion-chip color="success">
+      <ion-icon name="download"></ion-icon>
+      <ion-label style="font-weight: 600;;">Download Reciept</ion-label>
+    </ion-chip> -->
+  </div>
+
+
+</ion-content>
+
+<ion-footer *ngIf="(paymentResShow === true || paymentResShow === false)"  style="background:#fff;">
+  <div  *ngIf="(paymentResShow === true)"  style="display:flex; justify-content: space-between; align-items: center;margin: 12px 10px;">
+    <div style="width:100%;">
+      <ion-button expand="block" type="button"  [routerLink]="['/maintabs/tabs/tab1']" style="--background: linear-gradient(92deg, #27F09D, #07ADEB) !important;--color: #ffffff !important">Done</ion-button>
+    </div>
+  </div>
+  <div  *ngIf="(paymentResShow === false)"  style="display:flex; justify-content: space-between; align-items: center;margin: 12px 10px;">
+    <div style="width:100%;">
+      <ion-button expand="block" type="button"  [routerLink]="['/maintabs/tabs/tab1']" style="--background: linear-gradient(92deg, #27F09D, #07ADEB) !important;--color: #ffffff !important">Go Back</ion-button>
+    </div>
+  </div>
+</ion-footer>

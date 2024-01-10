@@ -1,0 +1,331 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons> -->
+
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>Add Product</ion-text>
+    <!-- <ion-title class="ion-text-start">Add Product</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content [fullscreen]="true"> 
+
+  <!-- productAddForm.form.valid &&  -->
+  <div *ngIf="(prod_added === true)"  style="display:flex;flex-direction:column; align-items: center;justify-content: center;height:100%;font-weight:600;color: #666666;">
+    <div><ion-icon name="checkmark-done-outline" style="font-size: 40px;margin-bottom: 10px;color: #27F09D;"></ion-icon></div>
+     {{product_message}}
+  </div>
+
+<div *ngIf="(prod_added === false)" style="margin:0px 8px;"> 
+
+  <form  #productAddForm="ngForm" (ngSubmit)="productAddForm.form && productAdd_formData(productAddForm.form)" novalidate>
+    <div class="comman">
+      <div class="inputLabel"><strong>Console</strong></div>
+      <ion-select class="inputBox" placeholder="Select Console" [(ngModel)]="userModal.console" name="console" #console="ngModel" required>
+        <ion-select-option [value]="cnd.id"  *ngFor="let cnd of consoleData">{{cnd.console}}</ion-select-option>
+      </ion-select>
+      <ion-text color="danger" *ngIf="productAddForm.submitted && console.errors?.required">
+        <p style="font-size: 12px;margin: 5px;">Please select Console!</p>
+      </ion-text>
+    </div>
+
+
+
+    <div class="comman">
+      <div class="inputLabel"><strong>Type of Product</strong></div>
+      <ion-select class="inputBox" placeholder="Select Type of Product" [(ngModel)]="userModal.prod_typ" name="prod_typ" #prod_typ="ngModel" required>
+        <ion-select-option [value]="ptd.id" *ngFor="let ptd of productTypeData">{{ptd.prodtype}}</ion-select-option>
+      </ion-select>
+      <ion-text color="danger" *ngIf="productAddForm.submitted && prod_typ.errors?.required">
+        <p style="font-size: 12px;margin: 5px;">Please select Type of Product!</p>
+      </ion-text>
+    </div>
+
+
+
+    <div class="comman">
+      <div class="inputLabel"><strong>Type of Video Game</strong></div>
+      <ion-select class="inputBox"  placeholder="Select Type of Video Game" [(ngModel)]="userModal.video_game_typ" name="video_game_typ" #video_game_typ="ngModel" required>
+        <ion-select-option  [value]="vdg.id" *ngFor="let vdg of videoGameTypeData">{{vdg.videogametype}}</ion-select-option>
+      </ion-select>
+      <ion-text color="danger" *ngIf="(video_game_typ.touched || productAddForm.submitted) && video_game_typ.errors?.required">
+        <p style="font-size: 12px;margin: 5px;">Please select Type of Video Game!</p>
+      </ion-text>
+    </div>
+
+
+
+    <div class="comman">
+      <div class="inputLabel"><strong>Title</strong></div>
+      <ion-input type="text" class="inputBox" placeholder="Enter Product Name" [(ngModel)]="userModal.prodname" name="prodname" #prodname="ngModel" required></ion-input>
+      <ion-text color="danger" *ngIf="(prodname.touched || productAddForm.submitted) && prodname.errors?.required">
+        <p style="font-size: 12px;margin: 5px;">Please enter the product title!</p>
+      </ion-text>
+    </div>
+
+    <div class="comman">
+      <div class="inputLabel"><strong>Game Developer</strong></div>
+      <ion-select class="inputBox"  placeholder="Select Game Developer" [(ngModel)]="userModal.game_developer" name="game_developer">
+        <ion-select-option  [value]="gdp.id" *ngFor="let gdp of gameDeveloperData">{{gdp.gamedeveloper}}</ion-select-option>
+      </ion-select>
+    </div>
+
+    <div class="comman">
+      <div class="inputLabel"><strong>Year of Release</strong></div>
+      <ion-input type="tel" class="inputBox" maxlength="4" placeholder="Enter Year of Release" (ionInput)="countChange($event)"
+                 [(ngModel)]="userModal.yearofrelease" name="yearofrelease"></ion-input>
+    </div>
+
+    <div class="comman">
+      <div class="inputLabel"><strong>Certification Number</strong></div>
+      <ion-input type="text" class="inputBox" placeholder="Enter Certification Number"  [(ngModel)]="userModal.certification_number" name="certification_number" #certification_number="ngModel" required></ion-input>
+      <ion-text color="danger" *ngIf="(certification_number.touched || productAddForm.submitted) && certification_number.errors?.required">
+        <p style="font-size: 12px;margin: 5px;">Please enter Certification Number!</p>
+      </ion-text>
+    </div>
+
+
+    <div class="comman">
+      <div class="inputLabel"><strong>Grade</strong></div>
+      <ion-select  class="inputBox"  placeholder="Select Grade" (ionChange)="change_GradeValue($event.target.value)" [(ngModel)]="userModal.grade" name="grade" #grade="ngModel" required>
+        <ion-select-option  [value]="gtd.id" *ngFor="let gtd of gradeTypeData">{{gtd.name}}</ion-select-option>
+      </ion-select>
+      <ion-text color="danger" *ngIf="(grade.touched || productAddForm.submitted) && grade.errors?.required">
+        <p style="font-size: 12px;margin: 5px;">Please select Grade!</p>
+      </ion-text>
+    </div>
+
+
+
+    <div *ngIf="(grade_Conditional === false)" class="comman"> <!-- Conditional -->
+      <div class="inputLabel"><strong>Grade Scale</strong></div>
+      <ion-select  class="inputBox" placeholder="Select Grade Scale" [(ngModel)]="userModal.vga_grade" name="vga_grade">
+        <ion-select-option  [value]="vga.id" *ngFor="let vga of vgaGradeType_Data">{{vga.grade}}</ion-select-option>
+      </ion-select>
+    </div>
+
+
+    <div *ngIf="(grade_Conditional === true)" class="comman"> <!-- Conditional -->
+      <div class="inputLabel"><strong>Box Grade Range</strong></div>
+      <ion-select  class="inputBox" placeholder="Select Box Grade Range" [(ngModel)]="userModal.box_grade" name="box_grade">
+        <ion-select-option  [value]="bgd.id" *ngFor="let bgd of boxGradeTypeData">{{bgd.boxgrade}}</ion-select-option>
+      </ion-select>
+    </div>
+
+
+
+    <div *ngIf="(grade_Conditional === true)" class="comman"> <!-- Conditional -->
+      <div class="inputLabel"><strong>Seal Grade</strong></div>
+      <ion-select  class="inputBox" placeholder="Select Seal Grade" [(ngModel)]="userModal.seal_grade" name="seal_grade">
+        <ion-select-option  [value]="sgd.id" *ngFor="let sgd of sealGradeTypeData">{{sgd.sealgrade}}</ion-select-option>
+      </ion-select>
+    </div>
+
+
+
+    <div class="comman">
+      <div class="inputLabel"><strong>Variant</strong></div>
+      <ion-select  class="inputBox" placeholder="Select Varient" [(ngModel)]="userModal.variant" name="variant" #variant="ngModel" required>
+        <ion-select-option [value]="vrd.id" *ngFor="let vrd of variantsData">{{vrd.variants}}</ion-select-option>
+      </ion-select>      
+      <ion-text color="danger" *ngIf="(variant.touched || productAddForm.submitted) && variant.errors?.required">
+        <p style="font-size: 12px;margin: 5px;">Please select Variant!</p>
+      </ion-text>
+    </div>
+
+   
+
+    <div class="comman">
+      <div class="inputLabel"><strong>List Price</strong></div>
+      <ion-input type="tel" minlength="2"  class="inputBox" placeholder="Enter List Price"  (ionInput)="countChange($event)"
+                 [(ngModel)]="userModal.net_price" name="net_price" #net_price="ngModel" required></ion-input>
+      <ion-text color="danger" *ngIf="(net_price.touched || productAddForm.submitted) && net_price.errors?.required">
+        <p style="font-size: 12px;margin: 5px;">Please enter List Price!</p>
+      </ion-text>
+    </div>
+
+
+    
+    <div class="comman">
+      <div class="inputLabel"><strong>Allow Offers</strong></div> 
+      <ion-select class="inputBox" placeholder="Select Allow Offers"  [(ngModel)]="userModal.allow_offers" name="allow_offers">
+        <ion-select-option value="1">Disabled</ion-select-option>
+        <ion-select-option value="2">Enabled</ion-select-option>
+      </ion-select>
+    </div>
+
+
+    <div class="comman">
+      <div class="inputLabel"><strong>Minimum Offer</strong></div>
+      <ion-input type="text" minlength="1"  class="inputBox" placeholder="0" (ionInput)="countChange($event)"
+                 [(ngModel)]="userModal.min_offer" name="min_offer"></ion-input>
+    </div>
+    <!-- <ion-textarea class="inputBox" row="3" autoGrow="true" placeholder="Write about Product"  name="about_product" ngModel></ion-textarea> -->
+
+
+
+   <div class="comman">
+    <ion-accordion-group  class="inputBox">
+      <ion-accordion value="disclaimers">
+        <ion-item slot="header">
+          <ion-label><strong>Disclaimers</strong></ion-label>
+        </ion-item>
+        <div slot="content">
+          <!-- apiKey="qebzm4nqxjh65bwdkyd4qoaexkq22452fw0b8ie3iqidqsdm" -->
+        <editor
+        apiKey="no-api-key"
+        cloudChannel="5"
+        [disabled]="false"
+        id="tinyMCE-desc"
+        [inline]="false"
+        
+        [init]="{
+          selector: '#desc',
+          height: 400,
+          placeholder: 'Write About the Product',
+          plugins: [
+           'lists link image table code paste wordcount'
+          ],
+          toolbar: 'undo redo | formatselect | bold italic underline code | alignleft aligncenter alignright alignjustify | 
+                    bullist numlist outdent indent'
+        }"
+        [(ngModel)]="userModal.desc"  name="desc"></editor>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+    </div>
+
+
+    <div class="comman">
+      <ion-accordion-group  class="inputBox">
+        <ion-accordion value="disclosers">
+          <ion-item slot="header">
+            <ion-label><strong>*MinusWorlds does not allow games with Mold, or Cracked Encapsulations.</strong></ion-label>
+          </ion-item>
+
+          <div slot="content">
+          <ion-item lines="none" *ngFor="let ds of disclosersData"   >
+            <ion-label style="color: #4e5863;">{{ds.disclosers}}</ion-label>
+            <ion-checkbox slot="end" checked="false" value="{{ds.id}}" (ionChange)="selectDisclosers(ds.id, $event)"></ion-checkbox>
+          </ion-item>
+
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </div>
+
+    <!-- <div class="inputLabel"><strong>*MinusWorlds does not allow games with Mold, or Cracked Encapsulations.</strong></div>
+    <ion-item lines="none" *ngFor="let ds of disclosersData">
+      <ion-label style="color: #4e5863;">{{ds.disclosers}}</ion-label>
+      <ion-checkbox slot="end" checked="false" value="{{ds.id}}"></ion-checkbox>
+    </ion-item> -->
+
+
+
+    <div class="comman">
+      <div class="inputLabel"><strong>Thumbnail</strong></div>
+      <ion-item button lines="none" detail="false" class="inputBox" (click)="productThumbs_imgSelectClick()" style="--background:#f8f9fb;border: 2px dashed #C7D1FF !important;">
+      <div style="display: flex;align-items:center;justify-content:center;">
+        <ion-icon name="image-outline" style="font-size: 22px;opacity:0.7;"></ion-icon>
+        <ion-text style="font-size: 14px;opacity:0.7;font-weight:600">&nbsp;&nbsp;Select Thumbnail Images</ion-text>
+      </div>
+      </ion-item>
+      <ion-text color="danger" *ngIf="(productAddForm.submitted && thumb_imageData?.length === 0)">
+        <p style="font-size: 12px;margin: 5px;">Please select Thumbnail Image!</p>
+      </ion-text>
+
+
+    </div>
+      <ion-row *ngIf="(enableThumbs_img === true)" style="width:100%; margin: 8px 0px;">
+        <ion-col size="3" class="col-class" *ngFor="let thumb_img of thumb_imageData" style="margin-bottom:10px;height:110px;overflow:hidden;">
+            <div class="img-ctr">
+              <img [src]="sanitizeImageUrl(thumb_img)">
+              <div style="position: absolute; bottom: 0px; right: 0px;">
+                <ion-buttons>
+                  <ion-button class="cust_delete" shape="round" (click)="removeThumb_imgData(thumb_img)">
+                    <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </div>
+            </div>
+        </ion-col>
+      </ion-row>
+
+
+
+
+    <div style="margin: 8% 1% 0px;">
+      <div class="inputLabel"><strong>Other Images</strong></div>
+      <ion-item button lines="none" detail="false" class="inputBox" (click)="productOther_imgSelectClick()" style="--background:#f8f9fb;border: 2px dashed #C7D1FF !important;">
+      <div style="display: flex;align-items:center;justify-content:center;">
+        <ion-icon name="image-outline"  style="font-size: 22px;opacity:0.7;"></ion-icon>
+        <ion-text style="font-size: 14px;opacity:0.7;font-weight:600">&nbsp;&nbsp;Select Other Images</ion-text>
+      </div>
+      </ion-item>
+      <ion-text color="danger" *ngIf="(productAddForm.submitted && other_imageData?.length === 0)">
+        <p style="font-size: 12px;margin: 5px;">Please select Other Images!</p>
+      </ion-text>
+      <div style="font-size:12px;margin: 2% 1%;line-height: 1.4;opacity: 0.8; font-weight: 700;">You need to add at least 4 images. Pay attention to the quality of the pictures you add. Image size <span style="color:#3d80ff;font-weight:600;">(900 x 900) Pixel</span></div>
+    </div>
+      <ion-row *ngIf="(enableOthers_img === true)" style="width:100%; margin: 8px 0px;">
+        <ion-col size="3" class="col-class" *ngFor="let other_img of other_imageData" style="margin-bottom:10px;height:110px;overflow:hidden;">
+            <div class="img-ctr">
+              <img [src]="sanitizeImageUrl(other_img)">
+              <div style="position: absolute; bottom: 0px; right: 0px;">
+                <ion-buttons>
+                  <ion-button class="cust_delete" shape="round" (click)="removeOther_imgData(other_img)">
+                    <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </div>
+            </div>
+        </ion-col>
+      </ion-row>
+
+    
+
+
+    <ion-item lines="none" style="align-items: center;">
+      <ion-checkbox slot="start" checked="true" disabled style="margin-inline-end: 15px !important;opacity:0.9;"></ion-checkbox>
+      <ion-label style=" white-space: normal;"><span style="opacity: 0.8; font-weight: 700;">I agree to the MinusWorlds</span>&nbsp;<a href="javascript:void(0)" style="font-weight: 600;" [routerLink]="['/terms']">Terms of Use</a></ion-label>
+    </ion-item>
+
+
+
+
+    <div style="margin: 30px 8px 18px;">
+       <ion-button size="default" type="submit" expand="block" style="height:44px !important;--color: #ffffff;
+                   --background: linear-gradient(92deg, #27F09D, #07ADEB);" (click)="sumbitAction('1')">Add Product</ion-button><br>
+    
+       <ion-button size="default" type="submit" expand="block" color="medium" fill="outline" (click)="sumbitAction('2')">Save Product</ion-button>
+      </div>
+
+    
+  </form>
+</div>
+
+
+</ion-content>
+
+
+<!-- {
+  "console": "",
+  "prod_typ": "",
+  "video_game_typ": "",
+  "prodname": "",
+  "game_developer": "",
+  "year_release": "",
+  "certification_number": "",
+  "grade": "",
+  "grade_scale": "",
+  "variant": "",
+  "list_price": "",
+  "allow_offers": "",
+  "minimum_offer": "",
+  "thumbnail": "",
+  "about_product": ""
+} -->

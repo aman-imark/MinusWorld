@@ -1,0 +1,112 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button  icon="arrow-back"  text="" defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>Buyer Offer</ion-text>
+    <!-- <ion-title class="ion-text-start">Buyer Offer</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div *ngIf="(Buyer_Offers_Data?.length === 0)" style="display:flex;align-items: center;justify-content: center;
+               height:96%;font-weight:600;color: #666666;">No Result Found!</div>
+
+  <ion-list  *ngIf="(!Buyer_Offers_Data)">
+    <ion-item lines="full" detail="false">
+      <ion-row style="width: 100%; align-items: center;">
+        <ion-col size="3">
+          <div style="height:85px;"> <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text> </div>
+        </ion-col>
+        <ion-col size="4.5">
+          <div class="skl-cst">
+            <p><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </p>
+          </div>
+        </ion-col>
+        <ion-col size="4.5">
+          <div class="skl-cst">
+            <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 55%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 25%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 65%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 20%"></ion-skeleton-text> </p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item lines="full" detail="false">
+      <ion-row style="width: 100%; align-items: center;">
+        <ion-col size="3">
+          <div style="height:85px;"> <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text> </div>
+        </ion-col>
+        <ion-col size="4.5">
+          <div class="skl-cst">
+            <p><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </p>
+          </div>
+        </ion-col>
+        <ion-col size="4.5">
+          <div class="skl-cst">
+            <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 55%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 25%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 65%"></ion-skeleton-text> </p>
+            <p><ion-skeleton-text animated style="width: 20%"></ion-skeleton-text> </p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+  <ion-list  *ngIf="(Buyer_Offers_Data)">
+  <ion-item  button lines="full" detail="false"  *ngFor="let bod of Buyer_Offers_Data" >
+    <ion-row style="width: 100%; font-size: 14px; align-items: start;">
+      <ion-col size="3">
+        <div style="height: 85px;padding: 10px;
+        background: #EFF3FF;border-radius: 8px;
+        text-align: center;">  <img style="height:100%" [src]="bod.thumbnailimage"  onError="this.src='assets/no_img.jpeg'">  </div>
+      </ion-col>
+      <ion-col size="9">
+        <ion-row style="width:100%">
+          <ion-col  size="6"><ion-text style="font-weight:600;">Name</ion-text></ion-col>
+          <ion-col  size="6"><ion-text style="font-weight:600;">{{bod.prodname}}</ion-text></ion-col>
+        </ion-row>
+        <ion-row style="width:100%">
+          <ion-col  size="6"><ion-text style="font-weight:600;">Min Off Price</ion-text></ion-col>
+          <ion-col  size="6"><ion-text style="font-weight: 600;">${{bod.min_offer}}</ion-text></ion-col>
+        </ion-row>
+        <ion-row style="width:100%">
+          <ion-col  size="6"><ion-text style="font-weight:600;">Offer Price</ion-text></ion-col>
+          <ion-col  size="6"><ion-text style="font-weight: 600;">${{bod.offer}}</ion-text></ion-col>
+        </ion-row>
+        <ion-row style="width:100%" *ngIf="(bod.counter)">
+          <ion-col  size="6"><ion-text style="font-weight:600;">Counter Price</ion-text></ion-col>
+          <ion-col  size="6"><ion-text style="font-weight: 600;color:#212529;">${{bod.counter}}</ion-text></ion-col>
+        </ion-row>
+        <ion-row style="width:100%;align-items:center;">
+          <ion-col  size="6"><ion-text style="font-weight: 600;">Status</ion-text></ion-col>
+          <ion-col  size="6" style="padding-inline: 0px;">
+            <ion-chip *ngIf="(bod.offerstatus === 'Accepted')" color="primary">
+              <ion-label>{{bod.offerstatus}}</ion-label>
+            </ion-chip>
+            <ion-chip *ngIf="(bod.offerstatus === 'Rejected')" color="danger">
+              <ion-label>{{bod.offerstatus}}</ion-label>
+            </ion-chip>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-item>
+  </ion-list>
+
+</ion-content>

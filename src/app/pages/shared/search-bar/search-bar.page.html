@@ -1,0 +1,145 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <div style="display:flex;width:100%;align-items: center;position:relative;">
+      <ion-buttons slot="start">
+        <ion-back-button text="" defaultHref="/"></ion-back-button>
+      </ion-buttons>
+    <ion-searchbar mode="ios" #searchBar [(ngModel)]="searchKeyword" (ionClear)="clearInputVal($event)" 
+                   (ionInput)="spaceRest($event)" (keyup.enter)="searchFunctionClicked($event.target.value)"></ion-searchbar>
+    
+    
+    <ion-buttons slot="end">
+      <ion-button (click)="searchFunctionClicked(searchKeyword)" [disabled]="(searchKeyword?.length <= 0 || searchKeyword === undefiend)" style="--color:#0080ff !important; font-weight:800;">GO</ion-button>
+    </ion-buttons>
+
+      <!-- <div style="position: absolute;right: 14%;display: block;border: 1px solid red;">
+      <ion-select interface="popover" value="ps" style="font-size:12px;">
+        <ion-select-option value="nes">Video Games</ion-select-option>
+        <ion-select-option value="n64">Consoles</ion-select-option>
+        <ion-select-option value="ps">Accessories</ion-select-option>
+      </ion-select>
+      </div> -->
+    </div>
+
+    <!-- <div *ngIf="(searchCategories_status === true)" style="margin: auto;background:#f7f7f7;">
+      <ion-select interface="popover" [(ngModel)]="searchCategories" 
+           style="font-size:12px;font-weight:600;color:#212529;--padding-top: 10px;--padding-bottom: 10px;--padding-end: 10px;">
+        <ion-select-option value="2">Video Games</ion-select-option>
+        <ion-select-option value="3">Consoles</ion-select-option>
+        <ion-select-option value="5">Accessories</ion-select-option>
+      </ion-select>
+    </div> -->
+    <div style="margin: auto;background:#f7f7f7;">
+      <ion-select interface="popover" [(ngModel)]="searchCategories" 
+           style="font-size:12px;font-weight:600;color:#212529;--padding-top: 10px;--padding-bottom: 10px;--padding-end: 10px;">
+        <ion-select-option value="2">Video Games</ion-select-option>
+        <ion-select-option value="3">Consoles</ion-select-option>
+        <ion-select-option value="5">Accessories</ion-select-option>
+      </ion-select>
+    </div>
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="(searchResult_Data?.length >= 1)" style="display:none;">
+    <ion-row>
+      <ion-col size="0.5"></ion-col>
+      <ion-col size="5">
+        <ion-item button (click)="filterClick()" lines="none" detail="false" style="--background:#EEFBFF;--min-height: 40px;border-radius:10px;">
+          <div style="display:flex; margin: auto; align-items: center;font-weight:600;color:#212529;"><ion-icon name="filter-outline"></ion-icon>&nbsp;&nbsp;Filter</div>
+       </ion-item>
+       
+
+      </ion-col>
+      <ion-col size="1"></ion-col>
+      <ion-col size="5">
+        <ion-item button (click)="sortClick()" lines="none" detail="false" style="--background:#EEFBFF;--min-height: 40px;border-radius:10px;">
+          <div style="display:flex; margin: auto; align-items: center;font-weight:600;color:#212529;"><ion-icon name="options-outline"></ion-icon>&nbsp;&nbsp;Sort</div>
+        </ion-item>
+      </ion-col>
+      <ion-col size="0.5"></ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content [fullscreen]="true"  [scrollEvents]="true">
+
+
+
+<!-- <div *ngIf="(skeleton === true)"><br> -->
+  <div style="display:none;"><br>
+  <ion-item style="align-items: start;">
+    <ion-thumbnail slot="start" style="height:85px;width:22%;"><ion-skeleton-text></ion-skeleton-text></ion-thumbnail>
+    <ion-label>
+      <p><ion-skeleton-text animated style="width: 80%;line-height:20px;margin-bottom: 10px;"></ion-skeleton-text></p>
+      <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+      <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+    </ion-label>
+  </ion-item>
+  <ion-item style="align-items: start;">
+    <ion-thumbnail slot="start" style="height:85px;width:22%;"><ion-skeleton-text></ion-skeleton-text></ion-thumbnail>
+    <ion-label>
+      <p><ion-skeleton-text animated style="width: 80%;line-height:20px;margin-bottom: 10px;"></ion-skeleton-text></p>
+      <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+      <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+    </ion-label>
+  </ion-item>
+  <ion-item style="align-items: start;">
+    <ion-thumbnail slot="start" style="height:85px;width:22%;"><ion-skeleton-text></ion-skeleton-text></ion-thumbnail>
+    <ion-label>
+      <p><ion-skeleton-text animated style="width: 80%;line-height:20px;margin-bottom: 10px;"></ion-skeleton-text></p>
+      <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+      <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+    </ion-label>
+  </ion-item>
+  <ion-item style="align-items: start;">
+    <ion-thumbnail slot="start" style="height:85px;width:22%;"><ion-skeleton-text></ion-skeleton-text></ion-thumbnail>
+    <ion-label>
+      <p><ion-skeleton-text animated style="width: 80%;line-height:20px;margin-bottom: 10px;"></ion-skeleton-text></p>
+      <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+      <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+    </ion-label>
+  </ion-item><br>
+</div>
+
+<div *ngIf="(searchResult_Data?.length === 0 && isResult === false)" style="display:flex;align-items: center;justify-content: center;height:100%;font-weight:600;color: #666666;">
+  No Result Found!
+</div>
+
+
+<div *ngIf="(searchResult_Data?.length >= 1 && isResult === true)" class="isData">
+<ion-list>
+  <ion-item  *ngFor="let srd of searchResult_Data | slice:0:numOfData; let i=index" button detail="false" (click)="goto_productDetails(srd.prodid)">
+  <!-- <ion-item  *ngFor="let srd of searchResult_Data | slice:0: 10; let i=index" button detail="false" (click)="goto_productDetails(srd.prodid)"> -->
+    <ion-thumbnail slot="start" style="position:relative;background:#EFF3FF;border-radius:8px;">
+      <img [src]="srd.thumbnail_img" onError="this.src='assets/no_img.jpeg'" style="padding:10px;"/>
+    </ion-thumbnail>
+    <ion-label>
+      <h3  style="margin: 0px 0px 8px;color:#212529;font-weight:600;">{{srd.prodname}}</h3>
+      <p style="font-weight:700;color:#212529;font-size:13px;">{{srd.grade}}</p>
+      <div style="display:flex;justify-content: space-between;color: #666666;margin:4px 0px;">
+        <div *ngIf="(srd.seal_grade_nm)" style="display:inline-flex;font-size:13px;font-weight:700;">Seal Grade: {{srd.seal_grade_nm}}</div>
+        <div *ngIf="(srd.box_grade_nm)" style="display:inline-flex;font-size:13px;font-weight:700;">Box Grade: {{srd.box_grade_nm}}</div>
+      </div>
+      <div style="display:flex;justify-content: space-between;color: #666666;margin:4px 0px 8px;">
+        <div *ngIf="(srd.vga_grade_nm)" style="display:inline-flex;font-size:13px;font-weight:700;">VGA Grade: {{srd.vga_grade_nm}}</div>
+        <div *ngIf="(srd.variant_nm)" style="display:inline-flex;font-size:13px;font-weight:700;">Varient: {{srd.variant_nm}}</div>
+      </div>
+      <p  *ngIf="(srd.prodprice)" style="font-weight:600;">${{srd.prodprice}}</p>
+    </ion-label>
+  </ion-item>
+
+
+  <ion-infinite-scroll *ngIf="(searchResult_Data?.length > numOfData)" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="crescent"
+      distance="4%">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+
+</ion-list>
+</div>
+
+</ion-content>
+
+

@@ -1,0 +1,195 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button  icon="arrow-back"  text="" defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>{{page_title}}</ion-text>
+    
+    
+    <!-- <ion-title class="ion-text-start">Blog Categories</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="(!kc_blogCat_Data)"><br>
+   <ion-item style="align-items: start;">
+     <ion-thumbnail slot="start" style="height:85px;width:22%;"><ion-skeleton-text></ion-skeleton-text></ion-thumbnail>
+     <ion-label>
+       <p><ion-skeleton-text animated style="width: 80%;line-height:20px;margin-bottom: 10px;"></ion-skeleton-text></p>
+       <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+       <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+     </ion-label>
+   </ion-item>
+   <ion-item style="align-items: start;">
+     <ion-thumbnail slot="start" style="height:85px;width:22%;"><ion-skeleton-text></ion-skeleton-text></ion-thumbnail>
+     <ion-label>
+       <p><ion-skeleton-text animated style="width: 80%;line-height:20px;margin-bottom: 10px;"></ion-skeleton-text></p>
+       <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+       <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+     </ion-label>
+   </ion-item>
+   <ion-item style="align-items: start;">
+     <ion-thumbnail slot="start" style="height:85px;width:22%;"><ion-skeleton-text></ion-skeleton-text></ion-thumbnail>
+     <ion-label>
+       <p><ion-skeleton-text animated style="width: 80%;line-height:20px;margin-bottom: 10px;"></ion-skeleton-text></p>
+       <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+       <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+     </ion-label>
+   </ion-item>
+   <ion-item style="align-items: start;">
+    <ion-thumbnail slot="start" style="height:85px;width:22%;"><ion-skeleton-text></ion-skeleton-text></ion-thumbnail>
+    <ion-label>
+      <p><ion-skeleton-text animated style="width: 80%;line-height:20px;margin-bottom: 10px;"></ion-skeleton-text></p>
+      <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+      <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+    </ion-label>
+    </ion-item><br>
+  </div>
+
+
+  <div *ngIf="(kc_blogCat_Data)" class="isData">
+    <!-- <ion-toolbar mode="ios" style="--background: #EFF3FF;padding-inline:10px;padding-block: 6px;--min-height:auto;font-size:14px;font-weight:600;">
+      <ion-label style="font-size: 14px;font-weight: 600;">{{kc_blogCat_Data[0]?.category}}</ion-label>
+    </ion-toolbar> -->
+    <ion-list>
+    <ion-item  *ngFor="let kcc of kc_blogCat_Data | slice:0:numOfData; let i=index" detail="false" style="position:relative;">
+      <ion-thumbnail slot="start" style="position:relative;background:#EFF3FF;border-radius:8px;">
+        <img [src]="kcc.banner_img"  onError="this.src='assets/no_img.jpeg'" style="padding:10px;"/>
+      </ion-thumbnail>
+      <ion-label style="white-space: normal;">
+        <h3 class="h-max" style="margin: 0px 0px 8px;font-weight:600;color:#212529;">{{kcc.blog_title}}</h3>
+        <p style="font-weight:700;color:#212529;font-size:13px;">{{kcc.pdate}}</p>
+        <div style="display: inline-flex; align-items: center;color:#0BB4E2;
+                  font-weight:600;" (click)="goto_kc_blogDetials(kcc.id, kcc.category)"><span style="font-size: 13px;">Read More</span><ion-icon name="chevron-forward"></ion-icon></div>
+      </ion-label>
+    </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll *ngIf="(kc_blogCat_Data_length > numOfData)"  (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content
+      loadingSpinner="crescent"
+      distance="4%">
+    </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    
+  </div>
+
+</ion-content>
+
+<!-- 
+
+  Articales
+{
+  "status": "success",
+  "message": "Success data found.",
+  "result": [
+      {
+          "id": "62",
+          "category": "Featured Articles",
+          "banner_img": "https://minusworlds.com/uploads/817778777_thumbnail-featured-articles-600-x-500-px-1-.png",
+          "blog_title": "Featured Article: PS1 Long Boxes - Small Jewels Chart",
+          "pdate": "10 Jan, 2022"
+      },
+      {
+          "id": "57",
+          "category": "Featured Articles",
+          "banner_img": "https://minusworlds.com/uploads/96622597_thumbnail-featured-articles-600-x-500-px-1-.png",
+          "blog_title": "Featured Article: NBA Live",
+          "pdate": "03 Jan, 2022"
+      },
+      {
+          "id": "56",
+          "category": "Featured Articles",
+          "banner_img": "https://minusworlds.com/uploads/1461219626_John-Madden-1935-2021-600-x-500-px-.png",
+          "blog_title": "Featured Article: Madden NFL",
+          "pdate": "28 Dec, 2021"
+      },
+      {
+          "id": "55",
+          "category": "Featured Articles",
+          "banner_img": "https://minusworlds.com/uploads/603244327_ncaa-2014-thumbnail.png",
+          "blog_title": "Featured Article: NCAA Football 14",
+          "pdate": "28 Dec, 2021"
+      },
+      {
+          "id": "54",
+          "category": "Featured Articles",
+          "banner_img": "https://minusworlds.com/uploads/848067582_bk-thumbnail.png",
+          "blog_title": "Featured Article: Banjo-Kazooie",
+          "pdate": "28 Dec, 2021"
+      },
+      {
+          "id": "53",
+          "category": "Featured Articles",
+          "banner_img": "https://minusworlds.com/uploads/926174981_silent-hill-thumbnail.png",
+          "blog_title": "Featured Article: Silent Hill Homecoming Variants",
+          "pdate": "20 Dec, 2021"
+      },
+      {
+          "id": "52",
+          "category": "Featured Articles",
+          "banner_img": "https://minusworlds.com/uploads/1961743950_nes-oval-soq.png",
+          "blog_title": "NES: Oval SOQ Rev-A",
+          "pdate": "20 Dec, 2021"
+      },
+      {
+          "id": "50",
+          "category": "Featured Articles",
+          "banner_img": "https://minusworlds.com/uploads/1713981685_thumbnail-featured-articles-600-x-500-px-1-.png",
+          "blog_title": "Featured Article: Operation Rainfall or How Fans Kept the Wii Alive",
+          "pdate": "13 Dec, 2021"
+      },
+      {
+          "id": "49",
+          "category": "Featured Articles",
+          "banner_img": "https://minusworlds.com/uploads/1733532277_thumbnail-featured-articles-600-x-500-px-.png",
+          "blog_title": "Featured Article: Signature Series",
+          "pdate": "13 Dec, 2021"
+      },
+      {
+          "id": "48",
+          "category": "Featured Articles",
+          "banner_img": "https://minusworlds.com/uploads/1490482181_NWC.png",
+          "blog_title": "Featured Article: Nintendo World Championships (NWC)",
+          "pdate": "06 Dec, 2021"
+      },
+      {
+          "id": "46",
+          "category": "Featured Articles",
+          "banner_img": "https://minusworlds.com/uploads/1681938768_thumbnail-featured-articles-10-.png",
+          "blog_title": "Featured Article: A Beginner's Guide to Video Game Collecting World",
+          "pdate": "29 Nov, 2021"
+      },
+      {
+          "id": "42",
+          "category": "Featured Articles",
+          "banner_img": "https://minusworlds.com/uploads/1243403169_thumbnail-featured-articles-6-.png",
+          "blog_title": "Featured Article: A Little Bit About Our Process",
+          "pdate": "29 Nov, 2021"
+      },
+      {
+          "id": "40",
+          "category": "Featured Articles",
+          "banner_img": "https://minusworlds.com/uploads/1639239941_halo-2.png",
+          "blog_title": "Featured Article: Halo 2",
+          "pdate": "24 Nov, 2021"
+      },
+      {
+          "id": "18",
+          "category": "Featured Articles",
+          "banner_img": "https://minusworlds.com/uploads/22531015_hangtag-article-abnner.png",
+          "blog_title": "3rd Party Hangtag Guide",
+          "pdate": "15 Nov, 2021"
+      },
+      {
+          "id": "17",
+          "category": "Featured Articles",
+          "banner_img": "https://minusworlds.com/uploads/1567833291_action-52-banner.jpg",
+          "blog_title": "Action 52 + Cheetahmen II: Certainly Two of the Most Controversial Videogames in Nes History",
+          "pdate": "15 Nov, 2021"
+      }
+  ]
+} -->

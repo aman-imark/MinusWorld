@@ -1,0 +1,164 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <ion-row style="width:100%;align-items: center;">
+      <ion-col size="10.5">
+        <div style="display: flex;align-items: center;justify-content: space-between;padding: 0px 14px;">
+          <div>        
+            <!-- <ion-title mode="md">MW Store</ion-title> -->
+            <ion-text style="color:#ffffff;font-weight: 600;">MW Store</ion-text>
+          </div>
+          <!-- <div  *ngIf="(isLoggedIn === true)" >
+            <ion-buttons>
+              <ion-button (click)="go_to_notifications()" style="width: 42px;height: 42px; position:relative;">
+                <ion-icon slot="icon-only" name="notifications-outline" style="color:#ffffff;"></ion-icon>
+              </ion-button>
+              <ion-button (click)="go_to_cart()" style="width: 42px;height: 42px; position:relative;">
+                <ion-icon slot="icon-only" name="bag-handle-outline" style="color:#ffffff;"></ion-icon>
+                <div *ngIf="(isCartData === true)" style="position: absolute;top: 0px;height: 6px;width: 6px;border-radius: 50%;background: #e63e3e;right: 2px;"></div>
+              </ion-button>
+            </ion-buttons>
+          </div>
+          <div  *ngIf="(isLoggedIn === false || isLoggedIn === undefiend)">
+            <ion-buttons>
+              <ion-button style="--color: #ffffff !important;font-weight: 600;">Login</ion-button>
+            </ion-buttons>
+          </div> -->
+        </div>
+      </ion-col>
+      <ion-col  size="1.5">
+        <!-- <ion-avatar *ngIf="(isLoggedIn === true)">
+          <img  [src]="user_img"  onError="this.src='assets/no_user.jpeg'">
+        </ion-avatar>
+        <ion-avatar *ngIf="(isLoggedIn === false || isLoggedIn === undefiend)">
+          <img src="assets/no_user.jpeg">
+        </ion-avatar> -->
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+
+
+
+
+<ion-content [fullscreen]="true" scrollEvents="true" (ionScroll)='onScroll($event)'>
+  <ion-refresher  mode="md" slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- *ngIf="(MWstore_Data && MWstore_Data?.length >= 1)"  -->
+  <ion-toolbar #toolbar style="padding: 4px 0px;">
+    <ion-row>
+      <ion-col size="0.5"></ion-col>
+      <ion-col size="5">
+        <ion-item button (click)="filterClick()" lines="none" detail="false" style="--background:#EEFBFF;--min-height: 40px;border-radius:10px;">
+          <div style="display:flex; margin: auto; align-items: center;font-weight:600;color:#212529;"><ion-icon name="filter-outline"></ion-icon>&nbsp;&nbsp;Filter</div>
+       </ion-item>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+      <ion-col size="5">
+        <ion-item button (click)="sortClick()" lines="none" detail="false" style="--background:#EEFBFF;--min-height: 40px;border-radius:10px;">
+          <div style="display:flex; margin: auto; align-items: center;font-weight:600;color:#212529;"><ion-icon name="options-outline"></ion-icon>&nbsp;&nbsp;Sort</div>
+        </ion-item>
+      </ion-col>
+      <ion-col size="0.5"></ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+
+<!-- <div style="font-weight:600;">
+  <ion-text>Filter: </ion-text>
+  <ion-chip>
+    <ion-label>Range(20-30)</ion-label>
+    <ion-icon name="close-circle"></ion-icon>
+  </ion-chip>
+
+  <ion-chip>
+    <ion-label>Categories</ion-label>
+    <ion-icon name="close-circle"></ion-icon>
+  </ion-chip>
+</div>   -->
+
+
+
+<div *ngIf="(!MWstore_Data)"><br>
+    <div style="display:none;justify-content: space-between;width: 90%;margin: auto;">
+       <div style="width:40%;"><ion-skeleton-text animated style="width: 100%;height: 40px;border-radius:2px;"></ion-skeleton-text></div>
+       <div style="width:40%;"><ion-skeleton-text animated style="width: 100%;height: 40px;border-radius:2px;"></ion-skeleton-text></div>
+    </div>
+    <ion-item style="align-items: start;">
+      <ion-thumbnail slot="start" style="height:85px;width:22%;"><ion-skeleton-text></ion-skeleton-text></ion-thumbnail>
+      <ion-label>
+        <p><ion-skeleton-text animated style="width: 80%;line-height:20px;margin-bottom: 10px;"></ion-skeleton-text></p>
+        <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+        <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+      </ion-label>
+    </ion-item>
+    <ion-item style="align-items: start;">
+      <ion-thumbnail slot="start" style="height:85px;width:22%;"><ion-skeleton-text></ion-skeleton-text></ion-thumbnail>
+      <ion-label>
+        <p><ion-skeleton-text animated style="width: 80%;line-height:20px;margin-bottom: 10px;"></ion-skeleton-text></p>
+        <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+        <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+      </ion-label>
+    </ion-item>
+    <ion-item style="align-items: start;">
+      <ion-thumbnail slot="start" style="height:85px;width:22%;"><ion-skeleton-text></ion-skeleton-text></ion-thumbnail>
+      <ion-label>
+        <p><ion-skeleton-text animated style="width: 80%;line-height:20px;margin-bottom: 10px;"></ion-skeleton-text></p>
+        <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+        <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+      </ion-label>
+    </ion-item>
+    <ion-item style="align-items: start;">
+      <ion-thumbnail slot="start" style="height:85px;width:22%;"><ion-skeleton-text></ion-skeleton-text></ion-thumbnail>
+      <ion-label>
+        <p><ion-skeleton-text animated style="width: 80%;line-height:20px;margin-bottom: 10px;"></ion-skeleton-text></p>
+        <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+        <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+      </ion-label>
+    </ion-item><br>
+</div>
+
+<div *ngIf="(MWstore_Data?.length === 0)" style="display:flex;align-items: center;justify-content: center;height:100%;font-weight:600;color: #666666;">
+    No Records Found!
+</div>
+
+
+<div *ngIf="(MWstore_Data && MWstore_Data?.length >= 1)"  class="isData">
+<ion-list>
+  <ion-item  *ngFor="let mw of MWstore_Data" button detail="false"  (click)="goto_mwStoreProduct_Details(mw.id, mw.category_name)" style="position:relative;">
+    <ion-thumbnail slot="start" style="position:relative;background:#EFF3FF;border-radius:8px;">
+      <img [src]="mw.thumbnail_img"  onError="this.src='assets/no_img.jpeg'" style="padding:10px;"/>
+      <div style="position: absolute; top: 0px; left: 0px;">
+        <ion-chip *ngIf="(mw.prod_status === 'new')" > <ion-label>New</ion-label> </ion-chip>
+        <ion-chip *ngIf="(mw.prod_status === 'old')" > <ion-label>Old</ion-label> </ion-chip>
+      </div>
+      <!-- <div  *ngIf="(isLoggedIn === false || isLoggedIn === undefiend)" style="position: absolute; top: 0px; right: 0px;">
+        <ion-buttons>
+          <ion-button class="cust_save" shape="round" [routerLink]="['/login']">
+            <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+      <div  *ngIf="(isLoggedIn === true)" style="position: absolute; top: 0px; right: 0px;">
+       <ion-buttons>
+         <ion-button *ngIf="(mw.wishlist_status === 'unsaved')" class="cust_save" shape="round">
+           <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
+         </ion-button>
+         <ion-button  *ngIf="(mw.wishlist_status === 'saved')" class="cust_save" shape="round">
+           <ion-icon slot="icon-only" name="heart"></ion-icon>
+         </ion-button>
+       </ion-buttons>
+      </div> -->
+    </ion-thumbnail>
+    <ion-label>
+      <h3 style="margin: 0px 0px 4px;font-weight:600;color:#212529;">{{mw.prod_name}}</h3>
+      <p style="font-weight:700;font-size:13px;color: #666666;">{{mw.category_name}}</p>
+      <p style="font-weight:600;color:#212529;margin: 10px 0px 0px;">{{mw.price}}</p>
+    </ion-label>
+  </ion-item>
+  </ion-list>
+</div>
+
+</ion-content>

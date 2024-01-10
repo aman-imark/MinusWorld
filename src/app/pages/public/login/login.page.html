@@ -1,0 +1,111 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar #toolbar>
+    <ion-label slot="start" style="color: #ffffff;font-weight: 600;font-size: 20px;padding: 0px 25px;">Login</ion-label>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content [fullscreen]="true"  [scrollEvents]="true" (ionScroll)='onScroll($event)'>
+<div style="letter-spacing: 0.2px !important;">
+
+  <div style="width:100%;height: 260px; overflow:hidden;position:relative;top: -85px;">
+     <div style="height:260px;"><img style="height: 100%;width: 100%;" src="assets/baner.png"></div>
+     <div style="display:none;position: absolute;font-size:26px; top:20%;left:5%;color:#ffffff;font-weight:800;"><div><strong>Log In</strong></div></div>
+     <div style="position: absolute;bottom:15.5%; right:5%; height:110px;">
+       <img style="height: 100%; opacity: 0.9;" src="assets/game.png"></div>
+  </div>
+
+
+
+  <div style="margin: 0px 8px;position:relative;top: -75px;">
+    <!-- <div>  
+      <ion-button type="button" expand="block" fill="outline" ><img src="assets/google.png" style="height: 18px;width: 18px;">&nbsp;&nbsp;<div>Log In With Google</div></ion-button> 
+    </div><br>
+
+    <div style="margin: 2px 2px 2px 2px; opacity: 0.6">
+      <div style="display:flex; justify-content: center; width: 60%; margin: auto; position: relative;top: 0px;">
+         <div style="border-bottom: 1px solid #717171; width:200px; position: relative;top: -8px;"></div>
+         <div style="width:80px;text-align:center;">or</div>
+         <div style="border-bottom: 1px solid #717171; width:200px; position: relative;top: -8px;"></div>
+      </div>
+    </div> -->
+
+     <div>
+ 
+  <form  #loginForm="ngForm" (ngSubmit)="loginForm.form.valid && user_login()" novalidate>
+      <div style="height:100px;">
+        <div class="inputLabel"><strong>Email</strong></div>
+        <ion-input type="email" class="inputBox" placeholder="ex- dan@example.com" [(ngModel)]="userModal.email" name="email"
+                   #email="ngModel" required email></ion-input>
+
+          <ion-text color="danger" *ngIf="(email.touched || loginForm.submitted) && email.errors?.required">
+            <p style="font-size: 12px;margin: 5px;">Email is required!</p>
+          </ion-text>
+          <ion-text color="danger" *ngIf="email.touched && email.errors?.email">
+            <p style="font-size: 12px;margin: 5px;">Please enter a valid email address!</p>
+          </ion-text>
+      </div>
+
+
+      <div style="height:90px;">
+        <div class="inputLabel"><strong>Password</strong></div>
+        <div style="position: relative;display:flex;">
+        <ion-input [type]="passwordType" class="inputBox" placeholder="Your Password"  [(ngModel)]="userModal.password" name="password"
+                    #password="ngModel" required></ion-input>
+              <ion-icon [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+        </div>
+          <ion-text color="danger" *ngIf="(password.touched || loginForm.submitted) && password.errors?.required">
+            <p style="font-size: 12px;margin: 5px;">Password is required!</p>
+          </ion-text>
+      </div>
+
+
+      <ion-item lines="none" style="--padding-start: 2px !important; margin: 0px 0px 12%;">
+         <ion-checkbox slot="start" checked="false" style="margin-inline-end: 15px !important;"></ion-checkbox>
+         <ion-label style="opacity: 0.8; font-size: 15px;font-weight:700;">Remember me</ion-label>
+      </ion-item>
+
+      <div style="margin:15px 0px 20px;">  
+        <ion-button type="submit" expand="block"
+        style="--background: linear-gradient(92deg, #27F09D, #07ADEB) !important;--color: #ffffff !important">
+        <strong>Log In</strong></ion-button>  
+      </div>
+  </form>
+      <!-- <form  #f="ngForm" (ngSubmit)="user_login(f)" (keyup.enter)="user_login(f)">
+        <div style="margin:25px 2px;">
+          <div class="inputLabel"><strong>Email</strong></div>
+          <ion-input type="email" class="inputBox" placeholder="ex- dan@example.com" name="email" ngModel></ion-input>
+        </div>
+        <div style="margin:25px 2px 8px;">
+          <div class="inputLabel"><strong>Password</strong></div>
+          <div style="position: relative;display:flex;">
+          <ion-input [type]="passwordType" class="inputBox" placeholder="Your Password"  name="password" ngModel></ion-input>
+          <ion-icon [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+          </div>
+        </div>
+
+        <ion-item lines="none" style="--padding-start: 2px !important; margin: 0px 0px 12%;">
+          <ion-checkbox slot="start" checked="false" style="margin-inline-end: 15px !important;"></ion-checkbox>
+          <ion-label style="opacity: 0.8; font-size: 15px;">Remember me</ion-label>
+        </ion-item>
+
+        <div style="margin:15px 0px;">  <ion-button type="submit" expand="block" style="--background: linear-gradient(92deg, #27F09D, #07ADEB) !important;--color: #ffffff !important"><strong>Log In</strong></ion-button>  </div>
+      </form> -->
+
+      <div style="text-align:center;">
+        <div><a href="javascript:void(0)" style="font-weight: 600;" [routerLink]="['/forgot-password']">Forgot Password?</a></div>
+        <div style="margin: 8% 0px 3%;">
+          <div><span style="opacity:0.8;font-weight:700;">Don't have an account?</span>&nbsp;<a href="javascript:void(0)" style="font-weight: 600;" [routerLink]="['/signup']">Sign Up</a></div>
+        </div>
+        <div style="font-weight: 600;">
+          <a href="javascript:void(0)" [routerLink]="['/maintabs/tabs/tab1']" style="position: relative;top: 0px;">
+          <span style="position: relative;top: 0px;">Continue without Logging In</span>&nbsp;<span style="position: relative;top: 6.5px;font-size:22px;"><ion-icon name="arrow-forward-circle-outline"></ion-icon></span>
+          </a>
+        </div><br>
+      </div>
+     </div>
+  </div>
+
+</div>
+</ion-content>

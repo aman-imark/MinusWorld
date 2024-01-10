@@ -1,0 +1,47 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="md" style="--min-height:0px;">
+    <ion-item lines="full" style="--inner-padding-end: 2px;--min-height:0px;">
+      <ion-label slot="start" style="font-size:18px !important; font-weight:600;">Sort By</ion-label>
+      <ion-buttons slot="end">
+        <ion-button slot="icon-only" (click)="dismiss()" style="height: 50px; width: 50px;font-size: 20px;border-radius: 100%;">
+          <ion-icon name="close-circle-outline"></ion-icon></ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  
+  <ion-item button detail="false" lines="none" (click)="mwSort_select('relevance')" [ngClass]="{'active' : mwsortValue == 'relevance'}">
+    <ion-label style="font-weight:700;">Relevance</ion-label>
+  </ion-item>
+
+  <ion-item button detail="false" lines="none" (click)="mwSort_select('ASC')" [ngClass]="{'active' : mwsortValue == 'ASC'}">
+    <ion-label style="font-weight:700;">Price(Low - High)</ion-label>
+  </ion-item>
+
+  <ion-item button detail="false" lines="none" (click)="mwSort_select('DESC')" [ngClass]="{'active' : mwsortValue == 'DESC'}">
+    <ion-label style="font-weight:700;">Price(High - Low)</ion-label>
+  </ion-item>
+
+
+  <!-- <div style="margin:5px 0px;">
+    <ion-radio-group [(ngModel)]="mwsortValue">
+      <ion-item lines="none">
+        <ion-label style="font-weight:700;">Relevance</ion-label>
+        <ion-radio slot="end" value="relevance"></ion-radio>
+      </ion-item>
+  
+      <ion-item lines="none">
+        <ion-label style="font-weight:700;">Price(Low - High)</ion-label>
+        <ion-radio slot="end" value="ASC"></ion-radio>
+      </ion-item>
+  
+      <ion-item lines="none">
+        <ion-label style="font-weight:700;">Price(High - Low)</ion-label>
+        <ion-radio slot="end" value="DESC"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </div> -->
+</ion-content>

@@ -1,0 +1,243 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button  icon="arrow-back"  text="" defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>Order Details</ion-text>
+    <!-- <ion-title class="ion-text-start">My Cart</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true"> <!-- [scrollEvents]="true" (ionScroll)="onScroll($event)" -->
+
+  <div  *ngIf="(isCartData === false)" style="position: relative;height: 100%;display: flex;align-items: center;width: 90%;margin: auto;">
+      <h5 style="text-align:center;color:#212529;">No Products found in your Cart!</h5>
+  </div>
+  
+  
+  
+  
+  <div  *ngIf="(isCartData === true)" style="position:relative">
+  <ion-item-divider *ngIf="(userCart_Details)">
+    <ion-label style="color:#333232;">Order Details</ion-label>
+  </ion-item-divider><br>
+    
+  
+    <ion-item *ngIf="(!userCart_Details)" lines="full">
+      <ion-row style="width:100%">
+        <ion-col size="3.4 ">
+         <div style="height:100px;">
+          <ion-skeleton-text style="height:100px;width:100%;"></ion-skeleton-text> 
+         </div>
+        </ion-col>
+        <ion-col size="8.6">
+          <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+          <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></p>
+          <p><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></p>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  
+    <div *ngIf="(userCart_Details)">
+      <ion-item lines="full">
+          <ion-row style="width:100%">
+            <ion-col size="3.4">
+             <div style="height:100px;overflow:hidden;">
+                <img [src]="userCart_Details?.images" onError="this.src='assets/no_img.jpeg'" style="height: 100%;width: 100%;object-fit: cover;"/>
+             </div>
+            </ion-col>
+            <ion-col size="8.6">
+  
+              <div style="display: flex; margin-bottom: 12px;">
+                <div *ngIf="(userCart_Details?.prodname)" style="color:#333232; margin: 0px;font-size:15px;"><strong>{{userCart_Details?.prodname}}</strong></div>
+                <div *ngIf="(!userCart_Details?.prodname)" style="color:#333232; margin: 0px;font-size:15px;"><strong>Unknown</strong></div>
+              </div>
+  
+              <div  *ngIf="(get_order_id)" class="ct-tt">
+                <div>Order ID:</div> 
+                <div>#{{get_order_id}}</div>
+              </div>
+              <div  *ngIf="(!get_order_id)" class="ct-tt">
+                <div>Order ID:</div> 
+                <div>not found!</div>
+              </div>
+  
+    
+                <div  *ngIf="(userCart_Details?.prodqty)" class="ct-tt">
+                  <div>Quantity:</div> 
+                  <div>{{userCart_Details?.prodqty}}</div>
+                </div>             
+                <div  *ngIf="(!userCart_Details?.prodqty)" class="ct-tt">
+                  <div>Quantity:</div> 
+                  <div>0</div>
+                </div>
+          
+  
+        
+                <div  *ngIf="(userCart_Details?.prodprice)" class="ct-tt">
+                  <div>Price:</div> 
+                  <div>${{userCart_Details?.prodprice}}</div>
+                </div>
+                <div  *ngIf="(!userCart_Details?.prodprice)" class="ct-tt">
+                  <div>Price:</div> 
+                  <div>0.00</div>
+                </div>
+         
+          
+                <div  *ngIf="(userCart_Details?.shipfee)" class="ct-tt">
+                  <div>Shipping Fee:</div> 
+                  <div>${{userCart_Details?.shipfee}}</div>
+                </div>
+                <div  *ngIf="(!userCart_Details?.shipfee)" class="ct-tt">
+                  <div>Shipping Fee:</div> 
+                  <div>$0.00</div>
+                </div>
+           
+         
+                <div  *ngIf="(stateTax)" class="ct-tt">
+                  <div>Tax:</div> 
+                  <div>${{stateTax}}</div>
+                </div>
+                <div  *ngIf="(!stateTax)" class="ct-tt">
+                  <div>Tax:</div> 
+                  <div>$0.00</div>
+                </div>
+        
+          
+                <div  *ngIf="(userCart_Details?.prodprice)" class="ct-tt" style="color:#212529 !important;margin:10px 0px !important;">
+                  <div>Order Total:</div> 
+                  <div>${{mcart.prodprice}}</div>
+                </div>
+                <div  *ngIf="(!userCart_Details?.prodprice)" class="ct-tt" style="color:#212529 !important;margin:10px 0px !important;">
+                  <div>Order Total:</div> 
+                  <div>0.00</div>
+                </div>
+            </ion-col>
+          </ion-row>
+  
+      </ion-item>
+
+ 
+      <!-- <ion-item>
+        <ion-label class="ion-text-wrap">
+          <ion-text color="primary">
+            <h3>H3 Primary Title</h3>
+          </ion-text>
+          <p>Paragraph line 1</p>
+          <ion-text color="secondary">
+            <p>Paragraph line 2 secondary</p>
+          </ion-text>
+        </ion-label>
+      </ion-item> -->
+
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          <h3 style="font-size:16px;margin-bottom:10px;"><strong>Shipping Address</strong></h3>
+          <h6><strong>{{deliveryAddress_Data?.ship_firstname}}&nbsp;{{deliveryAddress_Data?.ship_lastname}}</strong></h6>
+            <p>{{deliveryAddress_Data?.ship_address}}&nbsp;{{deliveryAddress_Data?.ship_apartment}}&nbsp;{{deliveryAddress_Data?.ship_zip}}</p>
+            <p>{{deliveryAddress_Data?.ship_city}}&nbsp;{{deliveryAddress_Data?.ship_state}}&nbsp;{{deliveryAddress_Data?.ship_country}}</p>
+            <p>{{deliveryAddress_Data?.ship_phn}}</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <h3 style="font-size:16px;margin-bottom:10px;"><strong>Billing Address</strong></h3>
+          <h6><strong>{{deliveryAddress_Data?.bill_firstname}}&nbsp;{{deliveryAddress_Data?.bill_lastname}}</strong></h6>
+            <p>{{deliveryAddress_Data?.bill_address}}&nbsp;{{deliveryAddress_Data?.bill_apartment}}&nbsp;{{deliveryAddress_Data?.bill_zip}}</p>
+            <p>{{deliveryAddress_Data?.bill_city}}&nbsp;{{deliveryAddress_Data?.bill_state}}&nbsp;{{deliveryAddress_Data?.bill_country}}</p>
+            <p>{{deliveryAddress_Data?.bill_phn}}</p>
+        </ion-label>
+     </ion-item>
+    </div>
+
+
+  </div>
+  
+
+  </ion-content>
+  
+  
+  <ion-footer *ngIf="(isCartData === true)"  style="background:#fff;">
+    <div style="display:flex; justify-content: space-between; align-items: center;margin: 12px 10px;">
+      <div>
+          <div style="font-size:14px;">Order Total</div>
+          <div *ngIf="(userCart_Details?.prodprice)" style="font-size:14px;font-weight:600;margin-top:5px;">$&nbsp;{{userCart_Details?.prodprice}}&nbsp;</div>
+      </div>
+      <div>
+         <ion-button  *ngIf="(userCart_Details?.prodprice)" type="button" (click)="goto_OrderPayment()" style="--background: linear-gradient(92deg, #27F09D, #07ADEB) !important;--color: #ffffff !important">Go to Payment</ion-button>
+      </div>
+    </div>
+  </ion-footer>
+  
+  
+
+  <!-- Order Summary
+  
+  $0.00
+  Shipping Fee$21.16
+  Tax$0.00
+  Order Total -->
+  
+  
+  
+  
+  <!-- {
+    "status": "success",
+    "message": "My Cart",
+    "MyCartDetails": [
+        {
+            "prodname": null,
+            "images": "https://minusworlds.com/images/no-image1.jpg",
+            "prodprice": 0,
+            "prodqty": "1"
+        }
+    ]
+  } -->
+  
+  <!-- {
+    "status": "success",
+    "message": "My Cart",
+    "MyCartDetails": [
+        {
+            "prodname": " Super Nintendo Konami Cybernator WATA 9.4 A+ (Assault Suit Valken)",
+            "images": "https://minusworlds.com/uploads/572713921_EFE8E1EC-9882-4711-BD8C-FF494BCEDEA6.jpeg",
+            "prodprice": 8000,
+            "prodqty": "1"
+        }
+    ]
+  } -->
+
+
+<!-- {
+  "ship_firstname": "Debasis",
+  "ship_lastname": "Satpathy",
+  "ship_address": "My Street",
+  "ship_apartment": "",
+  "ship_city": "Toronto",
+  "ship_country": "Canada",
+  "ship_zip": "M5J 2N8",
+  "ship_phn": "1234567890",
+  "bill_firstname": "Debasis",
+  "bill_lastname": "Satpathy",
+  "bill_address": "My Street",
+  "bill_apartment": "",
+  "bill_city": "Toronto",
+  "bill_country": "Canada",
+  "bill_zip": "M5J 2N8",
+  "bill_phn": "1234567890"
+} -->
+
+<!-- {
+  "ship_state": "Delaware",
+  "ship_stateid": "8",
+  "ship_country": "Algeria",
+  "ship_countryid": "3",
+
+  "bill_state": "Delaware",
+  "bill_stateid": "8",
+  "bill_country": "Algeria",
+  "bill_countryid": "3",
+
+} -->

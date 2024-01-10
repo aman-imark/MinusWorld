@@ -1,0 +1,251 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button  icon="arrow-back"  text="" defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>Orders</ion-text>
+    <!-- <ion-title class="ion-text-start">Orders</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+
+
+
+
+<ion-content [fullscreen]="true"  [scrollEvents]="true" (ionScroll)="onScroll($event)">
+  <div style="margin:8px 5px;"> 
+    <ion-segment class="comman" (ionChange)="segmentChanged($event)" [(ngModel)]="value_segmentChanged" style="--background:transparent;" scrollable>
+      <ion-segment-button value="your_orders">
+        <ion-label>Your Orders</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="mw_store_Orders">
+        <ion-label>MW Store Orders</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+
+  <div>
+  <div *ngIf="value_segmentChanged === 'your_orders'">
+      <div *ngIf="(YourOrders_Data?.length === 0)" style="display:flex;align-items: center;justify-content: center;
+                       min-height: 80vh;height:100%;font-weight:600;color: #666666;">No Result Found!</div>
+
+      <ion-list  *ngIf="(!YourOrders_Data)">
+        <ion-item lines="full" detail="false">
+          <ion-row style="width: 100%; align-items: center;">
+            <ion-col size="3">
+              <div style="height:85px;"> <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text> </div>
+            </ion-col>
+            <ion-col size="4.5">
+              <div class="skl-cst">
+                <p><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text> </p>
+                <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> </p>
+                <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </p>
+                <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> </p>
+                <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </p>
+              </div>
+            </ion-col>
+            <ion-col size="4.5">
+              <div class="skl-cst">
+                <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text> </p>
+                <p><ion-skeleton-text animated style="width: 55%"></ion-skeleton-text> </p>
+                <p><ion-skeleton-text animated style="width: 25%"></ion-skeleton-text> </p>
+                <p><ion-skeleton-text animated style="width: 65%"></ion-skeleton-text> </p>
+                <p><ion-skeleton-text animated style="width: 20%"></ion-skeleton-text> </p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <ion-item lines="full" detail="false">
+          <ion-row style="width: 100%; align-items: center;">
+            <ion-col size="3">
+              <div style="height:85px;"> <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text> </div>
+            </ion-col>
+            <ion-col size="4.5">
+              <div class="skl-cst">
+                <p><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text> </p>
+                <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> </p>
+                <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </p>
+                <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> </p>
+                <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </p>
+              </div>
+            </ion-col>
+            <ion-col size="4.5">
+              <div class="skl-cst">
+                <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text> </p>
+                <p><ion-skeleton-text animated style="width: 55%"></ion-skeleton-text> </p>
+                <p><ion-skeleton-text animated style="width: 25%"></ion-skeleton-text> </p>
+                <p><ion-skeleton-text animated style="width: 65%"></ion-skeleton-text> </p>
+                <p><ion-skeleton-text animated style="width: 20%"></ion-skeleton-text> </p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+      </ion-list>
+
+
+      <ion-list  *ngIf="(YourOrders_Data)">
+        <ion-item  button lines="full" detail="false"  *ngFor="let yod of YourOrders_Data">
+          <ion-row style="width: 100%; font-size: 14px; align-items:start;">
+            <ion-col size="3">
+              <div style="height: 85px;padding: 10px;
+              background: #EFF3FF;border-radius: 8px;
+              text-align: center;">  <img style="height:100%" [src]="yod.Photos"  onError="this.src='assets/no_img.jpeg'">  </div>
+            </ion-col>
+            <ion-col size="9">
+              <ion-row style="width:100%">
+                <ion-col  size="6"><ion-text style="font-weight: 600;">Order Id</ion-text></ion-col>
+                <ion-col  size="6"><ion-text style="font-weight: 600;">#{{yod.OrderID}}</ion-text></ion-col>
+              </ion-row>
+              <ion-row style="width:100%">
+                <ion-col  size="6"><ion-text style="font-weight: 600;">InvoiceID</ion-text></ion-col>
+                <ion-col  size="6"><ion-text style="font-weight: 600;color:#212529;">{{yod.OrderInvoiceID}}</ion-text></ion-col>
+              </ion-row>
+              <ion-row style="width:100%">
+                <ion-col  size="6"><ion-text style="font-weight: 600;">Name</ion-text></ion-col>
+                <ion-col  size="6"><ion-text style="font-weight: 600;">{{yod.Name}}</ion-text></ion-col>
+              </ion-row>
+              <ion-row style="width:100%">
+                <ion-col  size="6"><ion-text style="font-weight: 600;">Product Type</ion-text></ion-col>
+                <ion-col  size="6"><ion-text style="font-weight:600;color:#212529;">{{yod.ProductType}}</ion-text></ion-col>
+              </ion-row>
+              <ion-row style="width:100%">
+                <ion-col  size="6"><ion-text style="font-weight: 600;">Ordered Date</ion-text></ion-col>
+                <ion-col  size="6"><ion-text style="font-weight: 600;color:#212529;">{{yod.OrderedDate}}</ion-text></ion-col>
+              </ion-row>
+              <ion-row style="width:100%">
+                <ion-col  size="6"><ion-text style="font-weight: 600;">Price</ion-text></ion-col>
+                <ion-col  size="6"><ion-text style="font-weight: 600;">${{yod.Price}}</ion-text></ion-col>
+              </ion-row>
+              <ion-row style="width:100%;align-items:center;">
+                <ion-col  size="6"><ion-text style="font-weight: 600;">Status</ion-text></ion-col>
+                <ion-col  size="6" style="padding-inline: 0px;">
+                  <ion-chip *ngIf="(yod.OrderStatus === 'Ordered')" color="primary">
+                    <ion-label>{{yod.OrderStatus}}</ion-label>
+                  </ion-chip>
+                  <ion-chip *ngIf="(yod.OrderStatus === 'Paid')" color="primary">
+                    <ion-label>{{yod.OrderStatus}}</ion-label>
+                  </ion-chip>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+      </ion-list>
+
+  </div>
+
+  <div *ngIf="value_segmentChanged === 'mw_store_Orders'">
+    <div *ngIf="(MWStoreOrders_Data?.length === 0)" style="display:flex;align-items: center;justify-content: center;
+    min-height: 80vh;height:100%;font-weight:600;color: #666666;">No Result Found!</div>
+
+    <ion-list  *ngIf="(!MWStoreOrders_Data)">
+      <ion-item lines="full" detail="false">
+        <ion-row style="width: 100%; align-items: center;">
+          <ion-col size="3">
+            <div style="height:85px;"> <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text> </div>
+          </ion-col>
+          <ion-col size="4.5">
+            <div class="skl-cst">
+              <p><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text> </p>
+              <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> </p>
+              <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </p>
+              <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> </p>
+              <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </p>
+            </div>
+          </ion-col>
+          <ion-col size="4.5">
+            <div class="skl-cst">
+              <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text> </p>
+              <p><ion-skeleton-text animated style="width: 55%"></ion-skeleton-text> </p>
+              <p><ion-skeleton-text animated style="width: 25%"></ion-skeleton-text> </p>
+              <p><ion-skeleton-text animated style="width: 65%"></ion-skeleton-text> </p>
+              <p><ion-skeleton-text animated style="width: 20%"></ion-skeleton-text> </p>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+      <ion-item lines="full" detail="false">
+        <ion-row style="width: 100%; align-items: center;">
+          <ion-col size="3">
+            <div style="height:85px;"> <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text> </div>
+          </ion-col>
+          <ion-col size="4.5">
+            <div class="skl-cst">
+              <p><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text> </p>
+              <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> </p>
+              <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </p>
+              <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> </p>
+              <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text> </p>
+            </div>
+          </ion-col>
+          <ion-col size="4.5">
+            <div class="skl-cst">
+              <p><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text> </p>
+              <p><ion-skeleton-text animated style="width: 55%"></ion-skeleton-text> </p>
+              <p><ion-skeleton-text animated style="width: 25%"></ion-skeleton-text> </p>
+              <p><ion-skeleton-text animated style="width: 65%"></ion-skeleton-text> </p>
+              <p><ion-skeleton-text animated style="width: 20%"></ion-skeleton-text> </p>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+
+    <ion-list  *ngIf="(MWStoreOrders_Data)">
+      <ion-item  button lines="full" detail="false"  *ngFor="let mwd of MWStoreOrders_Data">
+        <ion-row style="width: 100%; font-size: 14px; align-items:start;">
+          <ion-col size="3">
+            <div style="height: 85px;padding: 10px;
+            background: #EFF3FF;border-radius: 8px;
+            text-align: center;">  <img style="height:100%" [src]="mwd.Photos"  onError="this.src='assets/no_img.jpeg'">  </div>
+          </ion-col>
+          <ion-col size="9">
+            <ion-row style="width:100%">
+              <ion-col  size="6"><ion-text style="font-weight: 600;">Order Id</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight: 600;">#{{mwd.OrderID}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%">
+              <ion-col  size="6"><ion-text style="font-weight: 600;">InvoiceID</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight: 600;color:#212529;">{{mwd.OrderInvoiceID}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%">
+              <ion-col  size="6"><ion-text style="font-weight: 600;">Name</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight: 600;">{{mwd.Name}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%">
+              <ion-col  size="6"><ion-text style="font-weight: 600;">Product Type</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight: 600;color:#212529;">{{mwd.ProductType}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%">
+              <ion-col  size="6"><ion-text style="font-weight: 600;">Ordered Date</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight: 600;color:#212529;">{{mwd.OrderedDate}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%">
+              <ion-col  size="6"><ion-text style="font-weight: 600;">Price</ion-text></ion-col>
+              <ion-col  size="6"><ion-text style="font-weight: 600;">${{mwd.Price}}</ion-text></ion-col>
+            </ion-row>
+            <ion-row style="width:100%;align-items:center;">
+              <ion-col  size="6"><ion-text style="font-weight: 600;">Status</ion-text></ion-col>
+              <ion-col  size="6" style="padding-inline: 0px;">
+                <ion-chip *ngIf="(mwd.OrderStatus === 'Ordered')" color="primary">
+                  <ion-label>{{mwd.OrderStatus}}</ion-label>
+                </ion-chip>
+                <ion-chip *ngIf="(mwd.OrderStatus === 'Paid')" color="primary">
+                  <ion-label>{{mwd.OrderStatus}}</ion-label>
+                </ion-chip>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+  </div>
+</div>
+
+
+
+
+</ion-content>

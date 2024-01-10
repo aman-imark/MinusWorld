@@ -1,0 +1,46 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button text=""  defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>Terms and Conditions</ion-text>
+    <!-- <ion-title class="ion-text-start">Terms and Conditions</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true"  [scrollEvents]="true">
+<!-- <div style="margin:2% 8px;">
+
+    <div style="font-size: 16px; font-weight:800; margin: 4% 0px 2%; letter-spacing: 0.5px;">TERMS AND CONDITIONS OF USE</div>
+    <div style="line-height: 1.6; font-size:15px; opacity: 0.8; margin-bottom: 8%; letter-spacing: 0.5px;">These Terms and Conditions of Use (“T&C”) constitute a binding agreement between you, the user, and the owner of the website minusworlds.com (the “Site”), “A Few Good Ideas LLC” (the “Company”). By accessing or using the Site, you are agreeing to these T&Cs. Please read the T&Cs carefully before further using the Site or making any purchase through the Site.</div>
+     
+    <div style="font-size: 16px; font-weight:800; margin: 4% 0px 2%; letter-spacing: 0.5px;">Accounts</div>
+    <div style="line-height: 1.6; font-size:15px; opacity: 0.8; margin-bottom: 8%; letter-spacing: 0.5px;">Accounts that you are able to establish through the Site give you access to the services and functionality that the Company may establish and maintain from time to time and in its sole discretion. You may never use another user’s account without permission. When creating your account, you must provide accurate and complete information. You are solely responsible for the activity that occurs on your account, and you must keep your account password secure. The Company encourages you to use “strong” passwords (passwords that use a combination of upper- and lower-case letters, numbers and symbols) with your account.</div>
+   
+    <div style="font-size: 16px; font-weight:800; margin: 4% 0px 2%; letter-spacing: 0.5px;">Restrictions</div>
+    <div style="line-height: 1.6; font-size:15px; opacity: 0.8; margin-bottom: 8%; letter-spacing: 0.5px;">By using the Site, you affirmatively agree that you will not modify, disassemble, decompile or reverse engineer the Site’s computer code, except to the extent that such restriction is expressly prohibited by law, nor will you assist or aid any other person or entity in modifying, disassembling, decompiling or reverse engineering the Site’s computer code.</div>
+     
+    <div style="font-size: 16px; font-weight:800; margin: 4% 0px 2%; letter-spacing: 0.5px;">Our Communications With You</div>
+    <div style="line-height: 1.6; font-size:15px; opacity: 0.8; margin-bottom: 8%; letter-spacing: 0.5px;">By providing Company your email address or other contact information, you consent to the Company using that contact information to send you notices and advertisements, including any notices required by law, in lieu of communication by postal mail. We may also use your email address to send you other messages, such as changes to features of the Site and special offers. If you do not want to receive promotional email messages, you may opt out by unsubscribing from such email communications from Company. </div>
+     
+</div> -->
+
+<div *ngIf="(!dym_content)" class="ion-padding">
+  <div style="margin-bottom: 60px;">
+    <div style="height: 25px; width: 70%; border-radius:2px; margin-bottom:25px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+    <div style="height: 200px; width: 100%; border-radius:2px; margin-bottom:12px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+    <div style="height: 200px; width: 100%; border-radius:2px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+  </div>
+  <div style="margin-bottom: 60px;">
+    <div style="height: 25px; width: 70%; border-radius:2px; margin-bottom:25px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+    <div style="height: 200px; width: 100%; border-radius:2px; margin-bottom:12px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+    <div style="height: 200px; width: 100%; border-radius:2px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+  </div>
+</div>
+<div style="margin:2% 8px;">
+ <div [innerHTML]="dym_content" class="cmn-space"></div>
+</div>
+</ion-content>

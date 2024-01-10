@@ -1,0 +1,296 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button  icon="arrow-back"  text="" defaultHref=""></ion-back-button>
+    </ion-buttons> -->
+
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>Payment Method</ion-text>
+    <!-- <ion-title class="ion-text-start">Payment Method</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true"  [scrollEvents]="true"> <!-- (ionScroll)="onScroll($event)" -->
+<ion-toolbar *ngIf="(activeStepper === true)" style="--border-color: #dedede;--border-style: solid; --border-width: 0px 0px 1px 0px;">
+  <ion-row style="align-items: center;width: 100%;padding: 10px 10px 0px;">
+      <ion-col size="1.2"> 
+          <div class="dot-circle" [ngStyle]="{'border':on_addressBar === true ? '1px solid #07ADEB' : '1px solid #bbbbbb'}">
+              <div class="dot" [ngStyle]="{'background-color':on_addressBar === true ? '#07ADEB' : '#bbbbbb'}"></div>
+          </div> 
+      </ion-col>
+      <ion-col size="4.2"> 
+          <div>
+              <ion-progress-bar *ngIf="(on_paymentsBar === false || on_paymentsBar === undefiend)" value="1" style="--background:#bbbbbb;"></ion-progress-bar>
+              <ion-progress-bar *ngIf="(on_paymentsBar === true)" value="1" style="--progress-background:#07ADEB;--buffer-background: #07ADEB;"></ion-progress-bar>
+          </div> 
+      </ion-col>
+      <ion-col size="1.2">
+          <div class="dot-circle" [ngStyle]="{'border':on_paymentsBar === true ? '1px solid #07ADEB' : '1px solid #bbbbbb'}">
+              <div class="dot" [ngStyle]="{'background-color':on_paymentsBar === true ? '#07ADEB' : '#bbbbbb'}"></div>
+          </div> 
+      </ion-col>
+      <ion-col size="4.2"> 
+          <div>
+              <ion-progress-bar *ngIf="(on_summaryBar === false || on_summaryBar === undefiend)" value="1" style="--progress-background:#bbbbbb;--buffer-background: #bbbbbb;"></ion-progress-bar>
+              <ion-progress-bar *ngIf="(on_summaryBar === true)" value="1" style="--progress-background:#07ADEB;--buffer-background: #07ADEB;"></ion-progress-bar>
+          </div> 
+      </ion-col>
+      <ion-col size="1.2"> 
+          <div class="dot-circle" [ngStyle]="{'border':on_summaryBar === true ? '1px solid #07ADEB' : '1px solid #bbbbbb'}">
+              <div class="dot" [ngStyle]="{'background-color':on_summaryBar === true ? '#07ADEB' : '#bbbbbb'}"></div>
+          </div> 
+      </ion-col>
+  </ion-row>
+  <ion-row style="align-items: center;width: 100%;padding: 0px 10px 10px; font-size: 12px;font-weight:600;">
+      <ion-col size="4" style="text-align: left;"> <div>Address</div> </ion-col>
+      <ion-col size="4" style="text-align: center;"> <div>Payments</div> </ion-col>
+      <ion-col size="4" style="text-align: right;"> <div>Summary</div> </ion-col>
+  </ion-row>
+</ion-toolbar><br>
+
+
+<ion-toolbar style="--padding-start: 20px;"><ion-text style="font-weight:600;">Product Details</ion-text></ion-toolbar>
+
+<ion-item lines="full">
+  <ion-row style="width:100%">
+    <ion-col size="3.4">
+     <div style="height:100px;overflow:hidden; background: #EFF3FF;padding: 10px;border-radius: 10px;">
+        <img [src]="userCart_Details?.images" onError="this.src='assets/no_img.jpeg'" style="height: 100%;width: 100%;object-fit: cover;"/>
+     </div>
+    </ion-col>
+    <ion-col size="8.6">
+
+      <div style="display: flex; margin-bottom: 12px;">
+        <div *ngIf="(userCart_Details?.prodname)" style="color:#333232; margin: 0px;font-size:15px;"><strong>{{userCart_Details?.prodname}}</strong></div>
+        <div *ngIf="(!userCart_Details?.prodname)" style="color:#333232; margin: 0px;font-size:15px;"><strong>Unknown</strong></div>
+      </div>
+
+      <div  *ngIf="(get_order_id)" class="ct-tt"  style="display:none;">
+        <div>Order ID:</div> 
+        <div>#{{get_order_id}}</div>
+      </div>
+      <div  *ngIf="(!get_order_id)" class="ct-tt"  style="display:none;">
+        <div>Order ID:</div> 
+        <div>not found!</div>
+      </div>
+
+
+        <div  *ngIf="(userCart_Details?.prodqty)" class="ct-tt">
+          <div>Quantity:</div> 
+          <div>{{userCart_Details?.prodqty}}</div>
+        </div>             
+        <div  *ngIf="(!userCart_Details?.prodqty)" class="ct-tt">
+          <div>Quantity:</div> 
+          <div>0</div>
+        </div>
+  
+        <div  class="ct-tt">
+          <div>Price:</div> 
+          <div>${{productPrice}}</div>
+        </div>
+        
+
+        <div  class="ct-tt">
+          <div>Shipping Fee:</div> 
+          <div>${{shippingFee | number}}</div>
+        </div>
+
+ 
+        <div  class="ct-tt">
+          <div>Tax:</div> 
+          <div>${{taxFee | number}}</div>
+        </div>
+      
+
+        <div  *ngIf="(active_segment === '0' || active_segment === '2')" class="ct-tt">
+          <div>Processing Fee (3%):</div> 
+          <div>${{processingFee | number}}</div>
+        </div>
+        
+
+  
+        <div  *ngIf="(userCart_Details?.prodprice)" class="ct-tt" style="margin-top:10px;margin-bottom:10px;color:#333232;">
+          <div>Order Total:</div> 
+          <div>${{orderTotalPrice | number}}</div>
+          <!-- <div>${{+productPrice + +shippingFee + +taxFee + +processingFee}}</div> -->
+        </div>
+        <div  *ngIf="(!userCart_Details?.prodprice)" class="ct-tt" style="margin-top:10px;margin-bottom:10px;color:#333232;">
+          <div>Order Total:</div> 
+          <div>0.00</div>
+        </div>
+
+    </ion-col>
+  </ion-row>
+
+</ion-item><br>
+
+
+<ion-toolbar style="--padding-start: 20px;"><ion-text style="font-weight:600;">Product Payment</ion-text></ion-toolbar>
+
+
+<ion-grid style="padding-top: 0px;">
+  <ion-row>
+    <ion-col size="12">
+      <ion-segment mode="ios" class="pay-method" (ionChange)="segmentChanged($event)" [(ngModel)]="active_segment" style="--background:transparent;">
+        <ion-segment-button value="0">
+            <ion-icon name="card-outline"></ion-icon>
+            <ion-label>Credit Card</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="1">
+            <ion-icon name="card-outline"></ion-icon>
+            <ion-label>Debit Card</ion-label>
+            <!-- Debit Card (Save 3% Processing Fee) -->
+        </ion-segment-button>
+        <ion-segment-button value="2">
+            <ion-icon name="logo-paypal"></ion-icon>
+            <ion-label>PayPal</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+
+
+
+
+<div *ngIf="(active_segment === '0' || active_segment === '1')">  
+<form [formGroup]="cardPayForm" novalidate>
+
+  <div class="m_class">
+    <h5 style="text-align:left;color:#212529;font-weight:600;">Card Information</h5>
+    <p  *ngIf="(active_segment === '1')" style="text-align:left;color:#797979;font-size:12px;font-weight:700;margin: 0px 0px 8px;">(Save 3% Processing Fee)</p>
+    <div style="text-align:left;">
+      
+
+      <ion-item *ngIf="(card_dt_err === true)" style="height: 30px !important;" lines="none">
+        <ion-text color="danger">
+          <p style="font-size: 12px;font-weight:600;">*Please fill card details!</p>
+        </ion-text>
+      </ion-item>
+            <ion-item style="height: 35px !important;" lines="none">
+              <ion-label style="font-size:14px;font-weight:600;">Card Number</ion-label> 
+            </ion-item>
+            <ion-item  lines="none">
+            <div style="display:flex;flex-direction:column;width:100%;justify-content: space-between;">
+              <ion-input  type="tel" class="form-control inputBox"  placeholder="Card number"  maxlength="16" 
+                           formControlName="number" (ionInput)="countChange($event)"></ion-input>
+
+               <!-- <ion-input type="tel" class="form-control inputBox card" placeholder="XXXX" maxlength="4"  #a (ionInput)="moveFocus($event, b)"  [(ngModel)]="card1"></ion-input>
+               <ion-input type="tel" class="form-control inputBox card" placeholder="XXXX" maxlength="4"  #b (ionInput)="moveFocus($event,c)" [(ngModel)]="card2"></ion-input>
+               <ion-input type="tel" class="form-control inputBox card" placeholder="XXXX" maxlength="4"  #c (ionInput)="moveFocus($event,d)" [(ngModel)]="card3"></ion-input>
+               <ion-input type="tel" class="form-control inputBox card" placeholder="XXXX" maxlength="4"  #d (ionInput)="moveFocus($event,e)" [(ngModel)]="card4"></ion-input> -->
+            
+              <!-- <ion-text color="danger" *ngIf="cardPayForm.get('number').invalid && (cardPayForm.get('number').dirty || cardPayForm.get('number').touched)">
+                <p style="font-size: 12px;margin: 5px;">Card number is required!</p>
+              </ion-text> -->
+
+              <ion-text color="danger" *ngIf="cardPayForm.get('number').touched && cardPayForm.get('number').hasError('required')">
+                <p style="font-size: 12px;margin: 5px;font-weight:600;">Card number is required!</p>
+              </ion-text>
+
+              <ion-text color="danger" *ngIf="cardPayForm.get('number').touched && cardPayForm.get('number').hasError('minlength')">
+                <p style="font-size: 12px;margin: 5px;font-weight:600;">16 digit card number is required!</p>
+              </ion-text>
+
+              <!-- <div *ngIf="name.errors?.['required']">
+                Name is required.
+              </div>
+              <div *ngIf="name.errors?.['minlength']">
+                Name must be at least 4 characters long.
+              </div>
+              <div *ngIf="name.errors?.['forbiddenName']">
+                Name cannot be Bob.
+              </div> -->
+
+
+            </div>
+            </ion-item>
+
+            <ion-item style="height: 35px !important;" lines="none">
+              <ion-label style="font-size:14px;font-weight:600;">Card Holder Name</ion-label> 
+            </ion-item>
+            <ion-item  lines="none">
+              <div style="display:flex;flex-direction:column;width:100%;justify-content: space-between;">
+                <ion-input type="text" class="form-control inputBox" placeholder="Name on Card"  
+                         formControlName="name"></ion-input>
+
+                <ion-text color="danger" *ngIf="cardPayForm.get('name').touched && cardPayForm.get('name').hasError('required')">
+                    <p style="font-size: 12px;margin: 5px;font-weight:600;">Name is required!</p>
+                </ion-text>
+              </div>
+            </ion-item>
+
+            <ion-item lines="none">
+              <ion-row style="width:100%; margin: 0px 0px 20px;">
+                <ion-col size="5" style="padding-top:0px;padding-inline-start:0px;">
+                  <ion-item style="height: 35px !important;--padding-start: 0px;" lines="none">
+                    <ion-label style="font-size:14px;font-weight:600;">Valid</ion-label> 
+                  </ion-item>
+                  <ion-item lines="none"  (click)="openThroghMY_Modal()" style="--padding-start: 0px;">
+                    <div style="display:flex;flex-direction:column;width:100%;justify-content: space-between;">
+                      <ion-input type="text" class="form-control inputBox" placeholder="MM/YYYY" [value]="through_dateValue" readonly></ion-input>
+                      <ion-input type="text" formControlName="expMonth" [value]="card_exp_month"  hidden></ion-input>
+                      <ion-input type="text" formControlName="expYear" [value]="card_exp_year" hidden></ion-input>
+
+                      <ion-text color="danger" *ngIf="cardPayForm.get('expYear').touched && cardPayForm.get('expYear').hasError('required')">
+                        <p style="font-size: 12px;margin: 5px;font-weight:600;">Exp. month/year is required!</p>
+                      </ion-text>
+                    </div>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="2" style="padding-top:0px;"></ion-col>
+                <ion-col size="5" style="padding-top:0px;padding-inline-start:0px;">
+                    <ion-item style="height: 35px !important;--padding-start: 0px;" lines="none">
+                      <ion-label style="font-size:14px;font-weight:600;">CVV</ion-label> 
+                    </ion-item>
+                    <ion-item  lines="none"  style="--padding-start: 0px;">
+                      <div style="display:flex;flex-direction:column;width:100%;justify-content: space-between;">
+                        <ion-input type="tel" class="form-control inputBox" placeholder="XXX"  
+                                 formControlName="cvc"  maxlength="4" (ionInput)="countChange($event)"></ion-input>
+
+                        <ion-text color="danger" *ngIf="cardPayForm.get('cvc').touched && cardPayForm.get('cvc').hasError('required')">
+                                  <p style="font-size: 12px;margin: 5px;font-weight:600;">CVV number is required!</p>
+                        </ion-text>
+                        <ion-text color="danger" *ngIf="cardPayForm.get('cvc').touched && cardPayForm.get('cvc').hasError('minlength')">
+                          <p style="font-size: 12px;margin: 5px;font-weight:600;">CVV min length is required!</p>
+                        </ion-text>
+                      </div>
+                    </ion-item>                  
+                </ion-col>
+              </ion-row>
+            </ion-item>
+    </div>
+  </div>
+  <!-- <ion-button type="submit" [disabled]="cardPayForm.invalid">Send</ion-button> -->
+</form>
+</div>
+
+
+
+<!--  -->
+<div *ngIf="(active_segment === '2')">  
+  <!-- <app-paypal></app-paypal> -->
+  <div class="ion-padding">
+    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+  </div>
+</div>
+
+
+<br>
+<br>
+</ion-content>
+
+
+<ion-footer *ngIf="(active_segment === '0' || active_segment === '1')"  style="background:#fff;">
+  <div style="display:flex; justify-content: space-between; align-items: center;margin: 12px 10px;">
+    <div style="width:100%;">
+      <ion-button expand="block"  (click)="user_Make_Payment(cardPayForm)"
+                 style="--background: linear-gradient(92deg, #27F09D, #07ADEB) !important;--color: #ffffff !important">Pay Now</ion-button>
+
+    </div>
+  </div>
+</ion-footer>
+
+

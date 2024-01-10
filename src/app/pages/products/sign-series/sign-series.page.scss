@@ -1,0 +1,43 @@
+ion-content{
+
+    .isData{
+        ion-list{
+          padding-top: 0px;
+          ion-item.ios{
+            --inner-padding-top: 15px;
+            --inner-padding-bottom: 15px;
+          }
+          ion-item{  
+              // align-items: start;
+              --inner-padding-top: 8px;
+              --inner-padding-bottom: 8px;
+              // --padding-start: 20px; 
+              // --inner-padding-end: 10px;
+            
+              ion-thumbnail {
+                min-width: 5rem;    
+                min-height: 5.5rem;
+                // min-height: 6rem;
+                img {
+                    max-width: 5rem;    
+                    min-width: 5rem;
+                }
+              }
+              ion-label h3{
+                font-size:15px;
+              }
+    
+              ion-row{
+                width:100%;
+                ion-col{
+                    padding: 0px;
+                }
+              }
+          }
+        }
+      }
+
+  
+}
+    
+    

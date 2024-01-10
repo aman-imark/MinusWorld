@@ -1,0 +1,32 @@
+<ion-header class="ion-no-border" #header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/"></ion-back-button>
+    </ion-buttons> -->
+
+    <app-bk-btn slot="start"></app-bk-btn>
+    <ion-text>Terms Of Use</ion-text>
+    <!-- <ion-title class="ion-text-start">Terms Of Use</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true"  [scrollEvents]="true">
+
+
+  <div *ngIf="(!dym_content)" class="ion-padding">
+    <div style="margin-bottom: 60px;">
+      <div style="height: 25px; width: 70%; border-radius:2px; margin-bottom:25px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+      <div style="height: 200px; width: 100%; border-radius:2px; margin-bottom:12px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+      <div style="height: 200px; width: 100%; border-radius:2px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+    </div>
+    <div style="margin-bottom: 60px;">
+      <div style="height: 25px; width: 70%; border-radius:2px; margin-bottom:25px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+      <div style="height: 200px; width: 100%; border-radius:2px; margin-bottom:12px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+      <div style="height: 200px; width: 100%; border-radius:2px;"><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></div>
+    </div>
+  </div>
+<div style="margin:2% 8px;">
+   <div [innerHTML]="dym_content" class="cmn-space"></div>
+</div>
+
+</ion-content>

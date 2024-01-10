@@ -1,0 +1,136 @@
+ion-progress-bar{
+  height: 2px;
+}
+
+.dot-circle {
+  height: 20px;
+  width: 20px;
+  // border: 1px solid #bbbbbb;
+  border-radius: 50%;
+  display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  // background-color: #bbbbbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+
+
+ion-button{
+    height:44px !important;
+}
+
+ion-slides {
+  height: 100%;
+}
+
+
+ion-slide{
+  display:block;
+  // margin:4px 4px;
+  ion-item{
+    --background: #f7f7f7;
+  }
+}
+
+
+
+.inputBox{
+  // border:1px solid #C7D1FF;
+  border-radius: 5px; --padding-start:10px !important;
+  --padding-end:10px !important;
+  font-size:14px;
+  background: #ededed !important;
+  // background: #fafafb !important;
+}
+
+
+
+.m_class{
+  width: 96%;
+  margin: auto;
+  text-align: left;
+  background: #f7f7f7;
+  padding: 10px 10px;
+  border-radius:10px;
+
+  h5{
+    font-size: 14px;
+  }
+  p{
+    font-size: 16px;
+  }
+}
+
+
+.form-control.card {
+  width: calc(100% / 4.26);
+  display: inline-block;
+  margin: 0 3px;
+  height: auto;
+  --padding-top: 12px;
+  --padding-end: 5px;
+  --padding-bottom: 12px;
+  --padding-start: 5px;
+  text-align: center;
+  border-radius: 4px;
+  &:first-of-type {
+      margin-left: 0;
+  }
+  &:last-of-type {
+      margin-right: 0;
+  }
+}
+
+
+
+
+ion-modal {
+  --width: 290px;
+  --height: 352px;
+  --border-radius: 8px;
+}
+
+ion-modal ion-datetime {
+  height: 352px;
+}
+
+
+
+
+ion-content{
+
+  ion-list{
+    padding-top: 0px;
+  }
+  
+  ion-item{
+      --padding-start: 6px;
+      --padding-end: 6px;
+      --inner-padding-start: 6px;
+      --inner-padding-end: 6px;
+      ion-thumbnail {
+        min-width: 5rem;    
+        min-height: 5.5rem;
+        img {
+            max-width: 5rem;    
+            min-width: 5rem;
+        }
+      }
+    }
+  
+}    
+
+
+.ct-tt {
+  font-size: 14px; font-weight:600;
+  display:flex; justify-content: space-between; align-items: center; color:#797979; margin-top:10px;
+}
+
+

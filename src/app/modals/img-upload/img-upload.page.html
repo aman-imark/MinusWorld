@@ -1,0 +1,42 @@
+<ion-header class="ion-no-border" style="--background:transparent;">
+  <ion-toolbar style="--background: #8b8b8b;">
+    <ion-item lines="none" style="--background: #8b8b8b;--inner-padding-end: 2px;">
+      <ion-label slot="start" style="font-size:18px !important; font-weight:600;color:#ffffff;">Preview</ion-label>
+      <ion-buttons slot="end">
+        <ion-button slot="icon-only" (click)="dismiss()" style="height: 50px; width: 50px;font-size: 20px;border-radius: 100%;">
+          <ion-icon name="close-circle-outline" style="color:#ffffff;"></ion-icon></ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<!-- #202020 -->
+<!-- #8e8e86 -->
+<!-- #484847 -->
+<!-- #262728 -->
+<!-- #2b2b2b -->
+<!-- #b7b7b7 -->
+<!-- #d4d4d4 -->
+<!-- #8b8b8b -->
+<ion-content style="--background: linear-gradient(to bottom, #8b8b8b, #2b2b2b);">
+
+  <!-- linear-gradient(to bottom, #8b8b8b, #d4d4d4); -->
+
+
+<div style="display:flex;align-items:center;height:100%;width: 100%;background: transparent;">
+    <div style="text-align:center;background: transparent;width: 100%;">
+      <img [src]="photoURL()" style="max-height:100%;max-width:100%;background: transparent;">
+    </div>
+</div>
+
+
+</ion-content>
+
+
+<ion-footer style="background:#2b2b2b;" *ngIf="(imageData && user_id)">
+  <div style="display:flex; justify-content: space-between; align-items: center;margin: 15px 10px;">
+    <div style="width:100%;">
+      <ion-button expand="block" type="button" (click)="upload_userImage()" style="--background: linear-gradient(92deg, #989aa2, #07ADEB);--color: #ffffff;height:40px;">Upload</ion-button>
+    </div>
+  </div>
+</ion-footer>
